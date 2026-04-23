@@ -1,87 +1,1888 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Anderson Junjie Lu — Stanford</title>
+<meta name="description" content="Anderson Junjie Lu is a PhD candidate in Epidemiology and Clinical Research at Stanford University, studying sexual and gender minority health, mental health, and causal inference methods." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@300;400;500;600;700&family=ZCOOL+XiaoWei&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-tc-web@latest/style.css">
+<style>
+  :root {
+    --cardinal: #8C1515;
+    --cardinal-deep: #5E1010;
+    --ink: #1C1B18;
+    --ink-soft: #3A3833;
+    --muted: #6B6762;
+    --rule: #D8D2C6;
+    --rule-soft: #E8E2D4;
+    --cream: #F7F2E7;
+    --cream-deep: #EFE8D6;
+    --paper: #FBF7EC;
+    --accent-warm: #B8793A;
+    --serif: 'Source Serif 4', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --sans-cn: 'LXGW WenKai TC', 'LXGW WenKai', 'Kaiti TC', 'Kaiti SC', STKaiti, 'PingFang SC', 'Noto Sans SC', sans-serif;
+  }
 
-Anderson Junjie Lu
-About
-Research
-Publications
-Press
-Engagement
-Contact
-CV ↓
+  /* ===== APPLE-STYLE CHINESE TYPOGRAPHY =====
+     Apple's zh-Hans sites use PingFang SC everywhere — no serif/sans contrast.
+     Hierarchy comes from weight and size, not typeface switching.
+     Tighter line-height, subtle letter-spacing, no italics. */
+  html[lang="zh"] body {
+    font-family: var(--sans-cn);
+    font-size: 16px;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+  }
+  html[lang="zh"] h1, html[lang="zh"] h2, html[lang="zh"] h3, html[lang="zh"] h4,
+  html[lang="zh"] .lede, html[lang="zh"] .title, html[lang="zh"] .summary,
+  html[lang="zh"] .prose p, html[lang="zh"] .statement p, html[lang="zh"] .venue,
+  html[lang="zh"] .authors, html[lang="zh"] .eyebrow, html[lang="zh"] nav.primary,
+  html[lang="zh"] .btn, html[lang="zh"] .section-label, html[lang="zh"] .feature-kicker,
+  html[lang="zh"] .byline, html[lang="zh"] .pub-count, html[lang="zh"] .pub-filters button,
+  html[lang="zh"] .contact-item .label, html[lang="zh"] .contact-item .value,
+  html[lang="zh"] footer.foot, html[lang="zh"] .portrait-caption,
+  html[lang="zh"] .lang-toggle, html[lang="zh"] .theme h3, html[lang="zh"] .theme p,
+  html[lang="zh"] .theme ul li, html[lang="zh"] .podcast .meta .line,
+  html[lang="zh"] .podcast .meta .sub, html[lang="zh"] .podcast .meta .kicker,
+  html[lang="zh"] .stat .caption {
+    font-family: var(--sans-cn);
+  }
+  /* Chinese: no italics, no drop cap letter, tighter line-height on display */
+  html[lang="zh"] em {
+    font-style: normal;
+    font-weight: 500;
+    color: var(--cardinal);
+  }
+  html[lang="zh"] .drop {
+    float: none;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+    padding: 0;
+    margin: 0;
+    font-family: var(--sans-cn) !important;
+    font-weight: inherit;
+    font-style: normal;
+  }
+  html[lang="zh"] .prose p,
+  html[lang="zh"] .prose {
+    font-family: var(--sans-cn);
+  }
+  html[lang="zh"] h1 { line-height: 1.08; letter-spacing: -0.01em; font-weight: 400; }
+  html[lang="zh"] h1 em { color: var(--cardinal); font-weight: 400; }
+  html[lang="zh"] h2 { line-height: 1.25; letter-spacing: 0; font-weight: 500; }
+  html[lang="zh"] h3 { letter-spacing: 0; }
+  html[lang="zh"] .lede { letter-spacing: 0.01em; font-weight: 400; line-height: 1.6; }
+  html[lang="zh"] .prose p { letter-spacing: 0.015em; line-height: 1.85; }
+  html[lang="zh"] .summary { letter-spacing: 0.01em; line-height: 1.75; }
+  html[lang="zh"] .statement p { letter-spacing: 0.01em; line-height: 1.8; font-weight: 400; }
+  html[lang="zh"] .statement blockquote::before { display: none; }
+  html[lang="zh"] .title { letter-spacing: 0; line-height: 1.35; }
+  html[lang="zh"] .venue { letter-spacing: 0.05em; }
+  html[lang="zh"] .eyebrow { letter-spacing: 0.25em; }
+  html[lang="zh"] .section-label { letter-spacing: 0.15em; }
+  html[lang="zh"] .feature-kicker { letter-spacing: 0.08em; }
+  /* In zh, don't tighten the nav too much */
+  html[lang="zh"] nav.primary a { letter-spacing: 0.05em; font-weight: 500; }
 
-中文
-Anderson Junjie Lu.
-PhD candidate in Epidemiology & Clinical Research at Stanford. I study sexual and gender minority health, mental health disparities, and causal inference methods.
-DOWNLOAD CV
-GOOGLE SCHOLAR
-EMAIL
-￼
-01ABOUT
-A physician-researcher working at the intersection of health equity and causal methods.
+  /* Catch-all: in zh mode, force every element and every .i18n-zh span
+     onto the kaiti stack, regardless of any more-specific font-family rule. */
+  html[lang="zh"] body,
+  html[lang="zh"] body * {
+    font-family: var(--sans-cn);
+  }
+  html[lang="zh"] .i18n-zh,
+  .i18n-zh {
+    font-family: var(--sans-cn) !important;
+  }
+  /* English spans inside zh mode keep the English stack */
+  html[lang="zh"] .i18n-en {
+    font-family: var(--serif);
+  }
+  html[lang="zh"] nav.primary .i18n-en,
+  html[lang="zh"] .btn .i18n-en,
+  html[lang="zh"] .eyebrow .i18n-en,
+  html[lang="zh"] .section-label .i18n-en,
+  html[lang="zh"] .feature-kicker .i18n-en,
+  html[lang="zh"] .venue .i18n-en,
+  html[lang="zh"] .lang-toggle .i18n-en {
+    font-family: var(--sans);
+  }
 
-I
-am a PhD candidate in Epidemiology and Population Health at Stanford University School of Medicine, advised by Dr. David Rehkopf. My training bridges clinical medicine (MBBS) and population health (MPH, Harvard T.H. Chan).
-My work asks when an observed health disparity reflects something causal — and what to do about it when it does. Before Stanford, I trained at Shanghai Jiao Tong University, Shanghai University of Traditional Chinese Medicine, and the Harvard T.H. Chan School of Public Health.
-02RESEARCH
-Three questions I keep coming back to.
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--serif);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 18px;
+    line-height: 1.6;
+    font-feature-settings: "kern", "liga", "onum";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
 
-I.
-Sexual & gender minority health
-Quantifying health disparities for SGM populations and the structural forces that produce them.
-	•	All of Us — 270k participants
-	•	NHANES 2005–2014
-	•	Minority stress & stigma
-II.
-Mental health
-Depression, anxiety, PTSD — and the biological and social factors that modify risk.
-	•	Marginal structural models
-	•	Effect modification
-	•	Biomarkers & neuroimaging
-III.
-Causal inference methods
-Frameworks that make observational studies more trustworthy, especially for exposures that resist tidy counterfactual definitions.
-	•	Counterfactual frameworks
-	•	Inverse probability weighting
-	•	Mediation analysis
-03PUBLICATIONS
-Selected peer-reviewed work.
+  /* subtle paper grain */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(rgba(90,60,20,0.025) 1px, transparent 1px);
+    background-size: 3px 3px;
+    z-index: 0;
+  }
 
-9 PUBLICATIONS
-All
-SGM health
-Mental health
-Methods
-Other
-	•	2026 ARCHIVES OF SEXUAL BEHAVIOR · INTERRUPTED TIME SERIES IN PRESS China's 2017 Censorship Policy and Attitudes Towards Same-Sex Behavior: An Interrupted Time Series Analysis Lu J, Rehkopf DH, Bendavid E. Did China's 2017 regulation restricting media portrayals of sexual and gender minorities shift how people feel about same-sex behavior? Using interrupted time series analysis on seven waves of the Chinese General Social Survey, we find the policy was followed by a sharp near-term drop in positive attitudes — sharpest among men — and diverging longer-term trajectories between frequent and infrequent internet users. 66,057 RESPONDENTS, 2010–2021  0.73× ODDS OF POSITIVE ATTITUDES POST-POLICY  38% LARGER DROP AMONG MEN  7 SURVEY WAVES ANALYZED  VIEW ON GOOGLE SCHOLAR  LISTEN · RESEARCH PODCAST EN / 中文  2025 JAMA NETWORK OPEN · CROSS-SECTIONAL STUDY FEATURED Mental Health Disparities by Sexual Orientation and Gender Identity in the All of Us Research Program Lu JA, Soltani S, Austin SB, Rehkopf DH, Lunn MR, Langston ME. The largest national analysis to date of mental health across sexual orientation and gender identity. Using linked electronic health records from All of Us, we found sexual and gender minority adults had markedly elevated odds of bipolar disorder, PTSD, depression, and ADHD — disparities we interpret as the footprint of stigma and minority stress, not identity. 269,947 PARTICIPANTS  8.2% SGM-IDENTIFIED  3.67× PTSD ODDS, GENDER-DIVERSE AFAB  10 CONDITIONS STUDIED  VIEW ON GOOGLE SCHOLAR  LISTEN · RESEARCH PODCAST EN / 中文  2025 WORKING PAPER · STANFORD UNIVERSITY Towards Causal Interpretation of Sexual Orientation in Regression Analysis Lu J, Guo Z, Rehkopf DH. A methods paper arguing that “sexual orientation” is not one variable but three — attraction, behavior, and identity — and that research must define which one it means. We illustrate with NHIS data and find a direct effect of SGM status on depression that does not run through social support. 3.07× DIRECT EFFECT ON DEPRESSION  1.07× INDIRECT VIA SOCIAL SUPPORT  3 EXPOSURE DOMAINS DEFINED  VIEW ON GOOGLE SCHOLAR  LISTEN · RESEARCH PODCAST EN / 中文  2024 AMERICAN JOURNAL OF PREVENTIVE MEDICINE · 67(6):811–819 Impact of Digital Advertising Policy on Harmful Product Promotion: NLP Analysis of Skin-Lightening Ads Lu J, Chua SN, Kavanaugh JR, Prashar J, Ndip-Agbor E, Santoso M, Jackson DA, Chakraborty P, Raffoul A, Austin SB. Did Google’s 2022 policy against discriminatory skin-lightening ads actually change what ran? We trained a Vertex AI language model on ads from eight countries and measured content shifts two weeks before vs. after enforcement — finding real, measurable drops in the labels the policy targeted. 5,236 ADS ANALYZED  8 COUNTRIES  −47% RACE/ETHNIC LABELS  0.87 MODEL F1 SCORE  VIEW ON GOOGLE SCHOLAR  LISTEN · RESEARCH PODCAST EN / 中文  2024 JOURNAL OF AFFECTIVE DISORDERS REPORTS · 15:100714 Childhood adversity severity modulates adaptive psychological and amygdala volumetric changes after behavioral interventions Joss D, Lu J, Teicher MH, Lazar SW. A randomized trial asking whether mindfulness changes the brain differently for adults who survived childhood adversity. Among those with more severe early trauma, shifts in mindfulness and anxiety tracked with measurable changes in amygdala volume — a biomarker of stress reactivity. 64 RANDOMIZED  8wk INTERVENTION  MRI PRE / POST BRAIN IMAGING  VIEW ON GOOGLE SCHOLAR  LISTEN · RESEARCH PODCAST EN / 中文  2023 JOURNAL OF AFFECTIVE DISORDERS · 341:202–210 Marginal structural model analysis of cancer diagnosis history, education, and major depressive symptoms Liu L, Lu J, Yang J, Dong Y, Yin P, Chen Y. A recent cancer diagnosis nearly quadrupled the odds of major depressive disorder in the next year — but only among adults whose education stopped at high school. Education appears to buffer the psychological toll of a cancer diagnosis in ways clinical care has not caught up with. 7,108 MIDUS PARTICIPANTS  3.74× MDD ODDS, 1YR POST-DX  3.45× AMONG LESS-EDUCATED  VIEW ON GOOGLE SCHOLAR  LISTEN · RESEARCH PODCAST EN / 中文  2023 BMC PUBLIC HEALTH · 23:294 Depressive symptoms and White Blood Cell count across sexual minority subgroups Lu J, Yang J, Liang J, Mischoulon D, Nyer M. Sexual minority adults report more depressive symptoms than heterosexual peers — but do their bodies show it? We examined white blood cell count, a crude marker of systemic inflammation, across subgroups including those uncertain about their orientation, a population rarely studied separately. 14,090 NHANES PARTICIPANTS  10yrs DATA SPAN 2005–14  WBC BIOLOGICAL READOUT  VIEW ON GOOGLE SCHOLAR  LISTEN · RESEARCH PODCAST EN / 中文  2023 JOURNAL OF AFFECTIVE DISORDERS · 327:226–229 HSV-2 infection and depressive symptoms across sex and sexual minority groups Lu J, Liang J, Yang J, Mischoulon D, Nyer M. Herpes simplex 2 has been tied to depression, but for whom most? In a nationally representative sample, the association was meaningfully stronger among women than men — a sex-specific effect that points toward where clinical screening for post-infection mood symptoms might matter most. 57,684 NHANES PARTICIPANTS  1.43× DEPRESSION ODDS, WOMEN  1.20× DEPRESSION ODDS, MEN  VIEW ON GOOGLE SCHOLAR  LISTEN · RESEARCH PODCAST EN / 中文  2026 BMC PUBLIC HEALTH · 26:140 Minority-group ethnicity and self-reported health outcomes in China, 2010–2021 Lu J, et al. (Rehkopf DH, senior) The first multi-wave national analysis of ethnic health disparities in China, framed through ecosocial theory. Using seven waves of the Chinese General Social Survey, we separate individual, institutional, and regional forces shaping self-reported health between Han and ethnic-minority populations. 66,057 RESPONDENTS  7 WAVES, 2010–2021  3 HEALTH OUTCOMES MODELED  VIEW ON GOOGLE SCHOLAR  LISTEN · RESEARCH PODCAST EN / 中文  2023 STUDY PROTOCOL · RANDOMIZED SINGLE-BLINDED TRIAL Auricular Acupressure for Primary Dysmenorrhea: Study Protocol for a Randomized Trial Liu L, Hu J, Lu J, Yang J. A protocol for a single-blinded RCT testing ear-based acupressure against a sham control for menstrual pain — evaluating immediate analgesia, time-effect relationship, and whether it reduces reliance on ibuprofen. 92 PLANNED ENROLLMENT  1:1 ALLOCATION  VAS PRIMARY OUTCOME  VIEW ON GOOGLE SCHOLAR  LISTEN · RESEARCH PODCAST EN / 中文 
-04IN THE PRESS
-When the research meets the public.
+  a { color: var(--cardinal); text-decoration: none; transition: color 140ms ease; }
+  a:hover { color: var(--cardinal-deep); }
 
-U.S. NEWS & WORLD REPORT · FEB. 20, 2025
-“LGBTQ+ Stress and Stigma Increase Risk of Mental Health Problems”
-HealthDay and U.S. News covered our JAMA Network Open analysis of 270,000 All of Us participants — emphasizing that these disparities reflect stigma and minority stress, not SGM identity itself.
-REPORTED BY DENNIS THOMPSON · HEALTHDAY
-READ ARTICLE
-U.S. NEWS · HEALTH NEWS
-LGBTQ+ Stress and Stigma Increase Risk of Mental Health Problems
-By HealthDay — Feb. 20, 2025
-05COMMUNITY ENGAGEMENT
-Research only matters if people outside the field can use it.
+  ::selection { background: var(--cardinal); color: var(--paper); }
 
-I care about careful, numerate public health coverage — the kind that distinguishes an odds ratio from a risk, an effect modifier from a confounder, a stigma from an identity.
-I work with journalists, clinicians, and community partners to translate findings into language that policy and practice can act on.
-06CONTACT
-Get in touch.
+  /* ===== LAYOUT ===== */
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 48px;
+    position: relative;
+    z-index: 1;
+  }
 
-EMAIL
-[email protected]
-AFFILIATION
-Department of Epidemiology &
-Population Health
-INSTITUTION
-Stanford University
-School of Medicine
-SCHOLAR
-Google Scholar →
-CV
-Download PDF →
-© 2026 Anderson Junjie Lu. Set in Source Serif 4 & Inter. Last updated April 2026.
-[email protected]
+  /* ===== TOP BAR ===== */
+  header.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(251, 247, 236, 0.88);
+    backdrop-filter: saturate(140%) blur(10px);
+    -webkit-backdrop-filter: saturate(140%) blur(10px);
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .topbar-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 14px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .mark {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 17px;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .mark .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--cardinal);
+    border-radius: 50%;
+    transform: translateY(-2px);
+  }
+  nav.primary {
+    font-family: var(--sans);
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    display: flex;
+    gap: 28px;
+  }
+  nav.primary a {
+    color: var(--ink-soft);
+    font-weight: 500;
+    position: relative;
+    padding: 4px 0;
+  }
+  nav.primary a::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 1px;
+    background: var(--cardinal);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 200ms cubic-bezier(.2,.7,.2,1);
+  }
+  nav.primary a:hover { color: var(--cardinal); }
+  nav.primary a:hover::after { transform: scaleX(1); }
+
+  /* language toggle */
+  .lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    background: transparent;
+    border: 1px solid var(--rule);
+    padding: 6px 12px 6px 10px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 160ms ease;
+    margin-left: 6px;
+  }
+  .lang-toggle:hover {
+    border-color: var(--cardinal);
+    color: var(--cardinal);
+  }
+  .lang-toggle svg {
+    width: 14px; height: 14px;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    fill: none;
+  }
+  .lang-toggle .lbl { font-variant-numeric: tabular-nums; }
+  .nav-and-lang {
+    display: flex; align-items: center; gap: 18px;
+  }
+
+  @media (max-width: 720px) {
+    nav.primary { display: none; }
+    .topbar-inner, .wrap { padding-left: 24px; padding-right: 24px; }
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    padding: 96px 0 72px;
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 64px;
+    align-items: end;
+    border-bottom: 1px solid var(--rule);
+  }
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cardinal);
+    margin-bottom: 28px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 24px; height: 1px;
+    background: var(--cardinal);
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(44px, 7vw, 84px);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    margin: 0 0 28px;
+    color: var(--ink);
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--cardinal);
+    font-weight: 400;
+  }
+
+  /* Chinese hero: brush-calligraphy feel, no red period */
+  html[lang="zh"] .hero h1,
+  html[lang="zh"] .hero h1 .i18n-zh,
+  html[lang="zh"] .hero h1 span {
+    font-family: 'LXGW WenKai TC', 'LXGW WenKai', 'ZCOOL XiaoWei', 'Kaiti TC', 'Kaiti SC', STKaiti, 'Noto Serif TC', 'Noto Serif SC', serif !important;
+    font-weight: 400 !important;
+    font-size: clamp(72px, 10vw, 140px);
+    line-height: 1.05;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+  }
+  html[lang="zh"] .hero h1 em { display: none; }
+  .hero .lede {
+    font-size: 22px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 640px;
+    margin: 0;
+    font-weight: 300;
+  }
+
+  .portrait {
+    aspect-ratio: 4 / 5;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.6) inset,
+      0 30px 60px -30px rgba(60,20,20,0.35);
+    background: var(--cream-deep);
+  }
+  .portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.95) contrast(1.02);
+  }
+  .portrait-caption {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 12px;
+    text-align: right;
+  }
+
+  /* Hero actions */
+  .hero-actions {
+    display: flex;
+    gap: 28px;
+    margin-top: 36px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .hero-link {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid transparent;
+    transition: border-color 180ms ease, color 180ms ease, gap 180ms ease;
+  }
+  .hero-link::after {
+    content: "\2192";
+    font-weight: 400;
+    transition: transform 180ms ease;
+    display: inline-block;
+  }
+  .hero-link:hover {
+    color: var(--cardinal);
+    border-bottom-color: var(--cardinal);
+    gap: 12px;
+  }
+  .hero-link:hover::after { transform: translateX(2px); }
+  html[lang="zh"] .hero-link {
+    letter-spacing: 0.06em;
+    font-weight: 500;
+  }
+  .btn {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding: 12px 22px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 180ms cubic-bezier(.2,.7,.2,1);
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: var(--cardinal);
+    color: var(--paper);
+    border-color: var(--cardinal);
+  }
+  .btn-primary:hover {
+    background: var(--cardinal-deep);
+    border-color: var(--cardinal-deep);
+    color: var(--paper);
+    transform: translateY(-1px);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--rule);
+  }
+  .btn-ghost:hover {
+    border-color: var(--cardinal);
+    color: var(--cardinal);
+  }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; gap: 48px; }
+    .portrait { max-width: 260px; }
+  }
+
+  /* ===== SECTION ===== */
+  section.block {
+    padding: 88px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  section.block:last-of-type { border-bottom: 0; }
+  .section-head {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+  .section-label {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cardinal);
+    padding-top: 10px;
+  }
+  .section-label .num {
+    color: var(--muted);
+    margin-right: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+  .section-head h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(32px, 4vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: var(--ink);
+    max-width: 720px;
+  }
+  .section-head h2 em { font-style: italic; color: var(--cardinal); font-weight: 400; }
+
+  .section-body {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+  }
+  .section-body .prose {
+    max-width: 720px;
+  }
+  .section-body .prose p {
+    font-size: 19px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin: 0 0 1.2em;
+  }
+  .section-body .prose p:last-child { margin-bottom: 0; }
+  .section-body .prose p .drop {
+    font-family: var(--serif);
+    float: left;
+    font-size: 58px;
+    line-height: 0.9;
+    font-weight: 500;
+    color: var(--cardinal);
+    padding: 8px 10px 0 0;
+    margin-top: 4px;
+  }
+
+  @media (max-width: 900px) {
+    .section-head, .section-body { grid-template-columns: 1fr; gap: 16px; }
+    .section-label { padding-top: 0; }
+  }
+
+  /* ===== RESEARCH THEMES ===== */
+  .themes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 16px;
+    border-top: 1px solid var(--rule);
+  }
+  .theme {
+    padding: 36px 28px 40px 0;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .theme + .theme { padding-left: 28px; border-left: 1px solid var(--rule); }
+  .theme .theme-num {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    color: var(--cardinal);
+    margin-bottom: 20px;
+  }
+  .theme h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+    margin: 0 0 14px;
+    color: var(--ink);
+  }
+  .theme p {
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0 0 18px;
+  }
+  .theme ul {
+    list-style: none;
+    margin: 0; padding: 0;
+    font-family: var(--sans);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  .theme ul li {
+    padding: 6px 0;
+    border-top: 1px dotted var(--rule);
+  }
+  .theme ul li:first-child { border-top: 1px solid var(--rule); }
+
+  @media (max-width: 820px) {
+    .themes { grid-template-columns: 1fr; }
+    .theme + .theme { padding-left: 0; border-left: 0; }
+  }
+
+  /* ===== PUBLICATIONS ===== */
+  .pub-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 24px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--rule);
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .pub-count {
+    font-family: var(--sans);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .pub-filters {
+    display: flex;
+    gap: 4px;
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+  .pub-filters button {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--muted);
+    padding: 6px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    font: inherit;
+    transition: all 160ms ease;
+  }
+  .pub-filters button:hover {
+    color: var(--ink);
+    border-color: var(--rule);
+  }
+  .pub-filters button.active {
+    background: var(--cardinal);
+    color: var(--paper);
+    border-color: var(--cardinal);
+  }
+
+  .pub-list { list-style: none; margin: 0; padding: 0; }
+  .pub {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 32px;
+    padding: 40px 24px;
+    margin: 0 -24px;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+    transition: background 200ms ease, padding 200ms ease, margin 200ms ease;
+    position: relative;
+    border-radius: 4px;
+  }
+  .pub:hover {
+    background: linear-gradient(90deg, rgba(140,21,21,0.04), transparent 70%);
+  }
+  .pub .year {
+    font-family: var(--serif);
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--cardinal);
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "onum";
+    letter-spacing: -0.02em;
+  }
+  .pub .body .title {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.28;
+    color: var(--ink);
+    margin: 0 0 10px;
+    letter-spacing: -0.005em;
+  }
+  .pub .body .authors {
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--muted);
+    font-style: italic;
+    margin: 0 0 6px;
+  }
+  .pub .body .authors strong {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+  .pub .body .venue {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cardinal);
+    margin: 0 0 18px;
+  }
+  .pub .body .venue .tag {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 8px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--cardinal);
+    background: var(--cream);
+  }
+  .pub .summary {
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0 0 22px;
+    max-width: 620px;
+  }
+  .pub .summary em { color: var(--ink); font-style: italic; }
+
+  /* stat row */
+  .stats {
+    display: flex;
+    gap: 0;
+    flex-wrap: wrap;
+    margin: 0 0 22px;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 32px 0;
+  }
+  .stat {
+    flex: 1;
+    min-width: 100px;
+    padding: 2px 20px;
+    border-right: 1px solid var(--rule-soft);
+  }
+  .stat:first-child { padding-left: 0; }
+  .stat:last-child { border-right: 0; padding-right: 0; }
+  .stat .big {
+    font-family: var(--serif);
+    font-size: 38px;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "onum";
+    margin-bottom: 8px;
+  }
+  .stat .big .unit {
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    margin-left: 3px;
+    vertical-align: baseline;
+  }
+  .stat .big .hi { color: var(--cardinal); }
+  .stat .caption {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .pub .actions, .feature-card .actions {
+    display: flex;
+    gap: 18px;
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 24px;
+  }
+  .pub .actions a, .feature-card .actions a {
+    color: var(--cardinal);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: border-color 180ms ease, gap 180ms ease;
+  }
+  .pub .actions a:hover, .feature-card .actions a:hover {
+    border-bottom-color: var(--cardinal);
+    gap: 10px;
+  }
+  .pub .actions a::after, .feature-card .actions a::after {
+    content: "\2192";
+    display: inline-block;
+    transition: transform 160ms ease;
+  }
+  .pub .actions a:hover::after, .feature-card .actions a:hover::after { transform: translateX(3px); }
+
+  .pub.hidden { display: none; }
+
+  /* ===== PODCAST PLAYER — flat, minimal ===== */
+  .podcast {
+    margin-top: 22px;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .podcast .icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1.5px solid var(--cardinal);
+    color: var(--cardinal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 160ms ease;
+    cursor: pointer;
+  }
+  .podcast .icon:hover {
+    background: var(--cardinal);
+    color: var(--paper);
+  }
+  .podcast .icon svg {
+    width: 10px;
+    height: 10px;
+    fill: currentColor;
+    margin-left: 1px;
+  }
+  .podcast .meta {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .podcast .meta .kicker {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cardinal);
+    white-space: nowrap;
+  }
+  .podcast .meta .line {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--muted);
+    line-height: 1.4;
+    letter-spacing: 0.01em;
+  }
+  .podcast .meta .sub { display: none; }    /* hide the "Created with…" subline in flat mode */
+  .podcast .lang-tabs {
+    display: inline-flex;
+    gap: 2px;
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+  .podcast .lang-tabs button {
+    background: transparent;
+    border: 0;
+    color: var(--muted);
+    padding: 4px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    font: inherit;
+    transition: color 140ms ease;
+  }
+  .podcast .lang-tabs button.active {
+    color: var(--cardinal);
+  }
+  .podcast .lang-tabs button:not(.active):hover {
+    color: var(--ink);
+  }
+  .podcast .lang-tabs .sep {
+    color: var(--rule);
+    padding: 4px 0;
+    font-weight: 400;
+    user-select: none;
+  }
+  /* Hide native audio element (we draw our own UI) */
+  .podcast audio {
+    display: none;
+  }
+
+  /* Custom player — appears inline, replaces the static "Listen" state when clicked */
+  .podcast.playing .icon {
+    background: var(--cardinal);
+    color: white;
+  }
+  .podcast.playing .icon svg {
+    transform: scale(0.85);
+  }
+  .podcast.playing .icon .play-shape { display: none; }
+  .podcast.playing .icon .pause-shape { display: inline; }
+  .podcast .icon .pause-shape { display: none; }
+
+  .podcast .player-row {
+    flex: 1 0 100%;
+    display: none;
+    align-items: center;
+    gap: 14px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--rule);
+    font-family: var(--sans);
+  }
+  .podcast.loaded .player-row {
+    display: flex;
+  }
+  .podcast .time {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    min-width: 36px;
+    text-align: center;
+  }
+  .podcast .scrubber {
+    flex: 1;
+    height: 3px;
+    background: var(--rule);
+    border-radius: 2px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .podcast .scrubber .fill {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    background: var(--cardinal);
+    width: 0%;
+    transition: width 120ms linear;
+  }
+  .podcast .scrubber:hover { height: 5px; margin: -1px 0; }
+  .podcast .rate {
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--muted);
+    padding: 3px 8px;
+    border-radius: 10px;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: color 140ms, border-color 140ms;
+    font-variant-numeric: tabular-nums;
+  }
+  .podcast .rate:hover {
+    color: var(--cardinal);
+    border-color: var(--cardinal);
+  }
+
+  .podcast.empty .icon {
+    border-color: var(--rule);
+    color: var(--muted);
+  }
+  .podcast.empty .icon:hover {
+    background: transparent;
+    color: var(--muted);
+    cursor: default;
+  }
+  @media (max-width: 640px) {
+    .podcast .meta .line { font-size: 12px; }
+  }
+
+  /* ===== I18N VISIBILITY ===== */
+  html[lang="en"] .i18n-zh { display: none; }
+  html[lang="zh"] .i18n-en { display: none; }
+
+  @media (max-width: 720px) {
+    .pub { grid-template-columns: 1fr; gap: 12px; padding: 32px 0; }
+    .stat { min-width: 40%; padding: 8px 16px 8px 0; border-right: 0; border-bottom: 1px solid var(--rule-soft); }
+    .stat:last-child { border-bottom: 0; }
+  }
+
+  /* ===== NEWS / FEATURED ===== */
+  .feature-card {
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 56px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .feature-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--cardinal);
+  }
+  .feature-kicker {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cardinal);
+    margin-bottom: 20px;
+  }
+  .feature-card h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(26px, 3vw, 34px);
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+    margin: 0 0 16px;
+    color: var(--ink);
+  }
+  html[lang="zh"] .feature-card h3,
+  html[lang="zh"] .feature-card h3 .i18n-zh,
+  html[lang="zh"] .feature-card h3 em {
+    letter-spacing: 0.08em;
+    line-height: 1.55;
+    font-family: 'LXGW WenKai TC', 'LXGW WenKai', 'ZCOOL XiaoWei', 'Kaiti TC', 'Kaiti SC', STKaiti, var(--serif-cn) !important;
+    font-weight: 400 !important;
+    font-style: normal;
+  }
+  .feature-card h3 em { font-style: italic; color: var(--cardinal); }
+  .feature-card p {
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0 0 20px;
+  }
+  .feature-card .byline {
+    font-family: var(--sans);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .feature-visual {
+    aspect-ratio: 4/3;
+    background:
+      linear-gradient(135deg, var(--cream-deep), var(--paper)),
+      radial-gradient(circle at 30% 30%, rgba(140,21,21,0.12), transparent 60%);
+    border: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .headline-mock {
+    padding: 28px;
+    max-width: 340px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    box-shadow: 0 20px 40px -20px rgba(60,20,20,0.2);
+    transform: rotate(-1.2deg);
+  }
+  .headline-mock .hm-brand {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--cardinal);
+    margin-bottom: 12px;
+  }
+  .headline-mock .hm-title {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.2;
+    color: var(--ink);
+    margin: 0 0 10px;
+  }
+  .headline-mock .hm-meta {
+    font-family: var(--sans);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  @media (max-width: 820px) {
+    .feature-card { grid-template-columns: 1fr; gap: 32px; padding: 32px; }
+  }
+
+  /* ===== FELLOWSHIP STATEMENT ===== */
+  .statement {
+    max-width: 720px;
+  }
+  .statement blockquote {
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+  .statement blockquote::before {
+    content: "“";
+    font-family: var(--serif);
+    font-size: 120px;
+    line-height: 1;
+    color: var(--cardinal);
+    position: absolute;
+    top: -20px; left: -50px;
+    opacity: 0.5;
+  }
+  .statement p {
+    font-family: var(--serif);
+    font-size: 22px;
+    line-height: 1.5;
+    color: var(--ink);
+    font-weight: 400;
+    margin: 0 0 1em;
+  }
+  .statement p:last-child { font-size: 17px; color: var(--muted); font-style: italic; margin-top: 24px; }
+  @media (max-width: 720px) {
+    .statement blockquote::before { left: -10px; font-size: 80px; top: -24px; }
+  }
+
+  /* ===== CONTACT ===== */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 48px;
+  }
+  .contact-item .label {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .contact-item .value {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .contact-item .value a { color: var(--cardinal); }
+  @media (max-width: 620px) {
+    .contact-grid { grid-template-columns: 1fr; gap: 24px; }
+  }
+
+  /* ===== FOOTER ===== */
+  footer.foot {
+    padding: 48px 0 72px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--sans);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  footer.foot .colophon {
+    max-width: 480px;
+    line-height: 1.6;
+  }
+  footer.foot a { color: var(--ink-soft); }
+  footer.foot a:hover { color: var(--cardinal); }
+
+  /* reveal on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 700ms ease, transform 700ms cubic-bezier(.2,.7,.2,1);
+  }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* print */
+  @media print {
+    body { background: white; }
+    body::before { display: none; }
+    header.topbar, .pub-filters, footer.foot { display: none; }
+    .pub { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="mark">
+      <span class="dot"></span>
+      <span class="i18n-en">Anderson Junjie Lu</span>
+      <span class="i18n-zh">陸俊捷</span>
+    </div>
+    <div class="nav-and-lang">
+      <nav class="primary">
+        <a href="#about"><span class="i18n-en">About</span><span class="i18n-zh">关于</span></a>
+        <a href="#research"><span class="i18n-en">Research</span><span class="i18n-zh">研究</span></a>
+        <a href="#publications"><span class="i18n-en">Publications</span><span class="i18n-zh">论文</span></a>
+        <a href="#press"><span class="i18n-en">Press</span><span class="i18n-zh">媒体</span></a>
+        <a href="#fellowship"><span class="i18n-en">Engagement</span><span class="i18n-zh">公共参与</span></a>
+        <a href="#contact"><span class="i18n-en">Contact</span><span class="i18n-zh">联系</span></a>
+        <a href="cv/Anderson-Junjie-Lu-CV.pdf" target="_blank" rel="noopener" style="color: var(--cardinal); font-weight: 600;"><span class="i18n-en">CV ↓</span><span class="i18n-zh">简历 ↓</span></a>
+      </nav>
+      <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M3 12h18"/>
+          <path d="M12 3c2.5 3 2.5 15 0 18"/>
+          <path d="M12 3c-2.5 3 -2.5 15 0 18"/>
+        </svg>
+        <span class="lbl i18n-en">中文</span>
+        <span class="lbl i18n-zh">EN</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <h1><span class="i18n-en">Anderson<br/>Junjie Lu<em>.</em></span><span class="i18n-zh">陸俊捷<em>.</em></span></h1>
+      <p class="lede">
+        <span class="i18n-en">PhD candidate in Epidemiology &amp; Clinical Research at Stanford. I study sexual and gender minority health, mental health disparities, and causal inference methods.</span>
+        <span class="i18n-zh">斯坦福大学医学院流行病学与临床研究系的博士生，研究方向为性少数群体健康、精神健康的群体差异，以及因果推断方法。</span>
+      </p>
+      <div class="hero-actions">
+        <a class="hero-link" href="cv/Anderson-Junjie-Lu-CV.pdf" target="_blank" rel="noopener"><span class="i18n-en">Download CV</span><span class="i18n-zh">下载简历</span></a>
+        <a class="hero-link" href="https://scholar.google.com/citations?user=1SWGS2oAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>
+        <a class="hero-link" href="/cdn-cgi/l/email-protection#2f455a4145464a435a6f5c5b4e4149405d4b014a4b5a"><span class="i18n-en">Email</span><span class="i18n-zh">邮箱</span></a>
+      </div>
+    </div>
+    <div>
+      <div class="portrait" aria-label="Portrait of Anderson Junjie Lu"><img src="images/portrait.jpg" alt="Anderson Junjie Lu" /></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="block" id="about">
+    <div class="section-head reveal">
+      <div class="section-label"><span class="num">01</span><span class="i18n-en">About</span><span class="i18n-zh">关于</span></div>
+      <h2>
+        <span class="i18n-en">A physician-researcher working at the intersection of <em>health equity</em> and <em>causal methods</em>.</span>
+        <span class="i18n-zh">一名立足于<em>健康公平</em>与<em>因果推断</em>两个领域交叉处的医学研究者。</span>
+      </h2>
+    </div>
+    <div class="section-body reveal">
+      <div></div>
+      <div class="prose">
+        <p>
+          <span class="i18n-en"><span class="drop">I</span> am a PhD candidate in Epidemiology and Population Health at Stanford University School of Medicine, advised by Dr. David Rehkopf. My training bridges clinical medicine (MBBS) and population health (MPH, Harvard T.H. Chan).</span>
+          <span class="i18n-zh"><span class="drop">我</span>目前在斯坦福大学医学院攻读流行病学与人群健康博士，导师是 David Rehkopf 教授。我的学术背景横跨临床医学（MBBS）与人群健康（哈佛陈曾熙公共卫生学院 MPH）。</span>
+        </p>
+        <p>
+          <span class="i18n-en">My work asks when an observed health disparity reflects something causal — and what to do about it when it does. Before Stanford, I trained at Shanghai Jiao Tong University, Shanghai University of Traditional Chinese Medicine, and the Harvard T.H. Chan School of Public Health.</span>
+          <span class="i18n-zh">我的研究在追问一件事：所观察到的健康差异，到底是不是真正的因果关系？如果是，我们又能怎么做？来斯坦福之前，我先后在上海交通大学、上海中医药大学以及哈佛陈曾熙公共卫生学院接受训练。</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section class="block" id="research">
+    <div class="section-head reveal">
+      <div class="section-label"><span class="num">02</span><span class="i18n-en">Research</span><span class="i18n-zh">研究</span></div>
+      <h2><span class="i18n-en">Three questions I keep coming back to.</span><span class="i18n-zh">让我反复思考的三个问题。</span></h2>
+    </div>
+    <div class="section-body reveal">
+      <div></div>
+      <div style="max-width: 860px;">
+        <div class="themes">
+          <div class="theme">
+            <div class="theme-num">I.</div>
+            <h3><span class="i18n-en">Sexual &amp; gender minority health</span><span class="i18n-zh">性与性别少数群体健康</span></h3>
+            <p>
+              <span class="i18n-en">Quantifying health disparities for SGM populations and the structural forces that produce them.</span>
+              <span class="i18n-zh">量化性少数群体的健康差异，以及塑造这些差异的结构性因素。</span>
+            </p>
+            <ul>
+              <li><span class="i18n-en">All of Us — 270k participants</span><span class="i18n-zh">All of Us 队列· 约 27 万人</span></li>
+              <li><span class="i18n-en">NHANES 2005–2014</span><span class="i18n-zh">NHANES 2005–2014</span></li>
+              <li><span class="i18n-en">Minority stress &amp; stigma</span><span class="i18n-zh">少数压力与污名</span></li>
+            </ul>
+          </div>
+          <div class="theme">
+            <div class="theme-num">II.</div>
+            <h3><span class="i18n-en">Mental health</span><span class="i18n-zh">精神健康</span></h3>
+            <p>
+              <span class="i18n-en">Depression, anxiety, PTSD — and the biological and social factors that modify risk.</span>
+              <span class="i18n-zh">拑郁、焦虑、创伤后应激障碍，以及影响这些风险的生物与社会因素。</span>
+            </p>
+            <ul>
+              <li><span class="i18n-en">Marginal structural models</span><span class="i18n-zh">边际结构模型</span></li>
+              <li><span class="i18n-en">Effect modification</span><span class="i18n-zh">效应修饰</span></li>
+              <li><span class="i18n-en">Biomarkers &amp; neuroimaging</span><span class="i18n-zh">生物标志物与神经影像</span></li>
+            </ul>
+          </div>
+          <div class="theme">
+            <div class="theme-num">III.</div>
+            <h3><span class="i18n-en">Causal inference methods</span><span class="i18n-zh">因果推断方法</span></h3>
+            <p>
+              <span class="i18n-en">Frameworks that make observational studies more trustworthy, especially for exposures that resist tidy counterfactual definitions.</span>
+              <span class="i18n-zh">让观察性研究更值得信赖的方法框架，尤其适用于那些难以用清晰反事实加以定义的暴露变量。</span>
+            </p>
+            <ul>
+              <li><span class="i18n-en">Counterfactual frameworks</span><span class="i18n-zh">反事实框架</span></li>
+              <li><span class="i18n-en">Inverse probability weighting</span><span class="i18n-zh">逆概率加权</span></li>
+              <li><span class="i18n-en">Mediation analysis</span><span class="i18n-zh">中介效应分析</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section class="block" id="publications">
+    <div class="section-head reveal">
+      <div class="section-label"><span class="num">03</span><span class="i18n-en">Publications</span><span class="i18n-zh">论文</span></div>
+      <h2><span class="i18n-en">Selected peer-reviewed work.</span><span class="i18n-zh">精选同行评审论文。</span></h2>
+    </div>
+    <div class="section-body reveal">
+      <div></div>
+      <div style="max-width: 860px;">
+        <div class="pub-toolbar">
+          <div class="pub-count" id="pubCount"><span class="i18n-en">9 publications</span><span class="i18n-zh">9 篇论文</span></div>
+          <div class="pub-filters" role="tablist">
+            <button class="active" data-filter="all"><span class="i18n-en">All</span><span class="i18n-zh">全部</span></button>
+            <button data-filter="sgm"><span class="i18n-en">SGM health</span><span class="i18n-zh">性少数健康</span></button>
+            <button data-filter="mental"><span class="i18n-en">Mental health</span><span class="i18n-zh">精神健康</span></button>
+            <button data-filter="methods"><span class="i18n-en">Methods</span><span class="i18n-zh">方法学</span></button>
+            <button data-filter="other"><span class="i18n-en">Other</span><span class="i18n-zh">其他</span></button>
+          </div>
+        </div>
+
+        <ul class="pub-list" id="pubList">
+
+          <li class="pub" data-themes="sgm methods" data-paper-id="censorship-china">
+            <div class="year">2026</div>
+            <div class="body">
+              <p class="venue"><span class="i18n-en">Archives of Sexual Behavior · Interrupted time series</span><span class="i18n-zh">Archives of Sexual Behavior · 中断时间序列分析</span> <span class="tag"><span class="i18n-en">In press</span><span class="i18n-zh">即将刊出</span></span></p>
+              <h4 class="title"><span class="i18n-en">China's 2017 Censorship Policy and Attitudes Towards Same-Sex Behavior: An Interrupted Time Series Analysis</span><span class="i18n-zh">中国 2017 年审查政策与同性行为态度：一项中断时间序列分析</span></h4>
+              <p class="authors"><strong>Lu J</strong>, Rehkopf DH, Bendavid E.</p>
+              <p class="summary"><span class="i18n-en">Did China's 2017 regulation restricting media portrayals of sexual and gender minorities shift how people feel about same-sex behavior? Using interrupted time series analysis on seven waves of the Chinese General Social Survey, we find the policy was followed by a sharp near-term drop in positive attitudes — sharpest among men — and diverging longer-term trajectories between frequent and infrequent internet users.</span><span class="i18n-zh">中国 2017 年限制性少数群体媒体呈现的审查政策，是否改变了公众对同性行为的态度？我们用中国综合社会调查（CGSS）七轮数据做了中断时间序列分析，发现政策出台后正面态度短期内显著下降（男性降幅更大），而从长期看，频繁使用互联网与较少使用互联网的人群态度走势发生了明显分化。</span></p>
+              <div class="stats">
+                <div class="stat"><div class="big">66,057</div><div class="caption"><span class="i18n-en">Respondents, 2010–2021</span><span class="i18n-zh">受访者，2010–2021</span></div></div>
+                <div class="stat"><div class="big"><span class="hi">0.73×</span></div><div class="caption"><span class="i18n-en">Odds of positive attitudes post-policy</span><span class="i18n-zh">政策后正面态度比值比</span></div></div>
+                <div class="stat"><div class="big">38<span class="unit">%</span></div><div class="caption"><span class="i18n-en">Larger drop among men</span><span class="i18n-zh">男性正面态度下降幅度</span></div></div>
+                <div class="stat"><div class="big">7</div><div class="caption"><span class="i18n-en">Survey waves analyzed</span><span class="i18n-zh">纳入分析的调查轮次</span></div></div>
+              </div>
+              <div class="actions"><a href="https://scholar.google.com/citations?user=1SWGS2oAAAAJ&hl=en" target="_blank" rel="noopener"><span class="i18n-en">View on Google Scholar</span><span class="i18n-zh">在 Google 学术查看</span></a></div>
+              <div class="podcast empty" data-paper="censorship-china">
+                <div class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <div class="meta">
+                  <div class="kicker"><span class="i18n-en">Listen · Research Podcast</span><span class="i18n-zh">聆听 · 研究播客</span></div>
+                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陸俊捷主持</span></div>
+                </div>
+                <div class="lang-tabs" role="tablist"><button class="active" data-audio-lang="en">EN</button><span class="sep">/</span><button data-audio-lang="zh">中文</button></div>
+              </div>
+            </div>
+          </li>
+
+          <li class="pub" data-themes="sgm mental methods" data-paper-id="all-of-us">
+            <div class="year">2025</div>
+            <div class="body">
+              <p class="venue"><span class="i18n-en">JAMA Network Open · Cross-sectional study</span><span class="i18n-zh">JAMA Network Open · 横断面研究</span> <span class="tag"><span class="i18n-en">Featured</span><span class="i18n-zh">精选</span></span></p>
+              <h4 class="title"><span class="i18n-en">Mental Health Disparities by Sexual Orientation and Gender Identity in the <em>All of Us</em> Research Program</span><span class="i18n-zh"><em>All of Us</em> 研究项目中的性取向、性别认同与精神健康差异</span></h4>
+              <p class="authors"><strong>Lu JA</strong>, Soltani S, Austin SB, Rehkopf DH, Lunn MR, Langston ME.</p>
+              <p class="summary"><span class="i18n-en">The largest national analysis to date of mental health across sexual orientation and gender identity. Using linked electronic health records from <em>All of Us</em>, we found sexual and gender minority adults had markedly elevated odds of bipolar disorder, PTSD, depression, and ADHD — disparities we interpret as the footprint of stigma and minority stress, not identity.</span><span class="i18n-zh">截至目前，这是规模最大的一项全美国性研究，归纳了性取向与性别认同与精神健康的关系。基于 <em>All of Us</em> 队列的电子病历数据，我们发现性少数人群出现双相障碍、创伤后应激障碍、拑郁和注意力缺陷多动障碍的几率明显升高。我们认为，这种差异反映的是社会污名和少数压力，而不是身份本身。</span></p>
+              <div class="stats">
+                <div class="stat"><div class="big">269,947</div><div class="caption"><span class="i18n-en">Participants</span><span class="i18n-zh">参与者</span></div></div>
+                <div class="stat"><div class="big">8.2<span class="unit">%</span></div><div class="caption"><span class="i18n-en">SGM-identified</span><span class="i18n-zh">性少数身份比例</span></div></div>
+                <div class="stat"><div class="big"><span class="hi">3.67×</span></div><div class="caption"><span class="i18n-en">PTSD odds, gender-diverse AFAB</span><span class="i18n-zh">出生指派女性性别多元人群 PTSD 几率</span></div></div>
+                <div class="stat"><div class="big">10</div><div class="caption"><span class="i18n-en">Conditions studied</span><span class="i18n-zh">纳入分析的病症数</span></div></div>
+              </div>
+              <div class="actions"><a href="https://scholar.google.com/citations?user=1SWGS2oAAAAJ&hl=en" target="_blank" rel="noopener"><span class="i18n-en">View on Google Scholar</span><span class="i18n-zh">在 Google 学术查看</span></a></div>
+              <div class="podcast empty" data-paper="all-of-us">
+                <div class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <div class="meta">
+                  <div class="kicker"><span class="i18n-en">Listen · Research Podcast</span><span class="i18n-zh">聆听 · 研究播客</span></div>
+                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陸俊捷主持</span></div>
+                </div>
+                <div class="lang-tabs" role="tablist"><button class="active" data-audio-lang="en">EN</button><span class="sep">/</span><button data-audio-lang="zh">中文</button></div>
+              </div>
+            </div>
+          
+          </li>
+
+          <li class="pub" data-themes="sgm methods" data-paper-id="causal-sgm">
+            <div class="year">2025</div>
+            <div class="body">
+              <p class="venue"><span class="i18n-en">Working paper · Stanford University</span><span class="i18n-zh">工作论文 · 斯坦福大学</span></p>
+              <h4 class="title"><span class="i18n-en">Towards Causal Interpretation of Sexual Orientation in Regression Analysis</span><span class="i18n-zh">回归分析中“性取向”变量的因果解读</span></h4>
+              <p class="authors"><strong>Lu J</strong>, Guo Z, Rehkopf DH.</p>
+              <p class="summary"><span class="i18n-en">A methods paper arguing that “sexual orientation” is not one variable but three — attraction, behavior, and identity — and that research must define which one it means. We illustrate with NHIS data and find a direct effect of SGM status on depression that does <em>not</em> run through social support.</span><span class="i18n-zh">一篇方法学论文。研究者通常把“性取向”当作一个变量，但它其实包含三个维度——吸引、行为与身份认同，做研究时必须明确自己指的是哪一个。我们以 NHIS 数据为例发现，性少数身份对拑郁的影响是直接的，<em>并未〇</em>通过社会支持起中介作用。</span></p>
+              <div class="stats">
+                <div class="stat"><div class="big"><span class="hi">3.07×</span></div><div class="caption"><span class="i18n-en">Direct effect on depression</span><span class="i18n-zh">抑郁的直接效应</span></div></div>
+                <div class="stat"><div class="big">1.07×</div><div class="caption"><span class="i18n-en">Indirect via social support</span><span class="i18n-zh">经社会支持的间接效应</span></div></div>
+                <div class="stat"><div class="big">3</div><div class="caption"><span class="i18n-en">Exposure domains defined</span><span class="i18n-zh">界定的暴露维度</span></div></div>
+              </div>
+              <div class="actions"><a href="https://scholar.google.com/citations?user=1SWGS2oAAAAJ&hl=en" target="_blank" rel="noopener"><span class="i18n-en">View on Google Scholar</span><span class="i18n-zh">在 Google 学术查看</span></a></div>
+              <div class="podcast empty" data-paper="causal-sgm">
+                <div class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <div class="meta">
+                  <div class="kicker"><span class="i18n-en">Listen · Research Podcast</span><span class="i18n-zh">聆听 · 研究播客</span></div>
+                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陸俊捷主持</span></div>
+                </div>
+                <div class="lang-tabs" role="tablist"><button class="active" data-audio-lang="en">EN</button><span class="sep">/</span><button data-audio-lang="zh">中文</button></div>
+              </div>
+            </div>
+          
+          </li>
+
+          <li class="pub" data-themes="methods other" data-paper-id="skin-lightening">
+            <div class="year">2024</div>
+            <div class="body">
+              <p class="venue"><span class="i18n-en">American Journal of Preventive Medicine · 67(6):811–819</span><span class="i18n-zh">American Journal of Preventive Medicine · 67(6):811–819</span></p>
+              <h4 class="title"><span class="i18n-en">Impact of Digital Advertising Policy on Harmful Product Promotion: NLP Analysis of Skin-Lightening Ads</span><span class="i18n-zh">数字广告政策对有害产品推广的影响：美白广告的自然语言处理分析</span></h4>
+              <p class="authors"><strong>Lu J</strong>, Chua SN, Kavanaugh JR, Prashar J, Ndip-Agbor E, Santoso M, Jackson DA, Chakraborty P, Raffoul A, Austin SB.</p>
+              <p class="summary"><span class="i18n-en">Did Google’s 2022 policy against discriminatory skin-lightening ads actually change what ran? We trained a Vertex AI language model on ads from eight countries and measured content shifts two weeks before vs. after enforcement — finding real, measurable drops in the labels the policy targeted.</span><span class="i18n-zh">谷歌 2022 年禁止歧视性美白广告的政策，是否真的改变了广告投放的内容？我们用八个国家的广告样本训练了一个 Vertex AI 语言模型，对比政策执行前后两周的内容变化，结果发现政策所针对的标签确实出现了可观察的下降。</span></p>
+              <div class="stats">
+                <div class="stat"><div class="big">5,236</div><div class="caption"><span class="i18n-en">Ads analyzed</span><span class="i18n-zh">分析广告数</span></div></div>
+                <div class="stat"><div class="big">8</div><div class="caption"><span class="i18n-en">Countries</span><span class="i18n-zh">国家数</span></div></div>
+                <div class="stat"><div class="big"><span class="hi">−47<span class="unit">%</span></span></div><div class="caption"><span class="i18n-en">Race/ethnic labels</span><span class="i18n-zh">种族/族裔标签</span></div></div>
+                <div class="stat"><div class="big">0.87</div><div class="caption"><span class="i18n-en">Model F1 score</span><span class="i18n-zh">模型 F1 分数</span></div></div>
+              </div>
+              <div class="actions"><a href="https://scholar.google.com/citations?user=1SWGS2oAAAAJ&hl=en" target="_blank" rel="noopener"><span class="i18n-en">View on Google Scholar</span><span class="i18n-zh">在 Google 学术查看</span></a></div>
+              <div class="podcast empty" data-paper="skin-lightening">
+                <div class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <div class="meta">
+                  <div class="kicker"><span class="i18n-en">Listen · Research Podcast</span><span class="i18n-zh">聆听 · 研究播客</span></div>
+                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陸俊捷主持</span></div>
+                </div>
+                <div class="lang-tabs" role="tablist"><button class="active" data-audio-lang="en">EN</button><span class="sep">/</span><button data-audio-lang="zh">中文</button></div>
+              </div>
+            </div>
+          
+          </li>
+
+          <li class="pub" data-themes="mental other" data-paper-id="mindfulness-amygdala">
+            <div class="year">2024</div>
+            <div class="body">
+              <p class="venue"><span class="i18n-en">Journal of Affective Disorders Reports · 15:100714</span><span class="i18n-zh">Journal of Affective Disorders Reports · 15:100714</span></p>
+              <h4 class="title"><span class="i18n-en">Childhood adversity severity modulates adaptive psychological and amygdala volumetric changes after behavioral interventions</span><span class="i18n-zh">童年逆境的严重程度，如何影响行为干预后的心理适应与杏仁核体积变化</span></h4>
+              <p class="authors">Joss D, <strong>Lu J</strong>, Teicher MH, Lazar SW.</p>
+              <p class="summary"><span class="i18n-en">A randomized trial asking whether mindfulness changes the brain differently for adults who survived childhood adversity. Among those with more severe early trauma, shifts in mindfulness and anxiety tracked with measurable changes in amygdala volume — a biomarker of stress reactivity.</span><span class="i18n-zh">一项随机对照试验：正念训练对经历过童年逆境的成年人是否会带来不同的大脑变化？在童年创伤更严重的人群中，正念水平与焦虑的改变伴随着杏仁核体积的显著变化——这是一项反映应激反应性的生物标志物。</span></p>
+              <div class="stats">
+                <div class="stat"><div class="big">64</div><div class="caption"><span class="i18n-en">Randomized</span><span class="i18n-zh">随机入组</span></div></div>
+                <div class="stat"><div class="big">8<span class="unit">wk</span></div><div class="caption"><span class="i18n-en">Intervention</span><span class="i18n-zh">干预周期</span></div></div>
+                <div class="stat"><div class="big">MRI</div><div class="caption"><span class="i18n-en">Pre / post brain imaging</span><span class="i18n-zh">前后脑影像</span></div></div>
+              </div>
+              <div class="actions"><a href="https://scholar.google.com/citations?user=1SWGS2oAAAAJ&hl=en" target="_blank" rel="noopener"><span class="i18n-en">View on Google Scholar</span><span class="i18n-zh">在 Google 学术查看</span></a></div>
+              <div class="podcast empty" data-paper="mindfulness-amygdala">
+                <div class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <div class="meta">
+                  <div class="kicker"><span class="i18n-en">Listen · Research Podcast</span><span class="i18n-zh">聆听 · 研究播客</span></div>
+                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陸俊捷主持</span></div>
+                </div>
+                <div class="lang-tabs" role="tablist"><button class="active" data-audio-lang="en">EN</button><span class="sep">/</span><button data-audio-lang="zh">中文</button></div>
+              </div>
+            </div>
+          
+          </li>
+
+          <li class="pub" data-themes="mental methods" data-paper-id="cancer-education-mdd">
+            <div class="year">2023</div>
+            <div class="body">
+              <p class="venue"><span class="i18n-en">Journal of Affective Disorders · 341:202–210</span><span class="i18n-zh">Journal of Affective Disorders · 341:202–210</span></p>
+              <h4 class="title"><span class="i18n-en">Marginal structural model analysis of cancer diagnosis history, education, and major depressive symptoms</span><span class="i18n-zh">癌症诊断史、教育水平与重度抑郁症状的边际结构模型分析</span></h4>
+              <p class="authors">Liu L, <strong>Lu J</strong>, Yang J, Dong Y, Yin P, Chen Y.</p>
+              <p class="summary"><span class="i18n-en">A recent cancer diagnosis nearly quadrupled the odds of major depressive disorder in the next year — but only among adults whose education stopped at high school. Education appears to buffer the psychological toll of a cancer diagnosis in ways clinical care has not caught up with.</span><span class="i18n-zh">確诊癌症后一年内，重度抑郁障碍的发生几率几乎翻了四倍——但这种翻倍效应只出现在教育水平止于高中的成年人当中。教育似乎在缓冲着癌症诊断带来的心理冲击，而目前的临床护理还没能跟上这一点。</span></p>
+              <div class="stats">
+                <div class="stat"><div class="big">7,108</div><div class="caption"><span class="i18n-en">MIDUS participants</span><span class="i18n-zh">MIDUS 参与者</span></div></div>
+                <div class="stat"><div class="big"><span class="hi">3.74×</span></div><div class="caption"><span class="i18n-en">MDD odds, 1yr post-Dx</span><span class="i18n-zh">确诊后一年 MDD 几率</span></div></div>
+                <div class="stat"><div class="big">3.45×</div><div class="caption"><span class="i18n-en">Among less-educated</span><span class="i18n-zh">教育程度较低人群</span></div></div>
+              </div>
+              <div class="actions"><a href="https://scholar.google.com/citations?user=1SWGS2oAAAAJ&hl=en" target="_blank" rel="noopener"><span class="i18n-en">View on Google Scholar</span><span class="i18n-zh">在 Google 学术查看</span></a></div>
+              <div class="podcast empty" data-paper="cancer-education-mdd">
+                <div class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <div class="meta">
+                  <div class="kicker"><span class="i18n-en">Listen · Research Podcast</span><span class="i18n-zh">聆听 · 研究播客</span></div>
+                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陸俊捷主持</span></div>
+                </div>
+                <div class="lang-tabs" role="tablist"><button class="active" data-audio-lang="en">EN</button><span class="sep">/</span><button data-audio-lang="zh">中文</button></div>
+              </div>
+            </div>
+          
+          </li>
+
+          <li class="pub" data-themes="sgm mental" data-paper-id="wbc-sexual-minorities">
+            <div class="year">2023</div>
+            <div class="body">
+              <p class="venue"><span class="i18n-en">BMC Public Health · 23:294</span><span class="i18n-zh">BMC Public Health · 23:294</span></p>
+              <h4 class="title"><span class="i18n-en">Depressive symptoms and White Blood Cell count across sexual minority subgroups</span><span class="i18n-zh">性少数人群中抑郁症状与白细胞计数的关系</span></h4>
+              <p class="authors"><strong>Lu J</strong>, Yang J, Liang J, Mischoulon D, Nyer M.</p>
+              <p class="summary"><span class="i18n-en">Sexual minority adults report more depressive symptoms than heterosexual peers — but do their bodies show it? We examined white blood cell count, a crude marker of systemic inflammation, across subgroups including those uncertain about their orientation, a population rarely studied separately.</span><span class="i18n-zh">性少数群体报告的抑郁症状要多于异性恋群体——但这一点会不会在身体层面留下痕迹？我们考察了白细胞计数这一粗略的全身炎症指标，并单独分析了“性取向不确定”这一常被忽视的亚群。</span></p>
+              <div class="stats">
+                <div class="stat"><div class="big">14,090</div><div class="caption"><span class="i18n-en">NHANES participants</span><span class="i18n-zh">NHANES 参与者</span></div></div>
+                <div class="stat"><div class="big">10<span class="unit">yrs</span></div><div class="caption"><span class="i18n-en">Data span 2005–14</span><span class="i18n-zh">数据年份 2005–14</span></div></div>
+                <div class="stat"><div class="big">WBC</div><div class="caption"><span class="i18n-en">Biological readout</span><span class="i18n-zh">生物读出</span></div></div>
+              </div>
+              <div class="actions"><a href="https://scholar.google.com/citations?user=1SWGS2oAAAAJ&hl=en" target="_blank" rel="noopener"><span class="i18n-en">View on Google Scholar</span><span class="i18n-zh">在 Google 学术查看</span></a></div>
+              <div class="podcast empty" data-paper="wbc-sexual-minorities">
+                <div class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <div class="meta">
+                  <div class="kicker"><span class="i18n-en">Listen · Research Podcast</span><span class="i18n-zh">聆听 · 研究播客</span></div>
+                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陸俊捷主持</span></div>
+                </div>
+                <div class="lang-tabs" role="tablist"><button class="active" data-audio-lang="en">EN</button><span class="sep">/</span><button data-audio-lang="zh">中文</button></div>
+              </div>
+            </div>
+          
+          </li>
+
+          <li class="pub" data-themes="sgm mental" data-paper-id="hsv2-depression">
+            <div class="year">2023</div>
+            <div class="body">
+              <p class="venue"><span class="i18n-en">Journal of Affective Disorders · 327:226–229</span><span class="i18n-zh">Journal of Affective Disorders · 327:226–229</span></p>
+              <h4 class="title"><span class="i18n-en">HSV-2 infection and depressive symptoms across sex and sexual minority groups</span><span class="i18n-zh">HSV-2 感染与抑郁症状：性别及性少数群体间的差异</span></h4>
+              <p class="authors"><strong>Lu J</strong>, Liang J, Yang J, Mischoulon D, Nyer M.</p>
+              <p class="summary"><span class="i18n-en">Herpes simplex 2 has been tied to depression, but for whom most? In a nationally representative sample, the association was meaningfully stronger among women than men — a sex-specific effect that points toward where clinical screening for post-infection mood symptoms might matter most.</span><span class="i18n-zh">HSV-2 与抑郁存在关系，但这一关系在谁身上最为明显？在一个全美国代表性样本中，我们发现女性中的关系显著强于男性——这种性别差异提示临床可能需要对感染后情绪症状采取有针对性的筛查。</span></p>
+              <div class="stats">
+                <div class="stat"><div class="big">57,684</div><div class="caption"><span class="i18n-en">NHANES participants</span><span class="i18n-zh">NHANES 参与者</span></div></div>
+                <div class="stat"><div class="big"><span class="hi">1.43×</span></div><div class="caption"><span class="i18n-en">Depression odds, women</span><span class="i18n-zh">女性抑郁几率</span></div></div>
+                <div class="stat"><div class="big">1.20×</div><div class="caption"><span class="i18n-en">Depression odds, men</span><span class="i18n-zh">男性抑郁几率</span></div></div>
+              </div>
+              <div class="actions"><a href="https://scholar.google.com/citations?user=1SWGS2oAAAAJ&hl=en" target="_blank" rel="noopener"><span class="i18n-en">View on Google Scholar</span><span class="i18n-zh">在 Google 学术查看</span></a></div>
+              <div class="podcast empty" data-paper="hsv2-depression">
+                <div class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <div class="meta">
+                  <div class="kicker"><span class="i18n-en">Listen · Research Podcast</span><span class="i18n-zh">聆听 · 研究播客</span></div>
+                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陸俊捷主持</span></div>
+                </div>
+                <div class="lang-tabs" role="tablist"><button class="active" data-audio-lang="en">EN</button><span class="sep">/</span><button data-audio-lang="zh">中文</button></div>
+              </div>
+            </div>
+          
+          </li>
+
+          <li class="pub" data-themes="other" data-paper-id="china-ethnicity">
+            <div class="year">2026</div>
+            <div class="body">
+              <p class="venue"><span class="i18n-en">BMC Public Health · 26:140</span><span class="i18n-zh">BMC Public Health · 26:140</span></p>
+              <h4 class="title"><span class="i18n-en">Minority-group ethnicity and self-reported health outcomes in China, 2010–2021</span><span class="i18n-zh">中国少数民族身份与自评健康状况，2010–2021</span></h4>
+              <p class="authors"><strong>Lu J</strong>, et al. (Rehkopf DH, senior)</p>
+              <p class="summary"><span class="i18n-en">The first multi-wave national analysis of ethnic health disparities in China, framed through ecosocial theory. Using seven waves of the Chinese General Social Survey, we separate individual, institutional, and regional forces shaping self-reported health between Han and ethnic-minority populations.</span><span class="i18n-zh">这是首份基于生态社会理论视角、跨多轮数据考察中国民族间健康差异的全国性研究。我们用中国综合社会调查（CGSS）七个轮次的数据，拆解了影响汉族与少数民族自评健康差距的个人、制度与地区三个层面的因素。</span></p>
+              <div class="stats">
+                <div class="stat"><div class="big">66,057</div><div class="caption"><span class="i18n-en">Respondents</span><span class="i18n-zh">受访者</span></div></div>
+                <div class="stat"><div class="big">7</div><div class="caption"><span class="i18n-en">Waves, 2010–2021</span><span class="i18n-zh">调查轮次 2010–2021</span></div></div>
+                <div class="stat"><div class="big">3</div><div class="caption"><span class="i18n-en">Health outcomes modeled</span><span class="i18n-zh">建模健康结局数</span></div></div>
+              </div>
+              <div class="actions"><a href="https://scholar.google.com/citations?user=1SWGS2oAAAAJ&hl=en" target="_blank" rel="noopener"><span class="i18n-en">View on Google Scholar</span><span class="i18n-zh">在 Google 学术查看</span></a></div>
+              <div class="podcast empty" data-paper="china-ethnicity">
+                <div class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <div class="meta">
+                  <div class="kicker"><span class="i18n-en">Listen · Research Podcast</span><span class="i18n-zh">聆听 · 研究播客</span></div>
+                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陸俊捷主持</span></div>
+                </div>
+                <div class="lang-tabs" role="tablist"><button class="active" data-audio-lang="en">EN</button><span class="sep">/</span><button data-audio-lang="zh">中文</button></div>
+              </div>
+            </div>
+          
+          </li>
+
+          <li class="pub" data-themes="other" data-paper-id="acupressure">
+            <div class="year">2023</div>
+            <div class="body">
+              <p class="venue"><span class="i18n-en">Study protocol · Randomized single-blinded trial</span><span class="i18n-zh">研究方案 · 单盲随机对照试验</span></p>
+              <h4 class="title"><span class="i18n-en">Auricular Acupressure for Primary Dysmenorrhea: Study Protocol for a Randomized Trial</span><span class="i18n-zh">耳穴按压治疗原发性痛经：一项单盲随机对照试验的研究方案</span></h4>
+              <p class="authors">Liu L, Hu J, <strong>Lu J</strong>, Yang J.</p>
+              <p class="summary"><span class="i18n-en">A protocol for a single-blinded RCT testing ear-based acupressure against a sham control for menstrual pain — evaluating immediate analgesia, time-effect relationship, and whether it reduces reliance on ibuprofen.</span><span class="i18n-zh">一项单盲随机对照试验方案：以假对照为基准，评估耳穴按压对经期疼痛的治疗效果、即时镇痛效应、时间-效应关系，以及能否减少对布洛芬的依赖。</span></p>
+              <div class="stats">
+                <div class="stat"><div class="big">92</div><div class="caption"><span class="i18n-en">Planned enrollment</span><span class="i18n-zh">计划入组</span></div></div>
+                <div class="stat"><div class="big">1:1</div><div class="caption"><span class="i18n-en">Allocation</span><span class="i18n-zh">分组比例</span></div></div>
+                <div class="stat"><div class="big">VAS</div><div class="caption"><span class="i18n-en">Primary outcome</span><span class="i18n-zh">主要结局</span></div></div>
+              </div>
+              <div class="actions"><a href="https://scholar.google.com/citations?user=1SWGS2oAAAAJ&hl=en" target="_blank" rel="noopener"><span class="i18n-en">View on Google Scholar</span><span class="i18n-zh">在 Google 学术查看</span></a></div>
+              <div class="podcast empty" data-paper="acupressure">
+                <div class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <div class="meta">
+                  <div class="kicker"><span class="i18n-en">Listen · Research Podcast</span><span class="i18n-zh">聆听 · 研究播客</span></div>
+                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陸俊捷主持</span></div>
+                </div>
+                <div class="lang-tabs" role="tablist"><button class="active" data-audio-lang="en">EN</button><span class="sep">/</span><button data-audio-lang="zh">中文</button></div>
+              </div>
+            </div>
+          
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRESS / FEATURED -->
+  <section class="block" id="press">
+    <div class="section-head reveal">
+      <div class="section-label"><span class="num">04</span><span class="i18n-en">In the Press</span><span class="i18n-zh">媒体报道</span></div>
+      <h2><span class="i18n-en">When the research meets the public.</span><span class="i18n-zh">当研究进入公共视野。</span></h2>
+    </div>
+    <div class="section-body reveal">
+      <div></div>
+      <div style="max-width: 860px;">
+        <article class="feature-card">
+          <div>
+            <div class="feature-kicker"><span class="i18n-en">U.S. News &amp; World Report · Feb. 20, 2025</span><span class="i18n-zh">《美国新闻与世界报道》 · 2025年2月20日</span></div>
+            <h3>
+              <span class="i18n-en">“LGBTQ+ Stress and Stigma Increase Risk of <em>Mental Health Problems</em>”</span>
+              <span class="i18n-zh">“LGBTQ+ 群体所承受的压力与污名，增加了<em>精神健康问题</em>的风险”</span>
+            </h3>
+            <p>
+              <span class="i18n-en">HealthDay and U.S. News covered our <em>JAMA Network Open</em> analysis of 270,000 <em>All of Us</em> participants — emphasizing that these disparities reflect stigma and minority stress, not SGM identity itself.</span>
+              <span class="i18n-zh">HealthDay 与 U.S. News 报道了我们发表于 <em>JAMA Network Open</em> 的研究——一项涵盖了 <em>All of Us</em> 队列 27 万名参与者的数据分析——强调这些差异反映的是污名与少数压力，而不是性少数身份本身。</span>
+            </p>
+            <div class="byline"><span class="i18n-en">Reported by Dennis Thompson · HealthDay</span><span class="i18n-zh">Dennis Thompson 报道 · HealthDay</span></div>
+            <div class="actions" style="margin-top: 18px;">
+              <a href="https://www.usnews.com/news/health-news/articles/2025-02-20/lgbtq-stress-and-stigma-increase-risk-of-mental-health-problems" target="_blank" rel="noopener"><span class="i18n-en">Read article</span><span class="i18n-zh">阅读全文</span></a>
+            </div>
+          </div>
+          <div class="feature-visual">
+            <div class="headline-mock">
+              <div class="hm-brand">U.S. NEWS · HEALTH NEWS</div>
+              <div class="hm-title">LGBTQ+ Stress and Stigma Increase Risk of Mental Health Problems</div>
+              <div class="hm-meta">By HealthDay — Feb. 20, 2025</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMUNITY ENGAGEMENT -->
+  <section class="block" id="fellowship">
+    <div class="section-head reveal">
+      <div class="section-label"><span class="num">05</span><span class="i18n-en">Community Engagement</span><span class="i18n-zh">公共参与</span></div>
+      <h2><span class="i18n-en">Research only matters if people outside the field can use it.</span><span class="i18n-zh">只有圈外的人也能用上，研究才算数。</span></h2>
+    </div>
+    <div class="section-body reveal">
+      <div></div>
+      <div class="statement">
+        <blockquote>
+          <p>
+            <span class="i18n-en">I care about careful, numerate public health coverage — the kind that distinguishes an odds ratio from a risk, an effect modifier from a confounder, a stigma from an identity.</span>
+            <span class="i18n-zh">我在乎一种值得信赖的公共卫生报道——词严谨，对数字认真：分得清比例和风险，分得清哪些是影响、哪些是混杂，也分得清污名和身份不是一回事。</span>
+          </p>
+          <p>
+            <span class="i18n-en">I work with journalists, clinicians, and community partners to translate findings into language that policy and practice can act on.</span>
+            <span class="i18n-zh">我和记者、医生、社区里的人一起做事，把研究中有用的那些东西，说成政策或临床能拿来用的话。</span>
+          </p>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="block" id="contact">
+    <div class="section-head reveal">
+      <div class="section-label"><span class="num">06</span><span class="i18n-en">Contact</span><span class="i18n-zh">联系</span></div>
+      <h2><span class="i18n-en">Get in touch.</span><span class="i18n-zh">常联系。</span></h2>
+    </div>
+    <div class="section-body reveal">
+      <div></div>
+      <div style="max-width: 860px;">
+        <div class="contact-grid">
+          <div class="contact-item">
+            <div class="label"><span class="i18n-en">Email</span><span class="i18n-zh">邮箱</span></div>
+            <div class="value"><a href="/cdn-cgi/l/email-protection#b8d2cdd6d2d1ddd4cdf8cbccd9d6ded7cadc96dddccd"><span class="__cf_email__" data-cfemail="09637c6763606c657c497a7d68676f667b6d276c6d7c">[email&#160;protected]</span></a></div>
+          </div>
+          <div class="contact-item">
+            <div class="label"><span class="i18n-en">Affiliation</span><span class="i18n-zh">院系</span></div>
+            <div class="value"><span class="i18n-en">Department of Epidemiology &amp;<br/>Population Health</span><span class="i18n-zh">流行病学与<br/>人群健康系</span></div>
+          </div>
+          <div class="contact-item">
+            <div class="label"><span class="i18n-en">Institution</span><span class="i18n-zh">机构</span></div>
+            <div class="value"><span class="i18n-en">Stanford University<br/>School of Medicine</span><span class="i18n-zh">斯坦福大学<br/>医学院</span></div>
+          </div>
+          <div class="contact-item">
+            <div class="label"><span class="i18n-en">Scholar</span><span class="i18n-zh">学术档案</span></div>
+            <div class="value"><a href="https://scholar.google.com/citations?user=1SWGS2oAAAAJ&amp;hl=en" target="_blank" rel="noopener"><span class="i18n-en">Google Scholar →</span><span class="i18n-zh">Google Scholar →</span></a></div>
+          </div>
+          <div class="contact-item">
+            <div class="label"><span class="i18n-en">CV</span><span class="i18n-zh">简历</span></div>
+            <div class="value"><a href="cv/Anderson-Junjie-Lu-CV.pdf" target="_blank" rel="noopener"><span class="i18n-en">Download PDF →</span><span class="i18n-zh">下载 PDF →</span></a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="colophon">
+      <span class="i18n-en">© 2026 Anderson Junjie Lu. Set in Source Serif 4 &amp; Inter. Last updated April 2026.</span>
+      <span class="i18n-zh">© 2026 陸俊捷。字体：Source Serif 4、Inter 与 Noto Serif SC。最后更新：2026年4月。</span>
+    </div>
+    <div>
+      <a href="/cdn-cgi/l/email-protection#5f352a3135363a332a1f2c2b3e3139302d3b713a3b2a"><span class="__cf_email__" data-cfemail="a0cad5cecac9c5ccd5e0d3d4c1cec6cfd2c48ec5c4d5">[email&#160;protected]</span></a>
+    </div>
+  </footer>
+
+</main>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ===== Language toggle =====
+  const LANG_KEY = 'ajl-lang';
+  const htmlEl = document.documentElement;
+  function setLang(lang) {
+    htmlEl.setAttribute('lang', lang);
+    try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
+    // update pub count if exists
+    updatePubCount();
+  }
+  try {
+    const saved = localStorage.getItem(LANG_KEY);
+    if (saved === 'zh' || saved === 'en') setLang(saved);
+  } catch (e) {}
+  document.getElementById('langToggle').addEventListener('click', () => {
+    const cur = htmlEl.getAttribute('lang') || 'en';
+    setLang(cur === 'en' ? 'zh' : 'en');
+  });
+
+  // ===== Filter publications =====
+  const filters = document.querySelectorAll('.pub-filters button');
+  const pubs = document.querySelectorAll('#pubList .pub');
+  const countEl = document.getElementById('pubCount');
+  let currentFilter = 'all';
+  let currentShown = pubs.length;
+
+  const FILTER_LABELS = {
+    en: { all: 'publications', sgm: 'in SGM health', mental: 'in mental health', methods: 'in methods', other: 'in other areas' },
+    zh: { all: '篇论文', sgm: '篇 · 性少数健康', mental: '篇 · 精神健康', methods: '篇 · 方法学', other: '篇 · 其他' }
+  };
+  function updatePubCount() {
+    const lang = htmlEl.getAttribute('lang') || 'en';
+    const labels = FILTER_LABELS[lang];
+    if (lang === 'zh') {
+      countEl.textContent = `${currentShown} ${labels[currentFilter]}`;
+    } else {
+      countEl.textContent = `${currentShown} ${labels[currentFilter]}`;
+    }
+  }
+
+  filters.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filters.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = btn.dataset.filter;
+      let shown = 0;
+      pubs.forEach(p => {
+        const themes = p.dataset.themes.split(' ');
+        const match = currentFilter === 'all' || themes.includes(currentFilter);
+        p.classList.toggle('hidden', !match);
+        if (match) shown++;
+      });
+      currentShown = shown;
+      updatePubCount();
+    });
+  });
+
+  // ===== Podcast audio player (custom, native <audio>) =====
+  // Podcasts stream from Google Drive via the public direct-download URL.
+  // The file must be shared "Anyone with the link" for this to work.
+  // Audio files are hosted on GitHub Releases (for files > 25 MB that can't go in the repo).
+  const PODCASTS = {
+    'censorship-china': {
+      en: 'https://github.com/andersonjunjielu/andersonjunjielu.github.io/releases/download/audio-v1/Censorship_english.m4a',
+      zh: 'https://github.com/andersonjunjielu/andersonjunjielu.github.io/releases/download/audio-v1/Censorship_chinese.m4a',
+    },
+    // Add more as you upload more audio to the release.
+  };
+
+  function fmtTime(s) {
+    if (!isFinite(s) || s < 0) s = 0;
+    const m = Math.floor(s / 60);
+    const ss = Math.floor(s % 60).toString().padStart(2, '0');
+    return `${m}:${ss}`;
+  }
+
+  document.querySelectorAll('.podcast').forEach(pod => {
+    const id = pod.dataset.paper;
+    const config = PODCASTS[id];
+    const tabs = pod.querySelectorAll('.lang-tabs button');
+    const iconBtn = pod.querySelector('.icon');
+
+    // Hide podcast block entirely if we have no audio for this paper
+    if (!config) {
+      pod.style.display = 'none';
+      return;
+    }
+
+    // Swap the play-shape SVG to include a pause icon we can toggle
+    iconBtn.innerHTML = `
+      <svg class="play-shape" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="pause-shape" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+    `;
+    iconBtn.style.cursor = 'pointer';
+
+    // Hide tabs that have no file; pick an initial available lang
+    let currentLang = null;
+    tabs.forEach(btn => {
+      const lang = btn.dataset.audioLang;
+      if (!config[lang]) {
+        btn.style.display = 'none';
+        btn.classList.remove('active');
+      } else if (currentLang === null) currentLang = lang;
+    });
+    const sep = pod.querySelector('.lang-tabs .sep');
+    const visibleTabs = Array.from(tabs).filter(t => t.style.display !== 'none');
+    if (sep && visibleTabs.length < 2) sep.style.display = 'none';
+    tabs.forEach(b => b.classList.toggle('active', b.dataset.audioLang === currentLang));
+
+    // Build custom player row
+    const playerRow = document.createElement('div');
+    playerRow.className = 'player-row';
+    playerRow.innerHTML = `
+      <span class="time cur">0:00</span>
+      <div class="scrubber"><div class="fill"></div></div>
+      <span class="time dur">—:—</span>
+      <button class="rate" type="button" aria-label="Playback speed">1×</button>
+    `;
+    pod.appendChild(playerRow);
+
+    const audio = document.createElement('audio');
+    audio.preload = 'none';
+    pod.appendChild(audio);
+
+    const scrub = playerRow.querySelector('.scrubber');
+    const fill = scrub.querySelector('.fill');
+    const curLabel = playerRow.querySelector('.cur');
+    const durLabel = playerRow.querySelector('.dur');
+    const rateBtn = playerRow.querySelector('.rate');
+    const RATES = [1, 1.25, 1.5, 2, 0.75];
+    let rateIdx = 0;
+
+    pod.classList.remove('empty');
+
+    function srcFor(lang) {
+      return config[lang];
+    }
+
+    function loadLang(lang) {
+      currentLang = lang;
+      const wasPlaying = !audio.paused;
+      audio.src = srcFor(lang);
+      pod.classList.add('loaded');
+      if (wasPlaying) audio.play().catch(() => {});
+    }
+
+    // Click play/pause
+    iconBtn.addEventListener('click', () => {
+      if (!audio.src) audio.src = srcFor(currentLang);
+      pod.classList.add('loaded');
+      if (audio.paused) audio.play().catch(() => {});
+      else audio.pause();
+    });
+    audio.addEventListener('play', () => pod.classList.add('playing'));
+    audio.addEventListener('pause', () => pod.classList.remove('playing'));
+    audio.addEventListener('ended', () => pod.classList.remove('playing'));
+
+    audio.addEventListener('loadedmetadata', () => {
+      durLabel.textContent = fmtTime(audio.duration);
+    });
+    audio.addEventListener('timeupdate', () => {
+      const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
+      fill.style.width = pct + '%';
+      curLabel.textContent = fmtTime(audio.currentTime);
+    });
+
+    // Scrubber: click to seek
+    scrub.addEventListener('click', (e) => {
+      const rect = scrub.getBoundingClientRect();
+      const pct = (e.clientX - rect.left) / rect.width;
+      if (audio.duration) audio.currentTime = pct * audio.duration;
+    });
+
+    // Rate
+    rateBtn.addEventListener('click', () => {
+      rateIdx = (rateIdx + 1) % RATES.length;
+      audio.playbackRate = RATES[rateIdx];
+      rateBtn.textContent = RATES[rateIdx] + '×';
+    });
+
+    // Language switch
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.style.display === 'none') return;
+        const lang = btn.dataset.audioLang;
+        if (lang === currentLang) return;
+        tabs.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        loadLang(lang);
+      });
+    });
+  });
+
+  // ===== Reveal on scroll =====
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
