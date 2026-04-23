@@ -1377,7 +1377,7 @@
       <div class="hero-actions">
         <a class="hero-link" href="cv/Anderson-Junjie-Lu-CV.pdf" target="_blank" rel="noopener"><span class="i18n-en">Download CV</span><span class="i18n-zh">下载简历</span></a>
         <a class="hero-link" href="https://scholar.google.com/citations?user=1SWGS2oAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>
-        <a class="hero-link" href="/cdn-cgi/l/email-protection#97fde2f9fdfef2fbe2d7e4e3f6f9f1f8e5f3b9f2f3e2"><span class="i18n-en">Email</span><span class="i18n-zh">邮箱</span></a>
+        <a class="hero-link" data-email-link href="#"><span class="i18n-en">Email</span><span class="i18n-zh">邮箱</span></a>
       </div>
     </div>
     <div>
@@ -1834,7 +1834,7 @@
         <div class="contact-grid">
           <div class="contact-item">
             <div class="label"><span class="i18n-en">Email</span><span class="i18n-zh">邮箱</span></div>
-            <div class="value"><a href="/cdn-cgi/l/email-protection#1d77687377747871685d6e697c737b726f7933787968"><span class="__cf_email__" data-cfemail="cea4bba0a4a7aba2bb8ebdbaafa0a8a1bcaae0abaabb">[email&#160;protected]</span></a></div>
+            <div class="value"><a data-email-link data-email-show href="#">&nbsp;</a></div>
           </div>
           <div class="contact-item">
             <div class="label"><span class="i18n-en">Affiliation</span><span class="i18n-zh">院系</span></div>
@@ -1863,7 +1863,7 @@
       <span class="i18n-zh">© 2026 陸俊捷。字体：Source Serif 4、Inter 与 Noto Serif SC。最后更新：2026年4月。</span>
     </div>
     <div>
-      <a href="/cdn-cgi/l/email-protection#adc7d8c3c7c4c8c1d8edded9ccc3cbc2dfc983c8c9d8"><span class="__cf_email__" data-cfemail="8ee4fbe0e4e7ebe2fbcefdfaefe0e8e1fceaa0ebeafb">[email&#160;protected]</span></a>
+      <a data-email-link data-email-show href="#">&nbsp;</a>
     </div>
   </footer>
 
@@ -1916,7 +1916,7 @@
   </button>
 </aside>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   // ===== Language toggle =====
   const LANG_KEY = 'ajl-lang';
   const htmlEl = document.documentElement;
@@ -2123,6 +2123,18 @@
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ===== Email obfuscation (defeat GitHub Pages email protection) =====
+  // Assemble the email from pieces so the literal string never appears in the served HTML.
+  (function() {
+    const user = 'junjielu';
+    const domain = ['stanford', 'edu'].join('.');
+    const addr = user + String.fromCharCode(64) + domain;
+    document.querySelectorAll('[data-email-link]').forEach(el => {
+      el.href = 'mailto:' + addr;
+      if (el.hasAttribute('data-email-show')) el.textContent = addr;
+    });
+  })();
 
   // ===== TWEAKS PANEL =====
   const TWEAK_KEY = 'ajl-tweaks';
