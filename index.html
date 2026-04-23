@@ -25,6 +25,11 @@
     --serif: 'Source Serif 4', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
     --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --sans-cn: 'LXGW WenKai TC', 'LXGW WenKai', 'Kaiti TC', 'Kaiti SC', STKaiti, 'PingFang SC', 'Noto Sans SC', sans-serif;
+
+    /* Tweakable: controlled by the little-person button (bottom-right) */
+    --content-width: 1180px;
+    --col-width: 860px;
+    --zoom: 1;
   }
 
   /* ===== APPLE-STYLE CHINESE TYPOGRAPHY =====
@@ -126,6 +131,10 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
+  /* Zoom wrapper — scales entire content (both text and layout) */
+  header.topbar, main.wrap {
+    zoom: var(--zoom);
+  }
 
   /* subtle paper grain */
   body::before {
@@ -144,11 +153,17 @@
 
   /* ===== LAYOUT ===== */
   .wrap {
-    max-width: 1180px;
+    max-width: var(--content-width);
     margin: 0 auto;
     padding: 0 48px;
     position: relative;
     z-index: 1;
+  }
+  /* Inner column (body of sections) — inline style="max-width:860px" overridden here */
+  .section-body > div[style*="860px"],
+  .pub-toolbar ~ *,
+  main.wrap .section-body > div:last-child[style] {
+    max-width: var(--col-width) !important;
   }
 
   /* ===== TOP BAR ===== */
@@ -162,7 +177,7 @@
     border-bottom: 1px solid var(--rule-soft);
   }
   .topbar-inner {
-    max-width: 1180px;
+    max-width: var(--content-width);
     margin: 0 auto;
     padding: 14px 48px;
     display: flex;
@@ -1132,6 +1147,181 @@
   }
   .reveal.in { opacity: 1; transform: none; }
 
+  /* ===== TWEAKS PANEL (little person button, bottom-right) ===== */
+  .tweaks-fab {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--cardinal);
+    color: var(--paper);
+    border: 0;
+    box-shadow: 0 4px 16px rgba(140, 21, 21, 0.25), 0 1px 3px rgba(0,0,0,0.1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: transform 220ms cubic-bezier(.2,.8,.2,1), box-shadow 220ms ease;
+  }
+  .tweaks-fab:hover {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 8px 24px rgba(140, 21, 21, 0.35), 0 2px 4px rgba(0,0,0,0.12);
+  }
+  .tweaks-fab svg {
+    width: 26px;
+    height: 26px;
+  }
+  .tweaks-fab .tweaks-tip {
+    position: absolute;
+    right: calc(100% + 10px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 6px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 180ms ease;
+  }
+  .tweaks-fab:hover .tweaks-tip { opacity: 1; }
+
+  .tweaks-panel {
+    position: fixed;
+    bottom: 92px;
+    right: 28px;
+    width: 280px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+    padding: 20px;
+    z-index: 99;
+    font-family: var(--sans);
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+    pointer-events: none;
+    transition: opacity 220ms ease, transform 220ms cubic-bezier(.2,.8,.2,1);
+  }
+  .tweaks-panel.open {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  .tweaks-panel h4 {
+    margin: 0 0 4px;
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .tweaks-panel .desc {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+  .tweaks-panel .tweak {
+    margin-bottom: 16px;
+  }
+  .tweaks-panel .tweak:last-of-type { margin-bottom: 12px; }
+  .tweaks-panel .tweak-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .tweaks-panel .tweak-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .tweaks-panel .tweak-val {
+    font-size: 11px;
+    color: var(--cardinal);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .tweaks-panel input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 3px;
+    background: var(--rule);
+    border-radius: 2px;
+    outline: none;
+    margin: 0;
+  }
+  .tweaks-panel input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    background: var(--cardinal);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--paper);
+    box-shadow: 0 0 0 1px var(--cardinal);
+  }
+  .tweaks-panel input[type="range"]::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    background: var(--cardinal);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--paper);
+    box-shadow: 0 0 0 1px var(--cardinal);
+  }
+  .tweaks-panel .reset {
+    display: block;
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: color 140ms, border-color 140ms;
+    margin-top: 4px;
+  }
+  .tweaks-panel .reset:hover {
+    color: var(--cardinal);
+    border-color: var(--cardinal);
+  }
+
+  html[lang="zh"] .tweaks-panel,
+  html[lang="zh"] .tweaks-panel .tweak-label {
+    font-family: var(--sans-cn);
+    letter-spacing: 0.04em;
+    text-transform: none;
+  }
+  html[lang="zh"] .tweaks-panel h4 {
+    font-family: var(--sans-cn);
+  }
+
+  @media (max-width: 640px) {
+    .tweaks-fab { bottom: 16px; right: 16px; width: 44px; height: 44px; }
+    .tweaks-fab svg { width: 22px; height: 22px; }
+    .tweaks-panel { right: 16px; bottom: 70px; width: calc(100vw - 32px); max-width: 300px; }
+  }
+
   /* print */
   @media print {
     body { background: white; }
@@ -1187,7 +1377,7 @@
       <div class="hero-actions">
         <a class="hero-link" href="cv/Anderson-Junjie-Lu-CV.pdf" target="_blank" rel="noopener"><span class="i18n-en">Download CV</span><span class="i18n-zh">下载简历</span></a>
         <a class="hero-link" href="https://scholar.google.com/citations?user=1SWGS2oAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>
-        <a class="hero-link" href="/cdn-cgi/l/email-protection#2f455a4145464a435a6f5c5b4e4149405d4b014a4b5a"><span class="i18n-en">Email</span><span class="i18n-zh">邮箱</span></a>
+        <a class="hero-link" href="/cdn-cgi/l/email-protection#b2d8c7dcd8dbd7dec7f2c1c6d3dcd4ddc0d69cd7d6c7"><span class="i18n-en">Email</span><span class="i18n-zh">邮箱</span></a>
       </div>
     </div>
     <div>
@@ -1644,7 +1834,7 @@
         <div class="contact-grid">
           <div class="contact-item">
             <div class="label"><span class="i18n-en">Email</span><span class="i18n-zh">邮箱</span></div>
-            <div class="value"><a href="/cdn-cgi/l/email-protection#b8d2cdd6d2d1ddd4cdf8cbccd9d6ded7cadc96dddccd"><span class="__cf_email__" data-cfemail="09637c6763606c657c497a7d68676f667b6d276c6d7c">[email&#160;protected]</span></a></div>
+            <div class="value"><a href="/cdn-cgi/l/email-protection#c7adb2a9adaea2abb287b4b3a6a9a1a8b5a3e9a2a3b2"><span class="__cf_email__" data-cfemail="7218071c181b171e07320106131c141d00165c171607">[email&#160;protected]</span></a></div>
           </div>
           <div class="contact-item">
             <div class="label"><span class="i18n-en">Affiliation</span><span class="i18n-zh">院系</span></div>
@@ -1673,11 +1863,58 @@
       <span class="i18n-zh">© 2026 陸俊捷。字体：Source Serif 4、Inter 与 Noto Serif SC。最后更新：2026年4月。</span>
     </div>
     <div>
-      <a href="/cdn-cgi/l/email-protection#5f352a3135363a332a1f2c2b3e3139302d3b713a3b2a"><span class="__cf_email__" data-cfemail="a0cad5cecac9c5ccd5e0d3d4c1cec6cfd2c48ec5c4d5">[email&#160;protected]</span></a>
+      <a href="/cdn-cgi/l/email-protection#5f352a3135363a332a1f2c2b3e3139302d3b713a3b2a"><span class="__cf_email__" data-cfemail="e08a958e8a89858c95a09394818e868f9284ce858495">[email&#160;protected]</span></a>
     </div>
   </footer>
 
 </main>
+
+<!-- Floating little-person button + tweaks panel -->
+<button class="tweaks-fab" id="tweaksFab" aria-label="Open display tweaks">
+  <!-- Little person icon: head + shoulders -->
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="12" cy="8" r="3.2"/>
+    <path d="M4.5 20c0-4.2 3.4-7 7.5-7s7.5 2.8 7.5 7"/>
+  </svg>
+  <span class="tweaks-tip i18n-en">Adjust display</span>
+  <span class="tweaks-tip i18n-zh">调整显示</span>
+</button>
+
+<aside class="tweaks-panel" id="tweaksPanel" aria-label="Display tweaks">
+  <h4><span class="i18n-en">Display</span><span class="i18n-zh">显示设置</span></h4>
+  <div class="desc">
+    <span class="i18n-en">Change text size and how wide the content runs.</span>
+    <span class="i18n-zh">调整字号与内容宽度。</span>
+  </div>
+
+  <div class="tweak">
+    <div class="tweak-row">
+      <span class="tweak-label"><span class="i18n-en">Text size</span><span class="i18n-zh">字号</span></span>
+      <span class="tweak-val" id="tw-zoom-val">100%</span>
+    </div>
+    <input type="range" id="tw-zoom" min="85" max="135" step="5" value="100" />
+  </div>
+
+  <div class="tweak">
+    <div class="tweak-row">
+      <span class="tweak-label"><span class="i18n-en">Page width</span><span class="i18n-zh">页面宽度</span></span>
+      <span class="tweak-val" id="tw-width-val">1180px</span>
+    </div>
+    <input type="range" id="tw-width" min="1000" max="1500" step="20" value="1180" />
+  </div>
+
+  <div class="tweak">
+    <div class="tweak-row">
+      <span class="tweak-label"><span class="i18n-en">Reading column</span><span class="i18n-zh">阅读栏宽</span></span>
+      <span class="tweak-val" id="tw-col-val">860px</span>
+    </div>
+    <input type="range" id="tw-col" min="700" max="1100" step="20" value="860" />
+  </div>
+
+  <button class="reset" id="tw-reset" type="button">
+    <span class="i18n-en">Reset to default</span><span class="i18n-zh">恢复默认</span>
+  </button>
+</aside>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // ===== Language toggle =====
@@ -1882,6 +2119,63 @@
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ===== TWEAKS PANEL =====
+  const TWEAK_KEY = 'ajl-tweaks';
+  const DEFAULTS = { zoom: 100, contentWidth: 1180, colWidth: 860 };
+  let tweaks = { ...DEFAULTS };
+  try {
+    const saved = JSON.parse(localStorage.getItem(TWEAK_KEY) || '{}');
+    tweaks = { ...DEFAULTS, ...saved };
+  } catch (e) {}
+
+  function applyTweaks() {
+    const root = document.documentElement.style;
+    root.setProperty('--zoom', (tweaks.zoom / 100).toFixed(3));
+    root.setProperty('--content-width', tweaks.contentWidth + 'px');
+    root.setProperty('--col-width', tweaks.colWidth + 'px');
+    // Update labels
+    document.getElementById('tw-zoom-val').textContent = tweaks.zoom + '%';
+    document.getElementById('tw-width-val').textContent = tweaks.contentWidth + 'px';
+    document.getElementById('tw-col-val').textContent = tweaks.colWidth + 'px';
+    document.getElementById('tw-zoom').value = tweaks.zoom;
+    document.getElementById('tw-width').value = tweaks.contentWidth;
+    document.getElementById('tw-col').value = tweaks.colWidth;
+  }
+  function saveTweaks() {
+    try { localStorage.setItem(TWEAK_KEY, JSON.stringify(tweaks)); } catch (e) {}
+  }
+
+  applyTweaks();
+
+  const fab = document.getElementById('tweaksFab');
+  const panel = document.getElementById('tweaksPanel');
+  fab.addEventListener('click', (e) => {
+    e.stopPropagation();
+    panel.classList.toggle('open');
+  });
+  document.addEventListener('click', (e) => {
+    if (!panel.contains(e.target) && !fab.contains(e.target)) {
+      panel.classList.remove('open');
+    }
+  });
+
+  document.getElementById('tw-zoom').addEventListener('input', (e) => {
+    tweaks.zoom = parseInt(e.target.value);
+    applyTweaks(); saveTweaks();
+  });
+  document.getElementById('tw-width').addEventListener('input', (e) => {
+    tweaks.contentWidth = parseInt(e.target.value);
+    applyTweaks(); saveTweaks();
+  });
+  document.getElementById('tw-col').addEventListener('input', (e) => {
+    tweaks.colWidth = parseInt(e.target.value);
+    applyTweaks(); saveTweaks();
+  });
+  document.getElementById('tw-reset').addEventListener('click', () => {
+    tweaks = { ...DEFAULTS };
+    applyTweaks(); saveTweaks();
+  });
 </script>
 
 </body>
