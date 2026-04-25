@@ -1,6 +1,6 @@
 # andersonjunjielu.github.io
 
-Personal academic website for Anderson Junjie Lu (陸俊捷), PhD candidate in Epidemiology and Clinical Research at Stanford.
+Personal academic website for Anderson Junjie Lu, PhD candidate in Epidemiology and Clinical Research at Stanford.
 
 ## Files
 
