@@ -1925,6 +1925,8 @@
     try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
     // update pub count if exists
     updatePubCount();
+    // sync all podcast players to this language (if available for that paper)
+    if (typeof syncPodcastsToLang === 'function') syncPodcastsToLang(lang);
   }
   try {
     const saved = localStorage.getItem(LANG_KEY);
@@ -1985,6 +1987,18 @@
     'cancer-education-mdd': {
       en: 'https://github.com/andersonjunjielu/andersonjunjielu.github.io/releases/download/audio-v1/msm_english.m4a',
       zh: 'https://github.com/andersonjunjielu/andersonjunjielu.github.io/releases/download/audio-v1/msm_chinese.m4a',
+    },
+    'mindfulness-amygdala': {
+      en: 'https://github.com/andersonjunjielu/andersonjunjielu.github.io/releases/download/audio-v1/meditation_english.m4a',
+      zh: 'https://github.com/andersonjunjielu/andersonjunjielu.github.io/releases/download/audio-v1/meditation_chinese.m4a',
+    },
+    'hsv2-depression': {
+      en: 'https://github.com/andersonjunjielu/andersonjunjielu.github.io/releases/download/audio-v1/hsv_english.m4a',
+      zh: 'https://github.com/andersonjunjielu/andersonjunjielu.github.io/releases/download/audio-v1/hsv_chinese.m4a',
+    },
+    'wbc-sexual-minorities': {
+      en: 'https://github.com/andersonjunjielu/andersonjunjielu.github.io/releases/download/audio-v1/wbc_english.m4a',
+      zh: 'https://github.com/andersonjunjielu/andersonjunjielu.github.io/releases/download/audio-v1/wbc_chinese.m4a',
     },
     'skin-lightening': {
       en: 'https://github.com/andersonjunjielu/andersonjunjielu.github.io/releases/download/audio-v1/googlead_english.m4a',
@@ -2113,17 +2127,30 @@
     });
 
     // Language switch
+    function switchLang(lang) {
+      if (!config[lang]) return; // no audio in that lang for this paper — keep current
+      if (lang === currentLang) return;
+      tabs.forEach(b => b.classList.toggle('active', b.dataset.audioLang === lang));
+      loadLang(lang);
+    }
     tabs.forEach(btn => {
       btn.addEventListener('click', () => {
         if (btn.style.display === 'none') return;
-        const lang = btn.dataset.audioLang;
-        if (lang === currentLang) return;
-        tabs.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        loadLang(lang);
+        switchLang(btn.dataset.audioLang);
       });
     });
+    // expose so site-wide language toggle can sync this player
+    pod._setLang = switchLang;
   });
+
+  // ===== Sync podcast tabs with site language =====
+  function syncPodcastsToLang(lang) {
+    document.querySelectorAll('.podcast').forEach(pod => {
+      if (typeof pod._setLang === 'function') pod._setLang(lang);
+    });
+  }
+  // initial sync (after init above) — use saved/current lang
+  syncPodcastsToLang(htmlEl.getAttribute('lang') || 'en');
 
   // ===== Reveal on scroll =====
   const io = new IntersectionObserver((entries) => {
