@@ -7,8 +7,7 @@
 <meta name="description" content="Anderson Junjie Lu is a PhD candidate in Epidemiology and Clinical Research at Stanford University, studying sexual and gender minority health, mental health, and causal inference methods." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@300;400;500;600;700&family=ZCOOL+XiaoWei&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-tc-web@latest/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --cardinal: #8C1515;
@@ -24,11 +23,11 @@
     --accent-warm: #B8793A;
     --serif: 'Source Serif 4', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
     --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --sans-cn: 'LXGW WenKai TC', 'LXGW WenKai', 'Kaiti TC', 'Kaiti SC', STKaiti, 'PingFang SC', 'Noto Sans SC', sans-serif;
+    --sans-cn: 'Noto Serif SC', 'Noto Serif TC', 'Songti SC', 'Songti TC', STSong, 'PingFang SC', 'Noto Sans SC', serif;
 
     /* Tweakable: controlled by the little-person button (bottom-right) */
-    --content-width: 1180px;
-    --col-width: 860px;
+    --content-width: 1000px;
+    --col-width: 900px;
     --zoom: 1;
   }
 
@@ -311,9 +310,9 @@
   html[lang="zh"] .hero h1,
   html[lang="zh"] .hero h1 .i18n-zh,
   html[lang="zh"] .hero h1 span {
-    font-family: 'LXGW WenKai TC', 'LXGW WenKai', 'ZCOOL XiaoWei', 'Kaiti TC', 'Kaiti SC', STKaiti, 'Noto Serif TC', 'Noto Serif SC', serif !important;
+    font-family: 'Noto Serif SC', 'Noto Serif TC', 'Songti SC', 'Songti TC', STSong, serif !important;
     font-weight: 400 !important;
-    font-size: clamp(72px, 10vw, 140px);
+    font-size: clamp(36px, 4.4vw, 60px);
     line-height: 1.05;
     letter-spacing: 0.08em;
     color: var(--ink);
@@ -926,6 +925,216 @@
     transition: color 140ms, border-color 140ms;
     font-variant-numeric: tabular-nums;
   }
+
+  /* ========== Floating mini-player (frosted bar, matches top header) ========== */
+  #miniPlayer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    background: rgba(251, 247, 236, 0.88);
+    backdrop-filter: saturate(140%) blur(10px);
+    -webkit-backdrop-filter: saturate(140%) blur(10px);
+    border-top: 1px solid var(--rule-soft);
+    transform: translateY(110%);
+    transition: transform 260ms cubic-bezier(.2,.7,.2,1);
+    font-family: var(--sans);
+    color: var(--ink);
+  }
+  #miniPlayer.visible {
+    transform: translateY(0);
+  }
+  .mp-inner {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 12px 48px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  /* Play / pause */
+  #miniPlayer .mp-play {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--cardinal);
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    padding: 0;
+    transition: transform 140ms ease;
+  }
+  #miniPlayer .mp-play:hover { transform: scale(1.06); }
+  #miniPlayer .mp-play svg {
+    width: 14px;
+    height: 14px;
+    fill: #fff;
+  }
+  #miniPlayer .mp-play .pause-shape { display: none; }
+  #miniPlayer.playing .mp-play .play-shape { display: none; }
+  #miniPlayer.playing .mp-play .pause-shape { display: block; }
+  /* Title + progress (clickable to jump back) */
+  #miniPlayer .mp-meta {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+  }
+  #miniPlayer .mp-title-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    overflow: hidden;
+  }
+  #miniPlayer .mp-kicker {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cardinal);
+    flex: 0 0 auto;
+  }
+  html[lang="zh"] #miniPlayer .mp-kicker {
+    font-family: var(--sans-cn);
+    letter-spacing: 0.06em;
+  }
+  #miniPlayer .mp-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.005em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--ink);
+    min-width: 0;
+  }
+  html[lang="zh"] #miniPlayer .mp-title {
+    font-family: var(--sans-cn);
+    font-weight: 500;
+    letter-spacing: 0.015em;
+  }
+  #miniPlayer .mp-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  #miniPlayer .mp-time {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    min-width: 30px;
+  }
+  #miniPlayer .mp-time.mp-cur { text-align: right; }
+  #miniPlayer .mp-scrub {
+    flex: 1;
+    height: 3px;
+    background: var(--rule);
+    border-radius: 2px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  #miniPlayer .mp-scrub .fill {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    width: 0%;
+    background: var(--cardinal);
+    border-radius: 2px;
+    transition: width 120ms linear;
+  }
+  #miniPlayer .mp-scrub:hover { height: 5px; margin: -1px 0; }
+  /* Controls cluster (rate + lang + close) */
+  #miniPlayer .mp-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 0 0 auto;
+  }
+  #miniPlayer .mp-rate {
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--muted);
+    padding: 4px 9px;
+    border-radius: 12px;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: color 140ms, border-color 140ms;
+    font-variant-numeric: tabular-nums;
+    min-width: 38px;
+  }
+  #miniPlayer .mp-rate:hover {
+    color: var(--cardinal);
+    border-color: var(--cardinal);
+  }
+  #miniPlayer .mp-lang {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    overflow: hidden;
+    background: transparent;
+  }
+  #miniPlayer .mp-lang button {
+    background: transparent;
+    border: 0;
+    color: var(--muted);
+    font: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 4px 9px;
+    cursor: pointer;
+    transition: background 140ms, color 140ms;
+  }
+  #miniPlayer .mp-lang button.active {
+    background: var(--cardinal);
+    color: #fff;
+  }
+  #miniPlayer .mp-lang button:not(.active):hover {
+    color: var(--cardinal);
+  }
+  html[lang="zh"] #miniPlayer .mp-lang button[data-mp-lang="zh"] { font-family: var(--sans-cn); }
+  #miniPlayer .mp-close {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 140ms, background 140ms;
+    padding: 0;
+  }
+  #miniPlayer .mp-close:hover {
+    color: var(--ink);
+    background: rgba(0,0,0,0.05);
+  }
+  #miniPlayer .mp-close svg { width: 14px; height: 14px; }
+  @media (max-width: 720px) {
+    .mp-inner { padding: 10px 20px; gap: 12px; }
+    #miniPlayer .mp-kicker { display: none; }
+    #miniPlayer .mp-time { display: none; }
+    #miniPlayer .mp-title { font-size: 12px; }
+    #miniPlayer .mp-rate { padding: 3px 7px; min-width: 34px; font-size: 10px; }
+    #miniPlayer .mp-lang button { padding: 3px 7px; font-size: 10px; }
+  }
   .podcast .rate:hover {
     color: var(--cardinal);
     border-color: var(--cardinal);
@@ -996,7 +1205,7 @@
   html[lang="zh"] .feature-card h3 em {
     letter-spacing: 0.08em;
     line-height: 1.55;
-    font-family: 'LXGW WenKai TC', 'LXGW WenKai', 'ZCOOL XiaoWei', 'Kaiti TC', 'Kaiti SC', STKaiti, var(--serif-cn) !important;
+    font-family: 'Noto Serif SC', 'Noto Serif TC', 'Songti SC', 'Songti TC', STSong, serif !important;
     font-weight: 400 !important;
     font-style: normal;
   }
@@ -1164,8 +1373,11 @@
     align-items: center;
     justify-content: center;
     z-index: 100;
-    transition: transform 220ms cubic-bezier(.2,.8,.2,1), box-shadow 220ms ease;
+    transition: transform 260ms cubic-bezier(.2,.8,.2,1), box-shadow 220ms ease, bottom 260ms cubic-bezier(.2,.7,.2,1);
   }
+  /* Lift FAB above the mini-player when it's visible so it's not covered */
+  body:has(#miniPlayer.visible) .tweaks-fab { bottom: 96px; }
+  body:has(#miniPlayer.visible) .tweaks-panel { bottom: 160px; }
   .tweaks-fab:hover {
     transform: translateY(-2px) scale(1.04);
     box-shadow: 0 8px 24px rgba(140, 21, 21, 0.35), 0 2px 4px rgba(0,0,0,0.12);
@@ -1322,6 +1534,67 @@
     .tweaks-panel { right: 16px; bottom: 70px; width: calc(100vw - 32px); max-width: 300px; }
   }
 
+  /* ===== MOBILE — comprehensive crowding fix ===== */
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    .wrap, .topbar-inner { padding-left: 18px; padding-right: 18px; }
+
+    /* Hero */
+    .hero { padding: 56px 0 44px; gap: 32px; }
+    h1 { font-size: clamp(40px, 11vw, 60px) !important; line-height: 1.1; }
+    html[lang="zh"] h1 span { font-size: clamp(28px, 8vw, 42px) !important; letter-spacing: 0.04em; }
+    .lede { font-size: 17px !important; line-height: 1.55; }
+    .portrait { max-width: 220px; margin: 0 auto; }
+
+    /* Section spacing */
+    section.block { padding: 56px 0; }
+    .section-head { gap: 12px; margin-bottom: 28px; }
+    .section-head h2 { font-size: clamp(26px, 6.5vw, 36px) !important; line-height: 1.2; }
+    .section-label { font-size: 11px; }
+
+    /* Section body inner column */
+    .section-body { gap: 12px; }
+    .section-body .prose p { font-size: 16px !important; line-height: 1.6; }
+
+    /* Themes */
+    .theme + .theme { padding-top: 24px; margin-top: 24px; border-top: 1px solid var(--rule); }
+    .theme h3 { font-size: 20px !important; }
+
+    /* Publications */
+    .pub { padding: 24px 16px !important; margin: 0 -16px; gap: 8px !important; }
+    .pub .index { font-size: 32px !important; }
+    .pub .title { font-size: 18px !important; line-height: 1.35; }
+    .pub .summary { font-size: 15px !important; }
+    .pub-toolbar { gap: 10px; margin-bottom: 16px; }
+    .pub-toolbar > * { font-size: 11px !important; }
+    .stats { flex-wrap: wrap; gap: 16px 24px; }
+    .stat .num { font-size: 28px !important; }
+
+    /* Podcast / feature cards */
+    .feature-card { padding: 24px !important; gap: 24px !important; }
+    .feature-card h3 { font-size: 22px !important; }
+    .feature-card p { font-size: 15px !important; }
+    .headline-mock { padding: 20px; }
+    .podcast .meta .line { font-size: 11px; }
+
+    /* Statement */
+    .statement { padding: 0 8px; }
+    .statement p { font-size: 17px !important; }
+    .statement blockquote::before { font-size: 56px !important; left: -4px !important; top: -16px !important; }
+
+    /* Contact */
+    .contact-grid { gap: 20px !important; }
+    .contact-item .label { font-size: 11px; }
+    .contact-item .value { font-size: 16px !important; }
+
+    /* Footer */
+    footer.foot { padding: 32px 0 64px; }
+    footer.foot .colophon { font-size: 12px; }
+
+    /* Mini player – give it more breathing room */
+    .mp-inner { padding: 8px 14px !important; gap: 8px !important; }
+  }
+
   /* print */
   @media print {
     body { background: white; }
@@ -1338,7 +1611,7 @@
     <div class="mark">
       <span class="dot"></span>
       <span class="i18n-en">Anderson Junjie Lu</span>
-      <span class="i18n-zh">陸俊捷</span>
+      <span class="i18n-zh">陆俊捷</span>
     </div>
     <div class="nav-and-lang">
       <nav class="primary">
@@ -1369,7 +1642,7 @@
   <!-- HERO -->
   <section class="hero">
     <div>
-      <h1><span class="i18n-en">Anderson<br/>Junjie Lu<em>.</em></span><span class="i18n-zh">陸俊捷<em>.</em></span></h1>
+      <h1><span class="i18n-en">Anderson<br/>Junjie Lu<em>.</em></span><span class="i18n-zh">陆俊捷<em>.</em></span></h1>
       <p class="lede">
         <span class="i18n-en">PhD candidate in Epidemiology &amp; Clinical Research at Stanford. I study sexual and gender minority health, mental health disparities, and causal inference methods.</span>
         <span class="i18n-zh">斯坦福大学医学院流行病学与临床研究系的博士生，研究方向为性少数群体健康、精神健康的群体差异，以及因果推断方法。</span>
@@ -1390,8 +1663,8 @@
     <div class="section-head reveal">
       <div class="section-label"><span class="num">01</span><span class="i18n-en">About</span><span class="i18n-zh">关于</span></div>
       <h2>
-        <span class="i18n-en">A physician-researcher working at the intersection of <em>health equity</em> and <em>causal methods</em>.</span>
-        <span class="i18n-zh">一名立足于<em>健康公平</em>与<em>因果推断</em>两个领域交叉处的医学研究者。</span>
+        <span class="i18n-en">My research interests include <em>causal inference methods</em>, <em>sexuality and gender</em>, <em>mental and behavioral health</em>, and <em>integrative medicine</em>.</span>
+        <span class="i18n-zh">我的研究兴趣包括：<em>因果推断方法</em>、<em>性与性别研究</em>、<em>心理与精神卫生</em>、<em>整合医学</em>。</span>
       </h2>
     </div>
     <div class="section-body reveal">
@@ -1402,8 +1675,8 @@
           <span class="i18n-zh"><span class="drop">我</span>目前在斯坦福大学医学院攻读流行病学与人群健康博士，导师是 David Rehkopf 教授。我的学术背景横跨临床医学（MBBS）与人群健康（哈佛陈曾熙公共卫生学院 MPH）。</span>
         </p>
         <p>
-          <span class="i18n-en">My work asks when an observed health disparity reflects something causal — and what to do about it when it does. Before Stanford, I trained at Shanghai Jiao Tong University, Shanghai University of Traditional Chinese Medicine, and the Harvard T.H. Chan School of Public Health.</span>
-          <span class="i18n-zh">我的研究在追问一件事：所观察到的健康差异，到底是不是真正的因果关系？如果是，我们又能怎么做？来斯坦福之前，我先后在上海交通大学、上海中医药大学以及哈佛陈曾熙公共卫生学院接受训练。</span>
+          <span class="i18n-en">I work on three questions: What causes disease? How do we understand human sexuality and gender? And how can we make populations healthier? I trained in <em>clinical medicine</em> and <em>traditional Chinese medicine</em> at Shanghai Jiao Tong University and Shanghai University of Traditional Chinese Medicine, and in <em>epidemiology</em> at the Harvard T.H. Chan School of Public Health and Stanford.</span>
+          <span class="i18n-zh">我尝试回答：疾病发生的原因是什么？人类的性与性别是怎样的现象？我们如何让人口更健康？我先后在上海交通大学与上海中医药大学接受<em>临床医学</em>与<em>中医学</em>的训练，在哈佛陈曾熙公共卫生学院与斯坦福大学接受<em>流行病学</em>的训练。</span>
         </p>
       </div>
     </div>
@@ -1413,7 +1686,7 @@
   <section class="block" id="research">
     <div class="section-head reveal">
       <div class="section-label"><span class="num">02</span><span class="i18n-en">Research</span><span class="i18n-zh">研究</span></div>
-      <h2><span class="i18n-en">Three questions I keep coming back to.</span><span class="i18n-zh">让我反复思考的三个问题。</span></h2>
+      <h2><span class="i18n-en">Main areas.</span><span class="i18n-zh">主要领域。</span></h2>
     </div>
     <div class="section-body reveal">
       <div></div>
@@ -1467,7 +1740,7 @@
   <section class="block" id="publications">
     <div class="section-head reveal">
       <div class="section-label"><span class="num">03</span><span class="i18n-en">Publications</span><span class="i18n-zh">论文</span></div>
-      <h2><span class="i18n-en">Selected peer-reviewed work.</span><span class="i18n-zh">精选同行评审论文。</span></h2>
+      <h2><span class="i18n-en">Peer-reviewed work.</span><span class="i18n-zh">同行评审论文。</span></h2>
     </div>
     <div class="section-body reveal">
       <div></div>
@@ -1505,7 +1778,7 @@
                 </div>
                 <div class="meta">
                   <div class="kicker"><span class="i18n-en">Listen · Research Podcast</span><span class="i18n-zh">聆听 · 研究播客</span></div>
-                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陸俊捷主持</span></div>
+                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陆俊捷主持</span></div>
                 </div>
                 <div class="lang-tabs" role="tablist"><button class="active" data-audio-lang="en">EN</button><span class="sep">/</span><button data-audio-lang="zh">中文</button></div>
               </div>
@@ -1532,7 +1805,7 @@
                 </div>
                 <div class="meta">
                   <div class="kicker"><span class="i18n-en">Listen · Research Podcast</span><span class="i18n-zh">聆听 · 研究播客</span></div>
-                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陸俊捷主持</span></div>
+                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陆俊捷主持</span></div>
                 </div>
                 <div class="lang-tabs" role="tablist"><button class="active" data-audio-lang="en">EN</button><span class="sep">/</span><button data-audio-lang="zh">中文</button></div>
               </div>
@@ -1559,7 +1832,7 @@
                 </div>
                 <div class="meta">
                   <div class="kicker"><span class="i18n-en">Listen · Research Podcast</span><span class="i18n-zh">聆听 · 研究播客</span></div>
-                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陸俊捷主持</span></div>
+                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陆俊捷主持</span></div>
                 </div>
                 <div class="lang-tabs" role="tablist"><button class="active" data-audio-lang="en">EN</button><span class="sep">/</span><button data-audio-lang="zh">中文</button></div>
               </div>
@@ -1587,7 +1860,7 @@
                 </div>
                 <div class="meta">
                   <div class="kicker"><span class="i18n-en">Listen · Research Podcast</span><span class="i18n-zh">聆听 · 研究播客</span></div>
-                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陸俊捷主持</span></div>
+                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陆俊捷主持</span></div>
                 </div>
                 <div class="lang-tabs" role="tablist"><button class="active" data-audio-lang="en">EN</button><span class="sep">/</span><button data-audio-lang="zh">中文</button></div>
               </div>
@@ -1614,7 +1887,7 @@
                 </div>
                 <div class="meta">
                   <div class="kicker"><span class="i18n-en">Listen · Research Podcast</span><span class="i18n-zh">聆听 · 研究播客</span></div>
-                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陸俊捷主持</span></div>
+                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陆俊捷主持</span></div>
                 </div>
                 <div class="lang-tabs" role="tablist"><button class="active" data-audio-lang="en">EN</button><span class="sep">/</span><button data-audio-lang="zh">中文</button></div>
               </div>
@@ -1641,7 +1914,7 @@
                 </div>
                 <div class="meta">
                   <div class="kicker"><span class="i18n-en">Listen · Research Podcast</span><span class="i18n-zh">聆听 · 研究播客</span></div>
-                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陸俊捷主持</span></div>
+                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陆俊捷主持</span></div>
                 </div>
                 <div class="lang-tabs" role="tablist"><button class="active" data-audio-lang="en">EN</button><span class="sep">/</span><button data-audio-lang="zh">中文</button></div>
               </div>
@@ -1668,7 +1941,7 @@
                 </div>
                 <div class="meta">
                   <div class="kicker"><span class="i18n-en">Listen · Research Podcast</span><span class="i18n-zh">聆听 · 研究播客</span></div>
-                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陸俊捷主持</span></div>
+                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陆俊捷主持</span></div>
                 </div>
                 <div class="lang-tabs" role="tablist"><button class="active" data-audio-lang="en">EN</button><span class="sep">/</span><button data-audio-lang="zh">中文</button></div>
               </div>
@@ -1695,7 +1968,7 @@
                 </div>
                 <div class="meta">
                   <div class="kicker"><span class="i18n-en">Listen · Research Podcast</span><span class="i18n-zh">聆听 · 研究播客</span></div>
-                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陸俊捷主持</span></div>
+                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陆俊捷主持</span></div>
                 </div>
                 <div class="lang-tabs" role="tablist"><button class="active" data-audio-lang="en">EN</button><span class="sep">/</span><button data-audio-lang="zh">中文</button></div>
               </div>
@@ -1722,7 +1995,7 @@
                 </div>
                 <div class="meta">
                   <div class="kicker"><span class="i18n-en">Listen · Research Podcast</span><span class="i18n-zh">聆听 · 研究播客</span></div>
-                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陸俊捷主持</span></div>
+                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陆俊捷主持</span></div>
                 </div>
                 <div class="lang-tabs" role="tablist"><button class="active" data-audio-lang="en">EN</button><span class="sep">/</span><button data-audio-lang="zh">中文</button></div>
               </div>
@@ -1749,7 +2022,7 @@
                 </div>
                 <div class="meta">
                   <div class="kicker"><span class="i18n-en">Listen · Research Podcast</span><span class="i18n-zh">聆听 · 研究播客</span></div>
-                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陸俊捷主持</span></div>
+                  <div class="sub"><span class="i18n-en">Created with NotebookLM · Hosted by Anderson</span><span class="i18n-zh">使用 NotebookLM 制作 · 陆俊捷主持</span></div>
                 </div>
                 <div class="lang-tabs" role="tablist"><button class="active" data-audio-lang="en">EN</button><span class="sep">/</span><button data-audio-lang="zh">中文</button></div>
               </div>
@@ -1803,19 +2076,15 @@
   <section class="block" id="fellowship">
     <div class="section-head reveal">
       <div class="section-label"><span class="num">05</span><span class="i18n-en">Community Engagement</span><span class="i18n-zh">公共参与</span></div>
-      <h2><span class="i18n-en">Research only matters if people outside the field can use it.</span><span class="i18n-zh">只有圈外的人也能用上，研究才算数。</span></h2>
+      <h2><span class="i18n-en">Explaining complex epidemiology in plain language, and giving research back to the people it should serve.</span><span class="i18n-zh">用简单的语言讲述复杂的流行病学概念，让研究回到它应该惠及的人。</span></h2>
     </div>
     <div class="section-body reveal">
       <div></div>
       <div class="statement">
         <blockquote>
           <p>
-            <span class="i18n-en">I care about careful, numerate public health coverage — the kind that distinguishes an odds ratio from a risk, an effect modifier from a confounder, a stigma from an identity.</span>
-            <span class="i18n-zh">我在乎一种值得信赖的公共卫生报道——词严谨，对数字认真：分得清比例和风险，分得清哪些是影响、哪些是混杂，也分得清污名和身份不是一回事。</span>
-          </p>
-          <p>
-            <span class="i18n-en">I work with journalists, clinicians, and community partners to translate findings into language that policy and practice can act on.</span>
-            <span class="i18n-zh">我和记者、医生、社区里的人一起做事，把研究中有用的那些东西，说成政策或临床能拿来用的话。</span>
+            <span class="i18n-en">I work to translate complex epidemiologic findings into plain language for the public. The questions I study come from people who need help — and the answers should ultimately come back to them.</span>
+            <span class="i18n-zh">我致力于把复杂的流行病学研究结论用通俗易懂的语言传递给大众。同时，研究课题不仅来自需要帮助的人，也最终造福于需要帮助的人。</span>
           </p>
         </blockquote>
       </div>
@@ -1860,7 +2129,7 @@
   <footer class="foot">
     <div class="colophon">
       <span class="i18n-en">© 2026 Anderson Junjie Lu. Set in Source Serif 4 &amp; Inter. Last updated April 2026.</span>
-      <span class="i18n-zh">© 2026 陸俊捷。字体：Source Serif 4、Inter 与 Noto Serif SC。最后更新：2026年4月。</span>
+      <span class="i18n-zh">© 2026 陆俊捷。字体：Source Serif 4、Inter 与 Noto Serif SC。最后更新：2026年4月。</span>
     </div>
     <div>
       <a data-email-link data-email-show href="#">&nbsp;</a>
@@ -1890,25 +2159,25 @@
   <div class="tweak">
     <div class="tweak-row">
       <span class="tweak-label"><span class="i18n-en">Text size</span><span class="i18n-zh">字号</span></span>
-      <span class="tweak-val" id="tw-zoom-val">125%</span>
+      <span class="tweak-val" id="tw-zoom-val">100%</span>
     </div>
-    <input type="range" id="tw-zoom" min="85" max="135" step="5" value="125" />
+    <input type="range" id="tw-zoom" min="85" max="135" step="5" value="100" />
   </div>
 
   <div class="tweak">
     <div class="tweak-row">
       <span class="tweak-label"><span class="i18n-en">Page width</span><span class="i18n-zh">页面宽度</span></span>
-      <span class="tweak-val" id="tw-width-val">1300px</span>
+      <span class="tweak-val" id="tw-width-val">1000px</span>
     </div>
-    <input type="range" id="tw-width" min="1000" max="1500" step="20" value="1300" />
+    <input type="range" id="tw-width" min="1000" max="1500" step="20" value="1000" />
   </div>
 
   <div class="tweak">
     <div class="tweak-row">
       <span class="tweak-label"><span class="i18n-en">Reading column</span><span class="i18n-zh">阅读栏宽</span></span>
-      <span class="tweak-val" id="tw-col-val">960px</span>
+      <span class="tweak-val" id="tw-col-val">900px</span>
     </div>
-    <input type="range" id="tw-col" min="700" max="1100" step="20" value="960" />
+    <input type="range" id="tw-col" min="700" max="1100" step="20" value="900" />
   </div>
 
   <button class="reset" id="tw-reset" type="button">
@@ -2069,6 +2338,11 @@
     const audio = document.createElement('audio');
     audio.preload = 'none';
     pod.appendChild(audio);
+    // Queue this pod for the mini-player (script may not be loaded yet)
+    (window.__pendingPodcasts = window.__pendingPodcasts || []).push({ pod, audio });
+    if (typeof window.__registerPodcast === 'function') {
+      window.__registerPodcast(pod, audio);
+    }
 
     const scrub = playerRow.querySelector('.scrubber');
     const fill = scrub.querySelector('.fill');
@@ -2120,11 +2394,15 @@
     });
 
     // Rate
-    rateBtn.addEventListener('click', () => {
+    function cycleRate() {
       rateIdx = (rateIdx + 1) % RATES.length;
       audio.playbackRate = RATES[rateIdx];
       rateBtn.textContent = RATES[rateIdx] + '×';
-    });
+      return RATES[rateIdx];
+    }
+    rateBtn.addEventListener('click', cycleRate);
+    pod._cycleRate = cycleRate;
+    pod._getRateLabel = () => RATES[rateIdx] + '×';
 
     // Language switch
     function switchLang(lang) {
@@ -2132,6 +2410,8 @@
       if (lang === currentLang) return;
       tabs.forEach(b => b.classList.toggle('active', b.dataset.audioLang === lang));
       loadLang(lang);
+      pod._currentLang = lang;
+      pod._availableLangs = Object.keys(config).filter(k => !!config[k]);
     }
     tabs.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -2141,6 +2421,8 @@
     });
     // expose so site-wide language toggle can sync this player
     pod._setLang = switchLang;
+    pod._currentLang = currentLang;
+    pod._availableLangs = Object.keys(config).filter(k => !!config[k]);
   });
 
   // ===== Sync podcast tabs with site language =====
@@ -2177,7 +2459,7 @@
 
   // ===== TWEAKS PANEL =====
   const TWEAK_KEY = 'ajl-tweaks';
-  const DEFAULTS = { zoom: 125, contentWidth: 1300, colWidth: 960 };
+  const DEFAULTS = { zoom: 100, contentWidth: 1000, colWidth: 900 };
   let tweaks = { ...DEFAULTS };
   try {
     const saved = JSON.parse(localStorage.getItem(TWEAK_KEY) || '{}');
@@ -2231,6 +2513,228 @@
     tweaks = { ...DEFAULTS };
     applyTweaks(); saveTweaks();
   });
+</script>
+
+<!-- ===== Floating mini-player (follows scroll) ===== -->
+<div id="miniPlayer" role="region" aria-label="Now playing" aria-live="polite">
+  <div class="mp-inner">
+    <button class="mp-play" type="button" aria-label="Play / pause">
+      <svg class="play-shape" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="pause-shape" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+    </button>
+    <div class="mp-meta" title="Jump to paper">
+      <div class="mp-title-row">
+        <span class="mp-kicker"><span class="i18n-en">Now Playing</span><span class="i18n-zh">正在播放</span></span>
+        <span class="mp-title">—</span>
+      </div>
+      <div class="mp-progress">
+        <span class="mp-time mp-cur">0:00</span>
+        <div class="mp-scrub"><div class="fill"></div></div>
+        <span class="mp-time mp-dur">—:—</span>
+      </div>
+    </div>
+    <div class="mp-controls">
+      <button class="mp-rate" type="button" aria-label="Playback speed">1×</button>
+      <div class="mp-lang" role="tablist" aria-label="Audio language">
+        <button type="button" data-mp-lang="en">EN</button>
+        <button type="button" data-mp-lang="zh">中</button>
+      </div>
+      <button class="mp-close" type="button" aria-label="Close mini player">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M18.3 5.71 12 12l6.3 6.29-1.42 1.42L10.59 13.4 4.3 19.71 2.88 18.3 9.17 12 2.88 5.71 4.3 4.29l6.29 6.3L16.88 4.29z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  // ===== Global mini-player wiring =====
+  const mp = document.getElementById('miniPlayer');
+  if (!mp) return;
+  const mpPlay   = mp.querySelector('.mp-play');
+  const mpClose  = mp.querySelector('.mp-close');
+  const mpTitle  = mp.querySelector('.mp-title');
+  const mpMeta   = mp.querySelector('.mp-meta');
+  const mpScrub  = mp.querySelector('.mp-scrub');
+  const mpFill   = mpScrub.querySelector('.fill');
+  const mpCur    = mp.querySelector('.mp-cur');
+  const mpDur    = mp.querySelector('.mp-dur');
+  const mpRate   = mp.querySelector('.mp-rate');
+  const mpLangBtns = mp.querySelectorAll('.mp-lang button');
+
+  // active pod: the last one whose audio was played (still considered "active" while paused)
+  let activePod = null;
+  let userClosed = false; // if user hits close, don't reopen until something new plays
+  let suspendObserver = false; // prevent observer from re-hiding during user-driven scroll-to
+
+  function fmt(s) {
+    if (!isFinite(s) || s < 0) s = 0;
+    const m = Math.floor(s / 60);
+    const ss = Math.floor(s % 60).toString().padStart(2, '0');
+    return m + ':' + ss;
+  }
+
+  function getPodTitle(pod) {
+    const lang = document.documentElement.getAttribute('lang') || 'en';
+    // climb to .pub container
+    const pub = pod.closest('.pub') || pod.parentElement;
+    const titleEl = pub.querySelector('h4.title .i18n-' + lang) || pub.querySelector('h4.title');
+    return titleEl ? titleEl.textContent.trim() : '';
+  }
+
+  function refreshMiniTitle() {
+    if (!activePod) return;
+    mpTitle.textContent = getPodTitle(activePod);
+  }
+
+  function updateMiniProgress() {
+    if (!activePod) return;
+    const a = activePod._audio;
+    if (!a) return;
+    const pct = a.duration ? (a.currentTime / a.duration) * 100 : 0;
+    mpFill.style.width = pct + '%';
+    mpCur.textContent = fmt(a.currentTime);
+    mpDur.textContent = isFinite(a.duration) && a.duration > 0 ? fmt(a.duration) : '—:—';
+  }
+
+  function updateMiniPlayingClass() {
+    if (!activePod || !activePod._audio) {
+      mp.classList.remove('playing');
+      return;
+    }
+    mp.classList.toggle('playing', !activePod._audio.paused);
+  }
+
+  function refreshMiniLang() {
+    if (!activePod) return;
+    const cur = activePod._currentLang;
+    const avail = activePod._availableLangs || ['en', 'zh'];
+    mpLangBtns.forEach(b => {
+      const l = b.dataset.mpLang;
+      b.classList.toggle('active', l === cur);
+      b.style.display = avail.includes(l) ? '' : 'none';
+    });
+  }
+
+  function refreshMiniRate() {
+    if (!activePod || typeof activePod._getRateLabel !== 'function') {
+      mpRate.textContent = '1×';
+      return;
+    }
+    mpRate.textContent = activePod._getRateLabel();
+  }
+
+  // Show mini if active pod is out of viewport AND audio exists
+  function evaluateVisibility() {
+    if (!activePod || !activePod._audio || userClosed) {
+      mp.classList.remove('visible');
+      return;
+    }
+    const rect = activePod.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    const inView = rect.bottom > 60 && rect.top < vh - 40;
+    mp.classList.toggle('visible', !inView);
+  }
+
+  // Pod hooks: each pod calls registerPod(pod, audio) so we can watch it
+  window.__registerPodcast = function(pod, audio) {
+    pod._audio = audio;
+
+    audio.addEventListener('play', () => {
+      activePod = pod;
+      userClosed = false;
+      refreshMiniTitle();
+      refreshMiniLang();
+      refreshMiniRate();
+      updateMiniProgress();
+      updateMiniPlayingClass();
+      evaluateVisibility();
+    });
+    audio.addEventListener('pause', () => {
+      updateMiniPlayingClass();
+    });
+    audio.addEventListener('timeupdate', () => {
+      if (activePod === pod) updateMiniProgress();
+    });
+    audio.addEventListener('loadedmetadata', () => {
+      if (activePod === pod) updateMiniProgress();
+    });
+    audio.addEventListener('ended', () => {
+      updateMiniPlayingClass();
+    });
+  };
+
+  // Drain any pods that registered before this script loaded
+  if (Array.isArray(window.__pendingPodcasts)) {
+    window.__pendingPodcasts.forEach(({ pod, audio }) => {
+      // avoid double-registering if already handled
+      if (!pod._audio) window.__registerPodcast(pod, audio);
+    });
+    window.__pendingPodcasts = [];
+  }
+
+  // Mini-player controls
+  mpPlay.addEventListener('click', () => {
+    if (!activePod || !activePod._audio) return;
+    const a = activePod._audio;
+    if (a.paused) a.play().catch(() => {});
+    else a.pause();
+  });
+  mpClose.addEventListener('click', () => {
+    if (activePod && activePod._audio && !activePod._audio.paused) {
+      activePod._audio.pause();
+    }
+    userClosed = true;
+    mp.classList.remove('visible');
+  });
+  mpScrub.addEventListener('click', (e) => {
+    if (!activePod || !activePod._audio) return;
+    const a = activePod._audio;
+    const rect = mpScrub.getBoundingClientRect();
+    const pct = (e.clientX - rect.left) / rect.width;
+    if (a.duration) a.currentTime = pct * a.duration;
+  });
+  mpMeta.addEventListener('click', () => {
+    if (!activePod) return;
+    const r = activePod.getBoundingClientRect();
+    const top = window.pageYOffset + r.top - 80;
+    window.scrollTo({ top, behavior: 'smooth' });
+  });
+  mpRate.addEventListener('click', () => {
+    if (!activePod || typeof activePod._cycleRate !== 'function') return;
+    activePod._cycleRate();
+    refreshMiniRate();
+  });
+  mpLangBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (!activePod || typeof activePod._setLang !== 'function') return;
+      const lang = btn.dataset.mpLang;
+      const avail = activePod._availableLangs || [];
+      if (!avail.includes(lang)) return;
+      activePod._setLang(lang);
+      refreshMiniLang();
+      refreshMiniTitle();
+    });
+  });
+
+  // Update visibility on scroll/resize
+  let scrollTick = null;
+  function onScroll() {
+    if (scrollTick) return;
+    scrollTick = requestAnimationFrame(() => {
+      scrollTick = null;
+      evaluateVisibility();
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+
+  // Update title when language changes (MutationObserver on <html lang>)
+  const langObs = new MutationObserver(() => {
+    refreshMiniTitle();
+  });
+  langObs.observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+})();
 </script>
 
 </body>
