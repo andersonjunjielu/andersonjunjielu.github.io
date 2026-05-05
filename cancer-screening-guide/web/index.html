@@ -1,0 +1,2649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cancer Screening Guide — Web</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+
+<style>
+/* ═════════════════════════════════════════════════════════════════
+   Cancer Screening Guide — WEB VERSION
+   Continues mobile's visual language: Newsreader italic, ambient
+   aura blobs, themable tokens, calm warmth.
+   ═════════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap');
+
+:root {
+  /* defaults — runtime applies one of WEB_THEMES per user pick */
+  --bg: #F4F1EC;
+  --surface: #FFFFFF;
+  --surface-2: #FAF7F2;
+  --ink: #1B2530;
+  --ink-2: #4A5560;
+  --ink-3: #8A8F96;
+  --line: rgba(27,37,48,0.08);
+  --line-2: rgba(27,37,48,0.14);
+  --primary: #2F5D5A;
+  --primary-soft: #E8EFEE;
+  --accent: #D4623A;
+
+  --serif: 'Newsreader', 'Iowan Old Style', Georgia, serif;
+  --sans: 'Geist', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+  --col-left: 320px;
+  --col-gap: 64px;
+  --col-right: 640px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; min-height: 100vh; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "ss01", "cv11";
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Ambient aura blobs (the "light halo" effect from mobile)
+   Three slow-drifting radial-gradient blobs behind everything.
+   ═══════════════════════════════════════════════════════════════ */
+.aura-wrap {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.aura {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(96px);
+  opacity: 0.35;
+  transition: opacity 1.8s ease;
+}
+.aura-1 {
+  width: 540px; height: 540px;
+  top: -200px; left: -180px;
+  background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+  animation: webFloat1 22s ease-in-out infinite alternate;
+}
+.aura-2 {
+  width: 600px; height: 600px;
+  top: 240px; right: -240px;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  animation: webFloat2 26s ease-in-out infinite alternate;
+  opacity: 0.28;
+}
+.aura-3 {
+  width: 520px; height: 520px;
+  bottom: -200px; left: 180px;
+  background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+  animation: webFloat3 30s ease-in-out infinite alternate;
+  opacity: 0.22;
+}
+@keyframes webFloat1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(120px, 60px) scale(1.15); }
+}
+@keyframes webFloat2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-100px, 120px) scale(1.1); }
+}
+@keyframes webFloat3 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(80px, -80px) scale(1.2); }
+}
+
+/* Page sits above the aura */
+header.topbar, main.stage, .welcome-stage, .results-stage, .modal-backdrop {
+  position: relative; z-index: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Topbar — frosted, with theme pill + lang toggle
+   ═══════════════════════════════════════════════════════════════ */
+header.topbar {
+  padding: 16px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; z-index: 50;
+}
+.topbar-mark {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--ink);
+  display: flex; align-items: center; gap: 10px;
+  letter-spacing: -0.005em;
+}
+.topbar-mark .dot {
+  width: 7px; height: 7px;
+  background: var(--primary);
+  border-radius: 50%;
+  display: inline-block;
+}
+.topbar-mark .sep {
+  color: var(--ink-3);
+  font-size: 12px;
+  margin: 0 2px;
+}
+.topbar-mark a { color: var(--ink); text-decoration: none; }
+.topbar-mark a:hover { color: var(--primary); }
+.topbar-mark .ital {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--primary);
+}
+.topbar-actions { display: flex; align-items: center; gap: 14px; }
+.topbar-link {
+  font-size: 13px; font-weight: 500;
+  color: var(--ink-2);
+  cursor: pointer;
+  background: none; border: none;
+  padding: 6px 0;
+  font-family: inherit;
+}
+.topbar-link:hover { color: var(--primary); }
+
+/* Theme pill (in topbar) — ring of swatches */
+.theme-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 10px 6px 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid var(--line);
+  cursor: pointer;
+  font-family: inherit;
+}
+.theme-pill:hover { border-color: var(--line-2); }
+.theme-swatch {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06);
+}
+.theme-pill-label {
+  font-size: 12px; font-weight: 500;
+  color: var(--ink-2);
+  letter-spacing: 0.02em;
+}
+.theme-pill-popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 8px;
+  display: flex; flex-direction: column; gap: 2px;
+  box-shadow: 0 12px 40px rgba(20, 15, 10, 0.10);
+  min-width: 160px;
+  z-index: 60;
+}
+.theme-pill-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: none; background: none;
+  cursor: pointer;
+  font-family: inherit; font-size: 13px;
+  color: var(--ink);
+  text-align: left;
+}
+.theme-pill-row:hover { background: var(--surface-2); }
+.theme-pill-row.is-active { background: var(--primary-soft); color: var(--primary); font-weight: 500; }
+
+/* Lang toggle pill */
+.lang-pill-mini {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--ink-2);
+  background: rgba(255,255,255,0.7);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 14px;
+  cursor: pointer;
+}
+.lang-pill-mini:hover { border-color: var(--primary); color: var(--primary); }
+.lang-pill-mini .ital {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--primary);
+  margin: 0 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Welcome screen — language picker, big serif hello
+   ═══════════════════════════════════════════════════════════════ */
+.welcome-stage {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 80px 32px 80px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.welcome-clinic {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 36px;
+  font-weight: 500;
+}
+.welcome-headline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 96px;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin: 0 0 36px;
+  max-width: 9ch;
+  text-align: center;
+  min-height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.welcome-headline-cycle {
+  display: inline-block;
+  animation: welcomeHeadlineFade 2.4s ease-in-out;
+}
+@keyframes welcomeHeadlineFade {
+  0%   { opacity: 0; transform: translateY(8px); }
+  15%  { opacity: 1; transform: translateY(0); }
+  85%  { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-8px); }
+}
+
+/* ── Floating multilingual hellos (background ambient) ── */
+.welcome-hellos-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.welcome-hello-float {
+  position: absolute;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--primary);
+  white-space: nowrap;
+  opacity: 0;
+  letter-spacing: -0.02em;
+  transform-origin: center;
+  animation: welcomeHelloPulse 9s ease-in-out infinite both;
+}
+@keyframes welcomeHelloPulse {
+  0%   { opacity: 0; transform: translateY(8px) scale(0.96); }
+  20%  { opacity: var(--peak, 0.22); transform: translateY(0) scale(1); }
+  70%  { opacity: var(--peak, 0.22); transform: translateY(-6px) scale(1); }
+  100% { opacity: 0; transform: translateY(-14px) scale(0.94); }
+}
+
+/* ── Language pill picker ── */
+.welcome-lang-pill-wrap {
+  position: relative;
+  margin-bottom: 28px;
+}
+.welcome-lang-pill {
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 22px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.02), 0 6px 24px rgba(0,0,0,0.04);
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+  font-size: 14px;
+  color: var(--ink);
+}
+.welcome-lang-pill:hover {
+  border-color: var(--primary);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.02), 0 8px 28px rgba(0,0,0,0.06);
+}
+.welcome-lang-pill-hello {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 22px;
+  color: var(--primary);
+  line-height: 1;
+}
+.welcome-lang-pill-native {
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  font-weight: 500;
+}
+.welcome-lang-pill-chev {
+  font-size: 10px;
+  color: var(--ink-3);
+  margin-left: 4px;
+}
+.welcome-lang-pop {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.10);
+  padding: 6px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(160px, 1fr));
+  gap: 2px;
+  min-width: 360px;
+  max-height: 320px;
+  overflow-y: auto;
+  z-index: 5;
+}
+.welcome-lang-pop-item {
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: transparent;
+  border: 0;
+  border-radius: 9px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--ink);
+  text-align: left;
+}
+.welcome-lang-pop-item:hover { background: var(--surface-2); }
+.welcome-lang-pop-item.is-active { background: var(--primary-soft); color: var(--primary); }
+.welcome-lang-pop-item span:first-child {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 18px;
+}
+.welcome-cta {
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  background: var(--primary);
+  border: none;
+  border-radius: 999px;
+  padding: 16px 36px;
+  cursor: pointer;
+  transition: filter 0.15s, transform 0.15s, background 0.3s;
+  letter-spacing: -0.005em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.welcome-cta:hover { filter: brightness(1.08); }
+.welcome-cta::after {
+  content: "→";
+  transition: transform 0.15s;
+}
+.welcome-cta:hover::after { transform: translateX(4px); }
+
+.welcome-meta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  margin-top: 56px;
+  font-size: 13px;
+  color: var(--ink-2);
+  flex-wrap: wrap;
+}
+.welcome-meta-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.welcome-meta-key {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Stage — two-column layout (intake)
+   ═══════════════════════════════════════════════════════════════ */
+main.stage {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 64px 36px 96px;
+  display: grid;
+  grid-template-columns: var(--col-left) 1fr;
+  gap: var(--col-gap);
+  align-items: start;
+}
+
+/* ─── Left: stepper + context ─── */
+aside.stepper {
+  position: sticky;
+  top: 96px;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+.stepper-progress {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 28px;
+}
+.stepper-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 36px;
+  border-left: 1px solid var(--line);
+  padding-left: 18px;
+  position: relative;
+}
+.stepper-item {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 7px 0;
+  font-size: 14px;
+  color: var(--ink-3);
+  cursor: pointer;
+  background: none; border: none;
+  font-family: inherit;
+  text-align: left;
+  position: relative;
+  transition: color 0.15s;
+  letter-spacing: -0.005em;
+}
+.stepper-item:hover:not(:disabled) { color: var(--ink-2); }
+.stepper-item.is-current {
+  color: var(--ink);
+  font-weight: 500;
+}
+.stepper-item.is-current::before {
+  content: "";
+  position: absolute;
+  left: -19px; top: 50%;
+  width: 2px; height: 22px;
+  background: var(--primary);
+  transform: translateY(-50%);
+  border-radius: 2px;
+}
+.stepper-item.is-done { color: var(--ink-2); }
+.stepper-item.is-done::after {
+  content: "";
+  display: inline-block;
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  background: var(--primary-soft);
+  border: 1.5px solid var(--primary);
+  margin-left: 6px;
+  position: relative;
+  top: 2px;
+}
+.stepper-num {
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  color: var(--ink-3);
+  min-width: 18px;
+  font-family: var(--sans);
+  font-weight: 500;
+}
+.stepper-item.is-current .stepper-num { color: var(--primary); }
+
+.stepper-context {
+  margin-top: 32px;
+  padding: 22px 22px;
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+.stepper-context-title {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--primary);
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+.stepper-context p { margin: 0; }
+
+/* ─── Right: question card ─── */
+.qcard {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 52px 56px;
+  min-height: 580px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.02), 0 24px 56px rgba(20, 15, 10, 0.04);
+}
+.qcard-meta {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 18px;
+}
+.qcard h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 18px;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+.qcard h1 em, .qcard h1 .serif {
+  font-style: italic;
+  color: var(--primary);
+}
+.qcard .qsub {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  margin: 0 0 36px;
+  max-width: 540px;
+}
+
+.qcard-body { flex: 1; }
+
+.qcard-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+.qcard-foot-left, .qcard-foot-right {
+  display: flex; align-items: center; gap: 12px;
+}
+
+/* ─── Buttons ─── */
+.btn {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  padding: 13px 24px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: filter 0.15s, transform 0.15s, background 0.3s, color 0.15s, border-color 0.15s;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-feature-settings: "ss01", "cv11";
+}
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+.btn-primary:hover { filter: brightness(1.08); }
+.btn-primary:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.btn-primary::after { content: "→"; transition: transform 0.15s; }
+.btn-primary:hover:not(:disabled)::after { transform: translateX(3px); }
+.btn-ghost {
+  background: transparent;
+  color: var(--ink-2);
+  border-color: var(--line-2);
+}
+.btn-ghost:hover { color: var(--ink); border-color: var(--ink-2); }
+.btn-text {
+  background: transparent;
+  color: var(--ink-2);
+  border: none;
+  padding: 10px 0;
+  font-size: 14px;
+}
+.btn-text:hover { color: var(--ink); }
+.btn-text.with-arrow::before { content: "←"; margin-right: 6px; }
+
+/* ─── Option cards ─── */
+.opts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.opt {
+  background: rgba(255,255,255,0.55);
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  padding: 16px 20px;
+  font-size: 16px;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+  letter-spacing: -0.005em;
+}
+.opt:hover { border-color: var(--ink-3); background: rgba(255,255,255,0.85); }
+.opt.is-selected {
+  border-color: var(--primary);
+  background: var(--surface);
+  box-shadow: 0 0 0 1.5px var(--primary), 0 4px 14px rgba(47, 93, 90, 0.12);
+}
+.opt-label {
+  font-weight: 500;
+  flex: 1;
+}
+.opt-sub {
+  display: block;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ink-2);
+  margin-top: 4px;
+  line-height: 1.45;
+}
+.opt-check {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line-2);
+  flex-shrink: 0;
+  margin-top: 2px;
+  position: relative;
+  transition: all 0.15s;
+}
+.opt.is-selected .opt-check {
+  border-color: var(--primary);
+  background: var(--primary);
+}
+.opt.is-selected .opt-check::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  background: #fff;
+  border-radius: 50%;
+}
+.opt-check.multi { border-radius: 5px; }
+.opt.is-selected .opt-check.multi { background: var(--primary); }
+.opt.is-selected .opt-check.multi::after {
+  content: "✓";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  background: none;
+  border-radius: 0;
+}
+
+.opts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+/* ─── Age screen ─── */
+.age-display {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.age-number {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 144px;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--ink);
+  letter-spacing: -0.04em;
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+.age-suffix {
+  font-family: var(--sans);
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-top: 8px;
+  font-weight: 500;
+}
+.age-slider-wrap { margin: 0 auto; max-width: 520px; }
+.age-slider {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background: var(--line);
+  border-radius: 2px;
+  outline: none;
+}
+.age-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px; height: 22px;
+  background: var(--primary);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+.age-slider::-moz-range-thumb {
+  width: 22px; height: 22px;
+  background: var(--primary);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+.age-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--ink-3);
+  margin-top: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.age-quick-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 22px auto 0;
+  max-width: 520px;
+}
+.age-quick-pill {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-2);
+  background: rgba(255,255,255,0.6);
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  letter-spacing: 0.01em;
+}
+.age-quick-pill:hover {
+  border-color: var(--ink-3);
+  color: var(--ink);
+  background: rgba(255,255,255,0.9);
+}
+.age-quick-pill.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(47, 93, 90, 0.18);
+}
+
+/* Age preview section */
+.age-preview-section {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line-2);
+}
+.age-prev-title {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 6px;
+  text-align: center;
+}
+.age-prev-sub {
+  font-size: 13px;
+  color: var(--ink-3);
+  line-height: 1.5;
+  margin-bottom: 22px;
+  text-align: center;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.age-prev-empty {
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.55;
+  background: rgba(255,255,255,0.55);
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  padding: 18px 20px;
+  text-align: center;
+}
+.age-prev-card {
+  background: rgba(255,255,255,0.65);
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  transition: all 0.18s;
+}
+.age-prev-card.eligible {
+  border-color: var(--primary);
+  background: var(--surface);
+  box-shadow: 0 2px 10px rgba(47, 93, 90, 0.06);
+}
+.age-prev-card.upcoming {
+  opacity: 0.78;
+}
+.age-prev-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.age-prev-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+.age-prev-tag {
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary);
+  background: var(--primary-soft);
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.age-prev-tag.soon {
+  color: var(--ink-3);
+  background: rgba(0,0,0,0.04);
+}
+.age-prev-who {
+  font-size: 13px;
+  color: var(--ink-2);
+  line-height: 1.45;
+  margin-bottom: 4px;
+}
+.age-prev-ref {
+  font-size: 11px;
+  color: var(--ink-3);
+  font-style: italic;
+  line-height: 1.4;
+}
+.age-prev-foot {
+  margin-top: 18px;
+  font-size: 11px;
+  color: var(--ink-3);
+  font-style: italic;
+  text-align: center;
+  letter-spacing: 0.01em;
+}
+
+/* ─── Body inventory ─── */
+.organ-list { display: flex; flex-direction: column; gap: 10px; }
+.organ-row {
+  background: rgba(255,255,255,0.55);
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 16px;
+  font-size: 15px;
+  transition: all 0.18s;
+}
+.organ-row.has-state {
+  border-color: var(--primary);
+  background: var(--surface);
+  box-shadow: 0 0 0 1.5px var(--primary), 0 4px 14px rgba(47, 93, 90, 0.10);
+}
+.organ-name { font-weight: 500; color: var(--ink); letter-spacing: -0.005em; }
+.organ-plain {
+  font-size: 13px;
+  color: var(--ink-2);
+  margin-top: 3px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+.organ-state-select {
+  font-family: inherit;
+  font-size: 13px;
+  border: 1px solid var(--line-2);
+  background: rgba(255,255,255,0.85);
+  border-radius: 999px;
+  padding: 8px 36px 8px 16px;
+  cursor: pointer;
+  color: var(--ink);
+  min-width: 220px;
+  font-weight: 500;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' fill='none' stroke='%236B7480' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 10px 6px;
+}
+.organ-state-select:hover {
+  border-color: var(--ink-3);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' fill='none' stroke='%231B2530' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+}
+.organ-row.has-state .organ-state-select {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' fill='none' stroke='%23207878' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+}
+.organ-row.has-state .organ-state-select {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-soft);
+}
+
+/* ─── Review screen ─── */
+.review-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.review-row {
+  background: rgba(255,255,255,0.7);
+  display: grid;
+  grid-template-columns: 220px 1fr auto;
+  gap: 18px;
+  padding: 16px 20px;
+  font-size: 15px;
+  align-items: baseline;
+  transition: background 0.15s;
+}
+.review-row:hover { background: rgba(255,255,255,0.95); }
+.review-key {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.review-val { color: var(--ink); letter-spacing: -0.005em; }
+.review-val.empty { color: var(--ink-3); font-style: italic; font-family: var(--serif); }
+.review-edit {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--primary);
+  background: none; border: none;
+  cursor: pointer;
+  padding: 4px 10px;
+  font-family: inherit;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+.review-edit:hover { background: var(--primary-soft); }
+
+/* ─── Results ─── */
+.results-stage {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 56px 36px 96px;
+}
+.results-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.results-head-left { max-width: 640px; }
+.results-kicker {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+.results-head h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 1.1;
+  letter-spacing: -0.022em;
+  margin: 0 0 14px;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+.results-head h1 em { font-style: italic; color: var(--primary); }
+.results-head-sub {
+  font-size: 16px;
+  color: var(--ink-2);
+  margin: 0;
+  max-width: 560px;
+  line-height: 1.55;
+}
+.results-actions { display: flex; gap: 10px; flex-shrink: 0; }
+.results-actions .btn { padding: 11px 18px; font-size: 13px; }
+.results-actions .btn::after { content: none; }
+
+.rec-list { display: flex; flex-direction: column; gap: 16px; }
+.rec-card {
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 28px 32px;
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 36px;
+  align-items: start;
+}
+.rec-card.priority-high { border-left: 4px solid var(--accent); }
+.rec-card.priority-soon { border-left: 4px solid var(--primary); }
+.rec-card.priority-discuss { border-left: 4px solid var(--ink-3); }
+.rec-priority-tag {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+.rec-priority-tag.priority-high { background: rgba(212,98,58,0.12); color: var(--accent); }
+.rec-priority-tag.priority-soon { background: var(--primary-soft); color: var(--primary); }
+.rec-priority-tag.priority-discuss { background: rgba(0,0,0,0.05); color: var(--ink-2); }
+.rec-card h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 26px;
+  margin: 0 0 8px;
+  color: var(--ink);
+  letter-spacing: -0.014em;
+  line-height: 1.18;
+}
+.rec-cadence {
+  font-size: 14px;
+  color: var(--ink-2);
+  margin: 0 0 16px;
+  font-weight: 500;
+}
+.rec-because, .rec-what {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-2);
+  margin: 0 0 8px;
+}
+.rec-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-right: 6px;
+}
+.rec-side {
+  font-size: 13px;
+  color: var(--ink-2);
+  line-height: 1.55;
+  border-left: 1px solid var(--line);
+  padding-left: 22px;
+}
+.rec-side dt {
+  font-weight: 700;
+  color: var(--ink-3);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.rec-side dd {
+  margin: 0 0 14px;
+  color: var(--ink);
+}
+
+.results-summary {
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 22px 26px;
+  margin-bottom: 32px;
+  font-size: 14px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+.results-summary-key {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 6px;
+}
+.results-summary-val { color: var(--ink); font-weight: 500; }
+
+.results-disclaimer {
+  margin-top: 40px;
+  padding: 22px 26px;
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--ink-2);
+}
+.results-disclaimer strong { color: var(--ink); font-weight: 600; }
+
+/* ─── About modal ─── */
+.modal-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(15, 20, 25, 0.45);
+  z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.modal {
+  background: var(--surface);
+  border-radius: 14px;
+  max-width: 680px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 40px 44px;
+  position: relative;
+  box-shadow: 0 24px 80px rgba(20, 15, 10, 0.20);
+}
+.modal h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 32px;
+  letter-spacing: -0.018em;
+  margin: 0 0 20px;
+  font-style: italic;
+  color: var(--primary);
+}
+.modal h3 {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 24px 0 8px;
+}
+.modal p { font-size: 14px; line-height: 1.65; color: var(--ink-2); margin: 0 0 12px; }
+.modal-close {
+  position: absolute;
+  top: 20px; right: 20px;
+  background: none; border: none;
+  font-size: 26px;
+  color: var(--ink-2);
+  cursor: pointer;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.modal-close:hover { background: var(--surface-2); color: var(--ink); }
+
+/* ─── Generating ─── */
+.generating-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 32px;
+  text-align: center;
+}
+.generating-spinner {
+  width: 44px; height: 44px;
+  border: 2.5px solid var(--primary-soft);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+  margin-bottom: 32px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.generating-stage p {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 22px;
+  color: var(--ink-2);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+/* ─── Print ─── */
+@media print {
+  header.topbar, .aura-wrap { display: none; }
+  body { background: white; font-size: 11pt; }
+  .results-stage { padding: 0; max-width: none; }
+  .rec-card { break-inside: avoid; box-shadow: none; background: white; }
+  .results-actions { display: none; }
+  .results-disclaimer { background: #f8f8f8; }
+  .results-head { border-bottom: 2px solid #333; }
+}
+
+/* ─── Animations ─── */
+.fade-in { animation: fadeIn 0.4s ease both; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* ─── Responsive ─── */
+@media (max-width: 1080px) {
+  main.stage {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 36px 28px 72px;
+  }
+  aside.stepper { position: static; display: none; }
+  .qcard { padding: 36px 32px; min-height: 480px; }
+  .qcard h1 { font-size: 32px; }
+  .results-summary { grid-template-columns: repeat(2, 1fr); }
+  .rec-card { grid-template-columns: 1fr; gap: 20px; }
+  .rec-side { border-left: none; border-top: 1px solid var(--line); padding: 20px 0 0; }
+  .welcome-headline { font-size: 72px; }
+  .results-head h1 { font-size: 38px; }
+}
+@media (max-width: 640px) {
+  .topbar-mark .sep, .topbar-mark .ital { display: none; }
+  .results-summary { grid-template-columns: 1fr; }
+  .results-head { flex-direction: column; align-items: flex-start; }
+  .opts-grid { grid-template-columns: 1fr; }
+  .review-row { grid-template-columns: 1fr; gap: 4px; }
+  .review-row .review-edit { justify-self: flex-start; margin-top: 4px; }
+  .welcome-headline { font-size: 56px; max-width: none; }
+  .welcome-lang-pop { min-width: 300px; grid-template-columns: 1fr; }
+  .qcard { padding: 28px 22px; }
+  .qcard h1 { font-size: 26px; }
+  .age-number { font-size: 96px; }
+}
+
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+// data.jsx — all the static config: questions, organs, screening logic
+
+const ORGANS = [
+  { id: 'breast',   label: 'Breasts / Chest tissue', short: 'Chest',    plain: 'Most people have some breast tissue. Hormone therapy can change this.' },
+  { id: 'cervix',   label: 'Cervix',                 short: 'Cervix',   plain: 'Connects the uterus to the vagina. A total hysterectomy may have removed it.' },
+  { id: 'uterus',   label: 'Uterus',                 short: 'Uterus',   plain: 'Where a pregnancy can grow.' },
+  { id: 'ovaries',  label: 'Ovaries',                short: 'Ovaries',  plain: 'Produce eggs and hormones.' },
+  { id: 'prostate', label: 'Prostate',               short: 'Prostate', plain: 'A small gland near the bladder. Surgery rarely removes it, even after gender-affirming care.' },
+  { id: 'testes',   label: 'Testes',                 short: 'Testes',   plain: 'Produce sperm and testosterone.' },
+  { id: 'penis',    label: 'Penis',                  short: 'Penis',    plain: 'Outer genital anatomy.' },
+  { id: 'vagina',   label: 'Vagina',                 short: 'Vagina',   plain: 'Outer genital anatomy. Can be present at birth or constructed surgically.' },
+  { id: 'colon',    label: 'Colon & rectum',         short: 'Colon',    plain: 'Part of your digestive tract. Everyone has one.' },
+  { id: 'lungs',    label: 'Lungs',                  short: 'Lungs',    plain: 'Especially relevant if you’ve smoked.' },
+];
+
+// 5-state organ inventory model — borrowed from clinical surveys
+const ORGAN_STATES = [
+  { id: 'present',     label: 'Present at birth',      sub: 'Born with it; still have it' },
+  { id: 'constructed', label: 'Constructed with surgery', sub: 'Made through gender-affirming or reconstructive surgery' },
+  { id: 'hormones',    label: 'Developed with hormones', sub: 'Grew or changed because of hormone therapy' },
+  { id: 'removed',     label: 'Removed',               sub: 'Surgically removed (mastectomy, hysterectomy, etc.)' },
+  { id: 'unsure',      label: 'Not sure',              sub: 'It’s okay not to know' },
+  { id: 'na',          label: 'Does not apply to me',  sub: '' },
+];
+
+// Which states are valid for each organ (some organs can't be "developed with hormones", etc.)
+const ORGAN_STATE_MAP = {
+  breast:   ['present','hormones','constructed','removed','unsure','na'],
+  cervix:   ['present','removed','unsure','na'],
+  uterus:   ['present','removed','unsure','na'],
+  ovaries:  ['present','removed','unsure','na'],
+  prostate: ['present','unsure','na'],
+  testes:   ['present','constructed','removed','unsure','na'],
+  penis:    ['present','constructed','removed','unsure','na'],
+  vagina:   ['present','constructed','removed','unsure','na'],
+  colon:    ['present','removed','unsure','na'],
+  lungs:    ['present','removed','unsure','na'],
+};
+
+// Sex assigned at birth
+const SEX_AT_BIRTH = [
+  { id: 'female', label: 'Female' },
+  { id: 'male',   label: 'Male' },
+  { id: 'intersex', label: 'Intersex', sub: 'Or differently assigned' },
+  { id: 'unknown', label: 'I don’t know' },
+  { id: 'skip',   label: 'Prefer not to say' },
+];
+
+// Gender identity — multi-select, full list
+const GENDERS = [
+  { id: 'woman', label: 'Woman' },
+  { id: 'man', label: 'Man' },
+  { id: 'trans-woman', label: 'Trans woman' },
+  { id: 'trans-man', label: 'Trans man' },
+  { id: 'nonbinary', label: 'Nonbinary' },
+  { id: 'genderqueer', label: 'Genderqueer' },
+  { id: 'agender', label: 'Agender' },
+  { id: 'two-spirit', label: 'Two Spirit' },
+  { id: 'questioning', label: 'Questioning or unsure' },
+  { id: 'self-describe', label: 'Self-describe' },
+  { id: 'skip', label: 'Prefer not to say' },
+];
+
+// Pronouns — multi-select
+const PRONOUNS = [
+  { id: 'she', label: 'she / her' },
+  { id: 'he',  label: 'he / him' },
+  { id: 'they', label: 'they / them' },
+  { id: 'xe', label: 'xe / xem' },
+  { id: 'self', label: 'Other' },
+  { id: 'skip', label: 'Prefer not to say' },
+];
+
+// Sexual orientation
+const ORIENTATIONS = [
+  { id: 'straight', label: 'Heterosexual / Straight' },
+  { id: 'lesbian',  label: 'Lesbian' },
+  { id: 'gay',      label: 'Gay' },
+  { id: 'bisexual', label: 'Bisexual' },
+  { id: 'pansexual', label: 'Pansexual' },
+  { id: 'queer',    label: 'Queer' },
+  { id: 'asexual',  label: 'Asexual' },
+  { id: 'sgl',      label: 'Same-gender loving' },
+  { id: 'questioning', label: 'Questioning or unsure' },
+  { id: 'skip',     label: 'Prefer not to say' },
+];
+
+// Race / ethnicity — multi-select
+const RACES = [
+  { id: 'white',    label: 'White' },
+  { id: 'black',    label: 'Black or African American' },
+  { id: 'asian',    label: 'Asian' },
+  { id: 'aian',     label: 'American Indian or Alaska Native' },
+  { id: 'mena',     label: 'Middle Eastern or North African' },
+  { id: 'pacific',  label: 'Pacific Islander' },
+  { id: 'hispanic', label: 'Hispanic or Latino/a/e' },
+  { id: 'other',    label: 'Another race or ethnicity' },
+  { id: 'skip',     label: 'Prefer not to say' },
+];
+
+// Family members
+const FAMILY = [
+  { id: 'mother', label: 'Mother' },
+  { id: 'father', label: 'Father' },
+  { id: 'sister', label: 'Sister' },
+  { id: 'brother', label: 'Brother' },
+  { id: 'daughter', label: 'Daughter' },
+  { id: 'son', label: 'Son' },
+  { id: 'grandparent', label: 'A grandparent' },
+  { id: 'aunt-uncle', label: 'An aunt or uncle' },
+  { id: 'none', label: 'No one in my family' },
+];
+
+// Each question gets a contextual "why we ask" copy for the info drawer
+const INFO_COPY = {
+  sex: {
+    title: 'Why we ask sex assigned at birth',
+    body: 'Many screening tables in medicine still use this term. It helps us figure out which body parts you may have been born with — but we’ll confirm everything in the body inventory next.',
+  },
+  gender: {
+    title: 'Why we ask gender identity',
+    body: 'How you describe yourself shapes how your guide is written and what your doctor sees on the handoff card. It does not, by itself, determine which screenings you need.',
+  },
+  pronouns: {
+    title: 'Why we ask pronouns',
+    body: 'So your guide and doctor handoff use language that feels right.',
+  },
+  orientation: {
+    title: 'Why we ask sexual orientation',
+    body: 'Some sexual health screenings (HPV, anal, STI) are recommended based on the kinds of sex you have. We never assume from this answer alone.',
+  },
+  race: {
+    title: 'Why we ask race & ethnicity',
+    body: 'Some cancers (prostate, stomach, liver) have higher rates in specific communities. Sharing this is optional — your guide works without it.',
+  },
+  age: {
+    title: 'Why age matters',
+    body: 'Most screening guidelines use age to decide when to start and stop. Your doctor mostly cares about this for the timing tables.',
+  },
+  body: {
+    title: 'Why we ask about each body part',
+    body: 'Cancer screening matches anatomy, not gender. A trans woman keeps her prostate. A trans man with a cervix still needs cervical screening. We ask each part separately so nothing is assumed.',
+  },
+  hpv: {
+    title: 'Why we ask about HPV vaccination',
+    body: 'The HPV vaccine prevents most cervical, anal, and some throat cancers. Whether and when you got it changes how often you need cervical screening.',
+  },
+  family: {
+    title: 'Why we ask about family history',
+    body: 'A close blood relative with breast, ovarian, colon, or prostate cancer can mean you should start screening earlier — or talk to a genetic counselor.',
+  },
+  smoking: {
+    title: 'Why we ask about smoking',
+    body: 'Lung cancer screening is recommended for adults 50+ with a long history of smoking. Your honest answer makes the difference.',
+  },
+};
+
+// Default organ inventory inferred from sex assigned at birth (just a starting point)
+const DEFAULT_ORGAN_STATES = {
+  female: { breast: 'present', cervix: 'present', uterus: 'present', ovaries: 'present', vagina: 'present', colon: 'present', lungs: 'present' },
+  male:   { breast: 'present', prostate: 'present', testes: 'present', penis: 'present', colon: 'present', lungs: 'present' },
+  intersex: { colon: 'present', lungs: 'present' },
+  unknown: { colon: 'present', lungs: 'present' },
+  skip:   { colon: 'present', lungs: 'present' },
+};
+
+// Legacy: helper to build a Set of "owned" organs from organStates dict for the screening engine
+function organsFromStates(states) {
+  const set = new Set();
+  for (const [oid, st] of Object.entries(states || {})) {
+    if (['present','constructed','hormones','unsure'].includes(st)) set.add(oid);
+  }
+  return set;
+}
+
+// Legacy DEFAULT_ORGANS kept for older code paths
+const DEFAULT_ORGANS = {
+  'woman':       ['breast', 'cervix', 'uterus', 'ovaries', 'colon', 'lungs', 'vagina'],
+  'man':         ['prostate', 'testes', 'colon', 'lungs', 'breast', 'penis'],
+  'trans-woman': ['breast', 'prostate', 'colon', 'lungs'],
+  'trans-man':   ['breast', 'cervix', 'uterus', 'ovaries', 'colon', 'lungs'],
+  'nonbinary':   ['breast', 'colon', 'lungs'],
+  'self-describe': ['colon', 'lungs'],
+  'skip':        ['colon', 'lungs'],
+};
+
+const IDENTITIES = GENDERS;
+
+// Screening recommendations
+function buildScreenings({ organs, age, smoked, familyHistory, hpv }) {
+  const recs = [];
+
+  if (organs.has('breast') && age >= 40) {
+    recs.push({
+      id: 'mammogram', title: 'Mammogram', cadence: 'Every 1–2 years',
+      because: 'You have breast tissue. Anyone with breast tissue can develop breast cancer — including trans women on estrogen.',
+      what: 'A low-dose X-ray of the chest. Takes about 20 minutes.',
+      priority: age >= 50 ? 'high' : 'soon',
+    });
+  }
+  if (organs.has('cervix') && age >= 21 && age <= 65) {
+    recs.push({
+      id: 'cervical', title: 'Cervical screening (Pap / HPV)', cadence: hpv === 'yes' ? 'Every 5 years' : 'Every 3 years',
+      because: 'You have a cervix. Trans men and nonbinary people with a cervix need this too — testosterone doesn’t remove the risk.',
+      what: 'A small swab of the cervix. You can ask for a smaller speculum or a self-swab in some clinics.',
+      priority: 'high',
+    });
+  }
+  if (organs.has('prostate') && age >= 50) {
+    recs.push({
+      id: 'prostate', title: 'Prostate screening', cadence: 'Discuss with your doctor',
+      because: 'You have a prostate. Trans women on estrogen still have one — surgery rarely removes it.',
+      what: 'Usually a PSA blood test. Talk through pros & cons with your doctor.',
+      priority: 'discuss',
+    });
+  }
+  if (organs.has('colon') && age >= 45) {
+    recs.push({
+      id: 'colorectal', title: 'Colorectal screening', cadence: 'Every 1–10 years (depends on test)',
+      because: 'Everyone has a colon. Risk goes up with age regardless of gender.',
+      what: 'At-home stool test (yearly), sigmoidoscopy (5 yr), or colonoscopy (10 yr).',
+      priority: age >= 50 ? 'high' : 'soon',
+    });
+  }
+  if (organs.has('lungs') && age >= 50 && smoked) {
+    recs.push({
+      id: 'lung', title: 'Lung cancer screening', cadence: 'Yearly',
+      because: 'You’ve smoked, and you’re in the recommended age range.',
+      what: 'Low-dose CT scan. About 10 minutes.',
+      priority: 'high',
+    });
+  }
+  recs.push({
+    id: 'sti', title: 'Sexual health check', cadence: 'Yearly, or with new partners',
+    because: 'Recommended for everyone who is sexually active. Doesn’t matter who you have sex with.',
+    what: 'Urine sample, blood test, or swab. You choose what’s screened.',
+    priority: 'soon',
+  });
+
+  if (familyHistory) {
+    recs.unshift({
+      id: 'genetic', title: 'Genetic counseling conversation', cadence: 'Once, ongoing follow-up',
+      because: 'You mentioned cancer in close family. A counselor can tell you if earlier or extra screening makes sense.',
+      what: 'A 30–60 minute conversation. No needles unless you decide on a test.',
+      priority: 'discuss',
+    });
+  }
+
+  return recs;
+}
+
+// Personas for demo — updated to new shape
+const PERSONAS = {
+  none: null,
+  maya:   { name: 'Maya, 47',   sex: 'male',   genders: ['trans-woman'], pronouns: ['she'], orientations: ['lesbian'], races: ['white'], age: 47,
+            organStates: { breast: 'hormones', prostate: 'present', vagina: 'constructed', colon: 'present', lungs: 'present' },
+            smoked: false, hpv: 'no', familyMembers: [] },
+  jordan: { name: 'Jordan, 32', sex: 'female', genders: ['trans-man'],   pronouns: ['he'],  orientations: ['queer'], races: ['black'], age: 32,
+            organStates: { breast: 'present', cervix: 'present', uterus: 'present', ovaries: 'present', colon: 'present', lungs: 'present' },
+            smoked: false, hpv: 'yes', familyMembers: ['mother'] },
+  sam:    { name: 'Sam, 55',    sex: 'female', genders: ['nonbinary'],   pronouns: ['they'], orientations: ['queer'], races: ['asian'], age: 55,
+            organStates: { breast: 'present', cervix: 'present', uterus: 'present', ovaries: 'present', colon: 'present', lungs: 'present' },
+            smoked: true, hpv: 'no', familyMembers: [] },
+  ana:    { name: 'Ana, 42',    sex: 'female', genders: ['woman'],       pronouns: ['she'],  orientations: ['straight'], races: ['hispanic'], age: 42,
+            organStates: { breast: 'present', cervix: 'present', uterus: 'present', ovaries: 'present', vagina: 'present', colon: 'present', lungs: 'present' },
+            smoked: false, hpv: 'no', familyMembers: [] },
+};
+
+Object.assign(window, {
+  ORGANS, ORGAN_STATES, ORGAN_STATE_MAP,
+  SEX_AT_BIRTH, GENDERS, PRONOUNS, ORIENTATIONS, RACES, FAMILY,
+  INFO_COPY, DEFAULT_ORGAN_STATES, organsFromStates,
+  IDENTITIES, DEFAULT_ORGANS, buildScreenings, PERSONAS,
+});
+
+
+//===========
+
+// web-screens.jsx — question screens for the desktop two-column layout.
+// Reuses data.jsx (ORGANS, GENDERS, etc) loaded globally.
+
+const { useState: useStateS, useEffect: useEffectS, useRef: useRefS } = React;
+
+// ─── Single-select option list ─────────────────────────────────────
+function OptList({ options, value, onChange, multi = false, exclusive = [], grid = false }) {
+  const isSelected = (id) => multi ? (value || []).includes(id) : value === id;
+  const handle = (id) => {
+    if (!multi) {
+      onChange(id);
+      return;
+    }
+    const cur = value || [];
+    let next;
+    if (cur.includes(id)) {
+      next = cur.filter(x => x !== id);
+    } else {
+      // exclusive (e.g. "skip", "none") — clear others; or remove exclusive if picking another
+      if (exclusive.includes(id)) {
+        next = [id];
+      } else {
+        next = cur.filter(x => !exclusive.includes(x)).concat(id);
+      }
+    }
+    onChange(next);
+  };
+  return (
+    <div className={grid ? "opts opts-grid" : "opts"}>
+      {options.map(o => (
+        <button key={o.id} type="button"
+          className={"opt" + (isSelected(o.id) ? " is-selected" : "")}
+          onClick={() => handle(o.id)}>
+          <div>
+            <div className="opt-label">{o.label}</div>
+            {o.sub && <div className="opt-sub">{o.sub}</div>}
+          </div>
+          <div className={"opt-check" + (multi ? " multi" : "")}></div>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+// ─── Generic question card (right column) ────────────────────────
+function QCard({ stepIdx, total, title, subtitle, children, onBack, onNext, nextDisabled, nextLabel = "Continue", backLabel = "Back" }) {
+  return (
+    <div className="qcard fade-in">
+      <div className="qcard-meta">
+        Question {stepIdx + 1} of {total}
+      </div>
+      <h1>{title}</h1>
+      {subtitle && <p className="qsub">{subtitle}</p>}
+      <div className="qcard-body">
+        {children}
+      </div>
+      <div className="qcard-foot">
+        <div className="qcard-foot-left">
+          {onBack && (
+            <button className="btn btn-text with-arrow" onClick={onBack}>{backLabel}</button>
+          )}
+        </div>
+        <div className="qcard-foot-right">
+          <button className="btn btn-primary" onClick={onNext} disabled={nextDisabled}>{nextLabel}</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Age screen ───────────────────────────────────────────────────
+// Sources: USPSTF + ACS recommendations, current as of 2024
+const AGE_PREVIEW = [
+  { id: 'cervical', name: 'Cervical cancer',   ageStart: 21, ageEnd: 65, who: 'people with a cervix',
+    ref: 'USPSTF 2018 · Pap/HPV every 3–5 yrs' },
+  { id: 'breast',   name: 'Breast cancer',     ageStart: 40, ageEnd: 74, who: 'people with breast tissue',
+    ref: 'USPSTF 2024 · biennial mammogram from 40' },
+  { id: 'colon',    name: 'Colorectal cancer', ageStart: 45, ageEnd: 75, who: 'all adults',
+    ref: 'USPSTF 2021 · colonoscopy or stool test from 45' },
+  { id: 'lung',     name: 'Lung cancer',       ageStart: 50, ageEnd: 80, who: 'adults with 20+ pack-yr smoking history',
+    ref: 'USPSTF 2021 · annual low-dose CT' },
+  { id: 'prostate', name: 'Prostate cancer',   ageStart: 50, ageEnd: 70, who: 'people with a prostate (earlier if Black or family hx)',
+    ref: 'ACS 2023 · individual decision with PSA' },
+];
+
+function AgeScreen({ value, onChange, ...cardProps }) {
+  const val = typeof value === 'number' ? value : 35;
+  const eligible = AGE_PREVIEW.filter(s => val >= s.ageStart && (s.ageEnd === null || val <= s.ageEnd));
+  const upcoming = AGE_PREVIEW.filter(s => val < s.ageStart && s.ageStart - val <= 10);
+
+  return (
+    <QCard {...cardProps}>
+      <div className="age-display">
+        <div className="age-number">{val}</div>
+        <div className="age-suffix">years old</div>
+      </div>
+      <div className="age-slider-wrap">
+        <input type="range" className="age-slider" min={18} max={90}
+          value={val}
+          onChange={(e) => onChange(parseInt(e.target.value, 10))} />
+        <div className="age-ticks">
+          <span>18</span><span>40</span><span>54</span><span>70</span><span>90+</span>
+        </div>
+      </div>
+      <div className="age-quick-row">
+        {[25, 35, 45, 55, 65].map(a => (
+          <button key={a} type="button"
+            className={"age-quick-pill" + (val === a ? " active" : "")}
+            onClick={() => onChange(a)}>{a}</button>
+        ))}
+      </div>
+
+      {/* Age-based screening preview */}
+      <div className="age-preview-section">
+        <div className="age-prev-title">
+          At {val}, screening guidelines flag these cancers
+        </div>
+        <div className="age-prev-sub">
+          Preview only — we'll narrow this down based on your body and history in the next steps.
+        </div>
+
+        {eligible.length === 0 && upcoming.length === 0 && (
+          <div className="age-prev-empty">
+            Most population-wide cancer screenings start at age 21 (cervical) and 40 (breast). You'll see options that fit your body in the final guide.
+          </div>
+        )}
+
+        {eligible.map(s => (
+          <div key={s.id} className="age-prev-card eligible">
+            <div className="age-prev-row">
+              <div className="age-prev-name">{s.name}</div>
+              <span className="age-prev-tag">In window</span>
+            </div>
+            <div className="age-prev-who">For {s.who}</div>
+            <div className="age-prev-ref">{s.ref}</div>
+          </div>
+        ))}
+
+        {upcoming.map(s => (
+          <div key={s.id} className="age-prev-card upcoming">
+            <div className="age-prev-row">
+              <div className="age-prev-name">{s.name}</div>
+              <span className="age-prev-tag soon">Starts at {s.ageStart}</span>
+            </div>
+            <div className="age-prev-who">For {s.who}</div>
+            <div className="age-prev-ref">{s.ref}</div>
+          </div>
+        ))}
+
+        <div className="age-prev-foot">
+          Sources: USPSTF · American Cancer Society · current 2024 recommendations
+        </div>
+      </div>
+    </QCard>
+  );
+}
+
+// ─── Body inventory (per-organ state dropdown) ────────────────────
+function BodyScreen({ value, onChange, sex, ...cardProps }) {
+  // value = { organId: state }
+  const setState = (oid, st) => onChange({ ...value, [oid]: st });
+
+  // Show all 10 organs with state-select; "applicable" defaults bubble to top
+  const stateLookup = Object.fromEntries(ORGAN_STATES.map(s => [s.id, s.label]));
+
+  return (
+    <QCard {...cardProps}>
+      <div className="organ-list">
+        {ORGANS.map(o => {
+          const validStates = ORGAN_STATE_MAP[o.id] || ['present','removed','unsure','na'];
+          const cur = value[o.id];
+          const hasState = cur && cur !== 'na';
+          return (
+            <div key={o.id} className={"organ-row" + (hasState ? " has-state" : "")}>
+              <div>
+                <div className="organ-name">{o.label}</div>
+                <div className="organ-plain">{o.plain}</div>
+              </div>
+              <select className="organ-state-select"
+                value={cur || ''}
+                onChange={(e) => setState(o.id, e.target.value || null)}>
+                <option value="">Choose…</option>
+                {validStates.map(stId => {
+                  const stObj = ORGAN_STATES.find(s => s.id === stId);
+                  return <option key={stId} value={stId}>{stObj?.label || stId}</option>;
+                })}
+              </select>
+            </div>
+          );
+        })}
+      </div>
+    </QCard>
+  );
+}
+
+// ─── Review screen ────────────────────────────────────────────────
+function ReviewScreen({ data, onEdit, onBack, onContinue, stepIdx, total }) {
+  const fmt = {
+    sex: () => SEX_AT_BIRTH.find(s => s.id === data.sex)?.label || '—',
+    genders: () => (data.genders || []).map(id => GENDERS.find(g => g.id === id)?.label).filter(Boolean).join(', ') || '—',
+    pronouns: () => (data.pronouns || []).map(id => PRONOUNS.find(p => p.id === id)?.label).filter(Boolean).join(', ') || '—',
+    orientations: () => (data.orientations || []).map(id => ORIENTATIONS.find(o => o.id === id)?.label).filter(Boolean).join(', ') || '—',
+    races: () => (data.races || []).map(id => RACES.find(r => r.id === id)?.label).filter(Boolean).join(', ') || '—',
+    age: () => String(data.age || '—'),
+    body: () => {
+      const list = Object.entries(data.organStates || {})
+        .filter(([_, st]) => st && st !== 'na')
+        .map(([oid, st]) => {
+          const organ = ORGANS.find(o => o.id === oid);
+          const state = ORGAN_STATES.find(s => s.id === st);
+          if (!organ) return null;
+          return `${organ.short}${st !== 'present' ? ` (${state?.label.toLowerCase()})` : ''}`;
+        })
+        .filter(Boolean);
+      return list.length ? list.join(', ') : '—';
+    },
+    hpv: () => {
+      const map = { yes: 'Yes, full series', partial: 'Yes, partial', no: 'No', unsure: 'Don\'t know', skip: 'Prefer not to say' };
+      return map[data.hpv] || '—';
+    },
+    family: () => {
+      const list = (data.familyMembers || []).map(id => FAMILY.find(f => f.id === id)?.label).filter(Boolean);
+      return list.length ? list.join(', ') : '—';
+    },
+    smoking: () => {
+      if (data.smoked === true) return 'Yes — 20+ years';
+      if (data.smoked === 'some') return 'Yes, less than 20 years';
+      if (data.smoked === false) return 'No, never regularly';
+      if (data.smoked === null) return 'Prefer not to say';
+      return '—';
+    },
+  };
+
+  const rows = [
+    { id: 'sex', key: 'Sex assigned at birth' },
+    { id: 'gender', key: 'Gender identity', read: 'genders' },
+    { id: 'pronouns', key: 'Pronouns' },
+    { id: 'orientation', key: 'Sexual orientation', read: 'orientations' },
+    { id: 'race', key: 'Race / ethnicity', read: 'races' },
+    { id: 'age', key: 'Age' },
+    { id: 'body', key: 'Body inventory' },
+    { id: 'hpv', key: 'HPV vaccine' },
+    { id: 'family', key: 'Family history of cancer', read: 'family' },
+    { id: 'smoking', key: 'Smoking history' },
+  ];
+
+  return (
+    <QCard
+      stepIdx={stepIdx} total={total}
+      title={<span>Let's <em>review</em> before we generate.</span>}
+      subtitle="Click any row to change your answer. Nothing leaves this device."
+      onBack={onBack}
+      onNext={onContinue}
+      nextLabel="See my screening guide"
+    >
+      <div className="review-grid">
+        {rows.map(r => {
+          const val = fmt[r.read || r.id]();
+          return (
+            <div key={r.id} className="review-row">
+              <div className="review-key">{r.key}</div>
+              <div className={"review-val" + (val === '—' ? ' empty' : '')}>{val}</div>
+              <button className="review-edit" onClick={() => onEdit(r.id)}>Edit</button>
+            </div>
+          );
+        })}
+      </div>
+    </QCard>
+  );
+}
+
+// Export to global scope for other Babel scripts
+Object.assign(window, {
+  OptList, QCard, AgeScreen, BodyScreen, ReviewScreen,
+});
+
+
+//===========
+
+// web-results.jsx — printable one-page summary (results screen) + About modal
+
+const { useState: useStateR, useEffect: useEffectR } = React;
+
+// ─── Results page ─────────────────────────────────────────────────
+function ResultsPage({ data, onRestart, onPrint }) {
+  const recs = buildScreenings({
+    organs: data.organs,
+    age: data.age,
+    smoked: data.smoked,
+    familyHistory: data.familyHistory,
+    hpv: data.hpv,
+  });
+
+  // Sort: high → soon → discuss
+  const order = { high: 0, soon: 1, discuss: 2 };
+  const sortedRecs = [...recs].sort((a, b) => (order[a.priority] ?? 9) - (order[b.priority] ?? 9));
+
+  // Format a couple of summary cells
+  const ageLabel = data.age ? `${data.age}` : '—';
+  const identityLabel = data.identityLabel || '—';
+  const organCount = data.organs.size;
+
+  return (
+    <div className="results-stage fade-in">
+
+      <div className="results-head">
+        <div className="results-head-left">
+          <div className="results-kicker">Your screening guide</div>
+          <h1>Here's what makes <em>medical sense</em> for your body and history.</h1>
+          <p className="results-head-sub">
+            Based on your answers, you have {sortedRecs.length} screening{sortedRecs.length === 1 ? '' : 's'} worth knowing about.
+            None are urgent on their own — they're a starting point for a conversation with your clinician.
+          </p>
+        </div>
+        <div className="results-actions">
+          <button className="btn btn-ghost" onClick={onPrint}>Print summary</button>
+          <button className="btn btn-ghost" onClick={onRestart}>Start over</button>
+        </div>
+      </div>
+
+      {/* Patient summary box */}
+      <div className="results-summary">
+        <div className="results-summary-cell">
+          <div className="results-summary-key">Age</div>
+          <div className="results-summary-val">{ageLabel}</div>
+        </div>
+        <div className="results-summary-cell">
+          <div className="results-summary-key">Gender identity</div>
+          <div className="results-summary-val">{identityLabel}</div>
+        </div>
+        <div className="results-summary-cell">
+          <div className="results-summary-key">Anatomy considered</div>
+          <div className="results-summary-val">
+            {organCount > 0 ? `${organCount} organ${organCount === 1 ? '' : 's'}` : 'Not specified'}
+          </div>
+        </div>
+        <div className="results-summary-cell">
+          <div className="results-summary-key">Family history</div>
+          <div className="results-summary-val">
+            {data.familyHistory ? 'Yes' : 'None known'}
+          </div>
+        </div>
+      </div>
+
+      {/* Recommendation list */}
+      <div className="rec-list">
+        {sortedRecs.map(r => (
+          <article key={r.id} className={"rec-card priority-" + r.priority}>
+            <div>
+              <span className={"rec-priority-tag priority-" + r.priority}>
+                {r.priority === 'high' ? 'High priority' : r.priority === 'soon' ? 'Recommended' : 'Discuss with doctor'}
+              </span>
+              <h2>{r.title}</h2>
+              <p className="rec-cadence">{r.cadence}</p>
+              <p className="rec-because">
+                <span className="rec-label">Why</span>{r.because}
+              </p>
+              <p className="rec-what">
+                <span className="rec-label">What it is</span>{r.what}
+              </p>
+            </div>
+            <dl className="rec-side">
+              <dt>For your doctor</dt>
+              <dd>{r.title}</dd>
+              <dt>Cadence</dt>
+              <dd>{r.cadence}</dd>
+              <dt>Priority</dt>
+              <dd>{r.priority === 'high' ? 'High' : r.priority === 'soon' ? 'Recommended' : 'Shared decision'}</dd>
+            </dl>
+          </article>
+        ))}
+      </div>
+
+      <div className="results-disclaimer">
+        <strong>This is a design prototype, not medical advice.</strong>{' '}
+        It uses simplified versions of guidelines from the U.S. Preventive Services Task Force,
+        American Cancer Society, and others. Your clinician knows your history and can adjust
+        these recommendations based on personal factors this tool cannot capture. Always confirm
+        a screening plan with a qualified clinician before acting on it.
+      </div>
+
+    </div>
+  );
+}
+
+// ─── About modal (linked from topbar) ─────────────────────────────
+function AboutModal({ open, onClose }) {
+  useEffectR(() => {
+    if (!open) return;
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open, onClose]);
+
+  if (!open) return null;
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <div className="modal" onClick={(e) => e.stopPropagation()}>
+        <button className="modal-close" onClick={onClose} aria-label="Close">×</button>
+
+        <h2>About this tool</h2>
+
+        <p>
+          A patient-facing prototype that recommends cancer screenings based on what a person
+          actually has — their organs, age, family history, and behaviors — rather than their
+          stated gender identity. Designed for the waiting room: a few minutes on a phone or
+          shared device before walking in to clinic.
+        </p>
+
+        <h3>Why it exists</h3>
+        <p>
+          Trans and gender-diverse patients are systematically under-screened for cancer. A
+          common reason: clinic intake systems use sex or gender to drive screening
+          recommendations, even when those don't reflect the patient's actual anatomy. A trans
+          woman keeps her prostate. A trans man with a cervix still needs cervical screening.
+          A nonbinary person with breast tissue is at risk for breast cancer.
+        </p>
+
+        <h3>How it works</h3>
+        <p>
+          The intake separates identity (gender, pronouns, orientation, race) from anatomy.
+          The screening logic only ever uses anatomy + age + history. Identity is collected so
+          the resulting guide can use language that feels right, and so the doctor handoff
+          is honest about who's in front of them.
+        </p>
+
+        <h3>Data &amp; privacy</h3>
+        <p>
+          Everything stays in your browser. Nothing is sent anywhere — there is no backend,
+          no analytics, no logging. You can close the tab and your answers are gone.
+        </p>
+
+        <h3>Sources</h3>
+        <p>
+          Recommendations adapted from USPSTF, American Cancer Society, and the WPATH Standards of
+          Care 8 guidance on screening trans and gender-diverse adults. Specific cadences and
+          age cutoffs are simplified; a clinician should always make the final call.
+        </p>
+
+        <h3>Authors &amp; contact</h3>
+        <p>
+          Designed and built by Anderson Junjie Lu, PhD candidate in Epidemiology and Clinical
+          Research at Stanford. For feedback, corrections, or to report a problem, see the
+          contact page on the homepage.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+Object.assign(window, { ResultsPage, AboutModal });
+
+
+//===========
+
+// web-app.jsx — main controller for the desktop web version.
+// Two-column layout: left stepper, right question card.
+// Visual continuity with mobile: aura blobs, themes, Newsreader italic.
+
+const { useState: useStateW, useEffect: useEffectW, useRef: useRefW, useMemo: useMemoW } = React;
+
+// ─── Themes (4 — matches mobile) ──────────────────────────────────
+const WEB_THEMES = {
+  teal: {
+    label: 'Teal',
+    '--bg': '#F4F1EC', '--surface': '#FFFFFF', '--surface-2': '#FAF7F2',
+    '--ink': '#1B2530', '--ink-2': '#4A5560', '--ink-3': '#8A8F96',
+    '--line': 'rgba(27,37,48,0.08)', '--line-2': 'rgba(27,37,48,0.14)',
+    '--primary': '#2F5D5A', '--primary-soft': '#E8EFEE', '--accent': '#D4623A',
+  },
+  midnight: {
+    label: 'Midnight',
+    '--bg': '#F1F2F4', '--surface': '#FFFFFF', '--surface-2': '#F7F8FA',
+    '--ink': '#0E1320', '--ink-2': '#3F485C', '--ink-3': '#8A92A3',
+    '--line': 'rgba(14,19,32,0.07)', '--line-2': 'rgba(14,19,32,0.13)',
+    '--primary': '#1F2A4A', '--primary-soft': '#E5E8F2', '--accent': '#C5523F',
+  },
+  sage: {
+    label: 'Sage',
+    '--bg': '#F1F0EA', '--surface': '#FFFFFF', '--surface-2': '#F9F8F2',
+    '--ink': '#26302A', '--ink-2': '#4F5C53', '--ink-3': '#8B968D',
+    '--line': 'rgba(38,48,42,0.07)', '--line-2': 'rgba(38,48,42,0.14)',
+    '--primary': '#5A7355', '--primary-soft': '#E9EFE5', '--accent': '#B8704A',
+  },
+  plum: {
+    label: 'Plum',
+    '--bg': '#F4EFEC', '--surface': '#FFFFFF', '--surface-2': '#FBF6F3',
+    '--ink': '#231722', '--ink-2': '#503B49', '--ink-3': '#94808F',
+    '--line': 'rgba(35,23,34,0.07)', '--line-2': 'rgba(35,23,34,0.13)',
+    '--primary': '#6E3A5E', '--primary-soft': '#F0E5EC', '--accent': '#C28A3C',
+  },
+};
+
+function applyWebTheme(name) {
+  const root = document.documentElement;
+  const t = WEB_THEMES[name] || WEB_THEMES.teal;
+  Object.entries(t).forEach(([k, v]) => {
+    if (k.startsWith('--')) root.style.setProperty(k, v);
+  });
+}
+
+// ─── Languages (carousel "hello") ─────────────────────────────────
+const WEB_LANGUAGES = [
+  { code: 'en', label: 'English',     hello: 'Hello',     native: 'English' },
+  { code: 'es', label: 'Spanish',     hello: 'Hola',      native: 'Español' },
+  { code: 'zh', label: 'Chinese',     hello: '你好',       native: '中文' },
+  { code: 'fr', label: 'French',      hello: 'Bonjour',   native: 'Français' },
+  { code: 'pt', label: 'Portuguese',  hello: 'Olá',       native: 'Português' },
+  { code: 'vi', label: 'Vietnamese',  hello: 'Xin chào',  native: 'Tiếng Việt' },
+  { code: 'ko', label: 'Korean',      hello: '안녕하세요',   native: '한국어' },
+  { code: 'tl', label: 'Tagalog',     hello: 'Kumusta',   native: 'Tagalog' },
+  { code: 'ru', label: 'Russian',     hello: 'Привет',    native: 'Русский' },
+];
+
+// ─── Steps ────────────────────────────────────────────────────────
+const WEB_STEPS = [
+  { id: 'sex',         label: 'Sex at birth' },
+  { id: 'gender',      label: 'Gender' },
+  { id: 'pronouns',    label: 'Pronouns' },
+  { id: 'orientation', label: 'Orientation' },
+  { id: 'race',        label: 'Race / ethnicity' },
+  { id: 'age',         label: 'Age' },
+  { id: 'body',        label: 'Body inventory' },
+  { id: 'hpv',         label: 'HPV vaccine' },
+  { id: 'family',      label: 'Family history' },
+  { id: 'smoking',     label: 'Smoking' },
+];
+const STEP_IDS = WEB_STEPS.map(s => s.id);
+
+// ─── Per-step copy ────────────────────────────────────────────────
+const STEP_COPY = {
+  sex: {
+    title: <span>What sex were you <em>assigned at birth?</em></span>,
+    sub: 'This is a starting point only — we\'ll confirm your actual anatomy in a few steps.',
+    whyTitle: 'Why we ask',
+    why: 'Many medical screening tables still use sex assigned at birth. We use it as a hint to pre-fill your body inventory, then ask about each organ directly.',
+  },
+  gender: {
+    title: <span>How do you describe <em>your gender?</em></span>,
+    sub: 'Pick anything that fits. You can choose more than one.',
+    whyTitle: 'Why we ask',
+    why: 'Gender shapes how your guide and doctor handoff are written. It does not, by itself, decide which screenings you need.',
+  },
+  pronouns: {
+    title: <span>What are <em>your pronouns?</em></span>,
+    sub: 'Pick all that apply.',
+    whyTitle: 'Why we ask',
+    why: 'So your guide and the doctor handoff use language that feels right.',
+  },
+  orientation: {
+    title: <span>What is <em>your sexual orientation?</em></span>,
+    sub: 'Pick all that apply.',
+    whyTitle: 'Why we ask',
+    why: 'Some sexual health screenings (HPV, anal, STI) are recommended based on the kinds of sex a person has. We never assume from this answer alone.',
+  },
+  race: {
+    title: <span>What race or ethnicity <em>describes you?</em></span>,
+    sub: 'Pick all that apply. This is optional.',
+    whyTitle: 'Why we ask',
+    why: 'Some cancers (prostate, stomach, liver) have different rates in different communities. Sharing this is optional — your guide works without it.',
+  },
+  age: {
+    title: <span>How old <em>are you?</em></span>,
+    sub: 'Most screening guidelines use age to decide when to start and stop.',
+    whyTitle: 'Why we ask',
+    why: 'Most cancer screening guidelines use age to set the start, stop, and frequency of screening. Your doctor relies on this for the timing tables.',
+  },
+  body: {
+    title: <span>About <em>your body.</em></span>,
+    sub: 'Choose the current state of each part. Nothing is filled in for you — every body is different, so we ask directly.',
+    whyTitle: 'Why we ask each part',
+    why: 'Cancer screening matches anatomy, not gender. A trans woman keeps her prostate; a trans man with a cervix still needs cervical screening. We ask each part separately so nothing is assumed.',
+  },
+  hpv: {
+    title: <span>Did you get <em>the HPV vaccine?</em></span>,
+    sub: 'It\'s okay if you don\'t remember. The vaccine prevents most cervical, anal, and some throat cancers.',
+    whyTitle: 'Why this matters',
+    why: 'HPV vaccination changes how often cervical screening is recommended. Full series typically allows a 5-year cadence; otherwise 3 years.',
+  },
+  family: {
+    title: <span>Has anyone in <em>your family</em> had cancer?</span>,
+    sub: 'Blood relatives only. Pick all that apply.',
+    whyTitle: 'Why we ask',
+    why: 'A close blood relative with breast, ovarian, colon, or prostate cancer can mean you should start screening earlier or talk to a genetic counselor.',
+  },
+  smoking: {
+    title: <span>Have you ever <em>smoked regularly?</em></span>,
+    sub: 'Lung cancer screening depends on this.',
+    whyTitle: 'Why we ask',
+    why: 'Lung cancer screening (low-dose CT) is recommended for adults 50–80 with a 20+ pack-year smoking history. Honest answers make the difference.',
+  },
+};
+
+// ─── Aura background (3 drifting blobs) ───────────────────────────
+function Aura() {
+  return (
+    <div className="aura-wrap" aria-hidden="true">
+      <div className="aura aura-1"></div>
+      <div className="aura aura-2"></div>
+      <div className="aura aura-3"></div>
+    </div>
+  );
+}
+
+// ─── Theme picker (top-right pill) ────────────────────────────────
+function ThemePicker({ theme, onChange }) {
+  const [open, setOpen] = useStateW(false);
+  const ref = useRefW(null);
+
+  useEffectW(() => {
+    if (!open) return;
+    const handler = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [open]);
+
+  return (
+    <div ref={ref} style={{ position: 'relative' }}>
+      <button className="theme-pill" onClick={() => setOpen(o => !o)} aria-label="Change theme">
+        <span className="theme-swatch"></span>
+        <span className="theme-pill-label">{WEB_THEMES[theme].label}</span>
+      </button>
+      {open && (
+        <div className="theme-pill-popover">
+          {Object.entries(WEB_THEMES).map(([key, t]) => (
+            <button
+              key={key}
+              className={"theme-pill-row" + (key === theme ? " is-active" : "")}
+              onClick={() => { onChange(key); setOpen(false); }}>
+              <span className="theme-swatch" style={{ background: t['--primary'] }}></span>
+              <span>{t.label}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Welcome screen — language carousel + big serif "Hello" ──────
+function WelcomeScreen({ onStart }) {
+  const [chosen, setChosen] = useStateW('en');
+  const [open, setOpen] = useStateW(false);
+  const [cycleIdx, setCycleIdx] = useStateW(0);
+
+  // headline cycles through "Hello" in different languages
+  useEffectW(() => {
+    if (open) return;
+    const t = setInterval(() => {
+      setCycleIdx(i => (i + 1) % WEB_LANGUAGES.length);
+    }, 2400);
+    return () => clearInterval(t);
+  }, [open]);
+
+  const cur = WEB_LANGUAGES.find(l => l.code === chosen) || WEB_LANGUAGES[0];
+  const cyc = WEB_LANGUAGES[cycleIdx];
+
+  // deterministic non-overlapping placement around the central column
+  const floatHellos = useMemoW(() => {
+    let seed = 11;
+    const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+    const zones = [
+      { x: [2, 18],  y: [6, 94] },   // left strip
+      { x: [82, 98], y: [6, 94] },   // right strip
+      { x: [22, 78], y: [1, 8] },    // top band
+      { x: [22, 78], y: [90, 97] },  // bottom band
+    ];
+    // estimate a bounding rect (vw% x vh%) for each label, then place greedily
+    // with a min separation, retrying up to N times per item.
+    const placed = [];
+    const minSepX = 12; // % of viewport width
+    const minSepY = 7;  // % of viewport height
+    const items = [];
+    for (let i = 0; i < WEB_LANGUAGES.length; i++) {
+      const l = WEB_LANGUAGES[i];
+      const z = zones[i % zones.length];
+      const size = 24 + rnd() * 22;
+      let x = 0, y = 0, ok = false;
+      for (let attempt = 0; attempt < 40; attempt++) {
+        x = z.x[0] + rnd() * (z.x[1] - z.x[0]);
+        y = z.y[0] + rnd() * (z.y[1] - z.y[0]);
+        ok = placed.every(p => Math.abs(p.x - x) > minSepX || Math.abs(p.y - y) > minSepY);
+        if (ok) break;
+      }
+      if (!ok) continue; // skip if no room
+      placed.push({ x, y });
+      items.push({
+        text: l.hello,
+        code: l.code,
+        x, y, size,
+        peak: 0.14 + rnd() * 0.16,
+        appearDelay: (rnd() * 8).toFixed(2),
+      });
+    }
+    return items;
+  }, []);
+
+  return (
+    <div className="welcome-stage fade-in" style={{ position: 'relative', overflow: 'hidden' }}>
+      <div className="welcome-hellos-bg" aria-hidden="true">
+        {floatHellos.map((h, i) => (
+          <span
+            key={i}
+            className="welcome-hello-float"
+            style={{
+              left: h.x.toFixed(2) + '%',
+              top: h.y.toFixed(2) + '%',
+              fontSize: h.size.toFixed(1) + 'px',
+              '--peak': h.peak.toFixed(3),
+              animationDelay: h.appearDelay + 's',
+            }}
+          >
+            {h.text}
+          </span>
+        ))}
+      </div>
+
+      <div className="welcome-clinic" style={{ position: 'relative', zIndex: 1 }}>Cancer Screening Guide · 2026</div>
+
+      <div className="welcome-headline" style={{ position: 'relative', zIndex: 1 }}>
+        <span className="welcome-headline-cycle" key={cyc.code}>
+          {cyc.hello}.
+        </span>
+      </div>
+
+      <div className="welcome-lang-pill-wrap" style={{ position: 'relative', zIndex: 2 }}>
+        <button
+          className="welcome-lang-pill"
+          onClick={() => setOpen(v => !v)}
+          aria-expanded={open}
+        >
+          <span className="welcome-lang-pill-hello">{cur.hello}</span>
+          <span className="welcome-lang-pill-native">{cur.native}</span>
+          <span className="welcome-lang-pill-chev">{open ? '▲' : '▼'}</span>
+        </button>
+        {open && (
+          <div className="welcome-lang-pop">
+            {WEB_LANGUAGES.map(l => (
+              <button
+                key={l.code}
+                className={"welcome-lang-pop-item" + (l.code === chosen ? " is-active" : "")}
+                onClick={() => { setChosen(l.code); setOpen(false); }}
+              >
+                <span>{l.hello}</span>
+                <span style={{ color: 'var(--ink-3)' }}>{l.native}</span>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <button className="welcome-cta" onClick={onStart} style={{ position: 'relative', zIndex: 1 }}>
+        Continue in {cur.native}
+      </button>
+
+      <div className="welcome-meta">
+        <div className="welcome-meta-item">
+          <span className="welcome-meta-key">Time</span>
+          <span>About 3 minutes</span>
+        </div>
+        <div className="welcome-meta-item">
+          <span className="welcome-meta-key">Privacy</span>
+          <span>Stays on your device</span>
+        </div>
+        <div className="welcome-meta-item">
+          <span className="welcome-meta-key">Output</span>
+          <span>Printable summary</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Generating screen ───────────────────────────────────────────
+function GeneratingScreen({ onDone }) {
+  useEffectW(() => {
+    const t = setTimeout(onDone, 1100);
+    return () => clearTimeout(t);
+  }, []);
+  return (
+    <div className="generating-stage fade-in">
+      <div className="generating-spinner" />
+      <p>Building your screening guide…</p>
+    </div>
+  );
+}
+
+// ─── Stepper (left rail) ─────────────────────────────────────────
+function Stepper({ currentStep, completed, onJump, currentCopy }) {
+  const idx = STEP_IDS.indexOf(currentStep);
+  return (
+    <aside className="stepper">
+      <div className="stepper-progress">
+        Step {Math.max(idx, 0) + 1} of {STEP_IDS.length}
+      </div>
+      <div className="stepper-list">
+        {WEB_STEPS.map((s, i) => {
+          const isCurrent = s.id === currentStep;
+          const isDone = completed.has(s.id) && !isCurrent;
+          return (
+            <button key={s.id} type="button"
+              className={"stepper-item" +
+                (isCurrent ? " is-current" : "") +
+                (isDone ? " is-done" : "")}
+              onClick={() => isDone && onJump(s.id)}
+              disabled={!isDone && !isCurrent}
+              style={{ cursor: isDone ? 'pointer' : (isCurrent ? 'default' : 'not-allowed') }}>
+              <span className="stepper-num">{String(i + 1).padStart(2, '0')}</span>
+              <span>{s.label}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {currentCopy && (
+        <div className="stepper-context">
+          <div className="stepper-context-title">{currentCopy.whyTitle}</div>
+          <p>{currentCopy.why}</p>
+        </div>
+      )}
+    </aside>
+  );
+}
+
+// ─── Main App ────────────────────────────────────────────────────
+function WebApp() {
+  // Phase: 'welcome' | 'intake' | 'review' | 'generating' | 'results'
+  const [phase, setPhase] = useStateW('welcome');
+  const [step, setStep] = useStateW('sex');
+  const [completed, setCompleted] = useStateW(new Set());
+  const [aboutOpen, setAboutOpen] = useStateW(false);
+  const [theme, setTheme] = useStateW('teal');
+
+  // Form data
+  const [sex, setSex] = useStateW(null);
+  const [genders, setGenders] = useStateW([]);
+  const [pronouns, setPronouns] = useStateW([]);
+  const [orientations, setOrientations] = useStateW([]);
+  const [races, setRaces] = useStateW([]);
+  const [age, setAge] = useStateW(35);
+  const [organStates, setOrganStates] = useStateW({});
+  const [hpv, setHpv] = useStateW(null);
+  const [familyMembers, setFamilyMembers] = useStateW([]);
+  const [smoked, setSmoked] = useStateW(undefined);
+
+  // Apply theme reactively
+  useEffectW(() => { applyWebTheme(theme); }, [theme]);
+
+  const stepIdx = STEP_IDS.indexOf(step);
+
+  // Mark current step done and advance
+  const advance = () => {
+    setCompleted((prev) => new Set([...prev, step]));
+    if (stepIdx < STEP_IDS.length - 1) {
+      setStep(STEP_IDS[stepIdx + 1]);
+    } else {
+      setPhase('review');
+    }
+  };
+  const goBack = () => {
+    if (stepIdx > 0) {
+      setStep(STEP_IDS[stepIdx - 1]);
+    } else {
+      setPhase('welcome');
+    }
+  };
+  const jumpTo = (id) => {
+    if (completed.has(id)) {
+      setStep(id);
+      setPhase('intake');
+    }
+  };
+
+  // Edit from review screen
+  const editFromReview = (id) => {
+    setStep(id);
+    setPhase('intake');
+  };
+
+  const startOver = () => {
+    setSex(null); setGenders([]); setPronouns([]); setOrientations([]); setRaces([]);
+    setAge(35); setOrganStates({}); setHpv(null); setFamilyMembers([]); setSmoked(undefined);
+    setCompleted(new Set());
+    setStep('sex');
+    setPhase('welcome');
+  };
+
+  // ─ Render the current question (in 'intake' phase)
+  const renderQuestion = () => {
+    const copy = STEP_COPY[step];
+    const cardProps = {
+      stepIdx, total: STEP_IDS.length,
+      title: copy.title, subtitle: copy.sub,
+      onBack: goBack,
+      onNext: advance,
+    };
+
+    switch (step) {
+      case 'sex':
+        return <QCard {...cardProps} nextDisabled={!sex}>
+          <OptList options={SEX_AT_BIRTH} value={sex} onChange={setSex} />
+        </QCard>;
+      case 'gender':
+        return <QCard {...cardProps} nextDisabled={(genders || []).length === 0}>
+          <OptList options={GENDERS} value={genders} onChange={setGenders} multi exclusive={['skip']} grid />
+        </QCard>;
+      case 'pronouns':
+        return <QCard {...cardProps} nextDisabled={(pronouns || []).length === 0}>
+          <OptList options={PRONOUNS} value={pronouns} onChange={setPronouns} multi exclusive={['skip']} grid />
+        </QCard>;
+      case 'orientation':
+        return <QCard {...cardProps} nextDisabled={(orientations || []).length === 0}>
+          <OptList options={ORIENTATIONS} value={orientations} onChange={setOrientations} multi exclusive={['skip']} grid />
+        </QCard>;
+      case 'race':
+        return <QCard {...cardProps} nextDisabled={(races || []).length === 0}>
+          <OptList options={RACES} value={races} onChange={setRaces} multi exclusive={['skip']} grid />
+        </QCard>;
+      case 'age':
+        return <AgeScreen {...cardProps}
+          nextDisabled={!age || age < 18}
+          value={age} onChange={setAge} />;
+      case 'body':
+        return <BodyScreen {...cardProps}
+          nextDisabled={Object.keys(organStates).length === 0}
+          value={organStates} onChange={setOrganStates} sex={sex} />;
+      case 'hpv':
+        return <QCard {...cardProps} nextDisabled={!hpv}>
+          <OptList options={[
+            { id: 'yes',     label: 'Yes, full series' },
+            { id: 'partial', label: 'Yes, but not the full series' },
+            { id: 'no',      label: 'No' },
+            { id: 'unsure',  label: 'I don\'t know' },
+            { id: 'skip',    label: 'Prefer not to say' },
+          ]} value={hpv} onChange={setHpv} />
+        </QCard>;
+      case 'family':
+        return <QCard {...cardProps} nextDisabled={(familyMembers || []).length === 0}>
+          <OptList options={FAMILY} value={familyMembers} onChange={setFamilyMembers}
+            multi exclusive={['none']} grid />
+        </QCard>;
+      case 'smoking':
+        const smokedKey = smoked === true ? 'long' : smoked === 'some' ? 'some' : smoked === false ? 'no' : smoked === null ? 'skip' : null;
+        return <QCard {...cardProps} nextDisabled={!smokedKey} nextLabel="Continue to review">
+          <OptList options={[
+            { id: 'long', label: 'Yes — 20+ years' },
+            { id: 'some', label: 'Yes, but less than 20 years' },
+            { id: 'no',   label: 'No, never regularly' },
+            { id: 'skip', label: 'Prefer not to say' },
+          ]} value={smokedKey}
+          onChange={(v) => {
+            if (v === 'long') setSmoked(true);
+            else if (v === 'some') setSmoked('some');
+            else if (v === 'no') setSmoked(false);
+            else setSmoked(null);
+          }} />
+        </QCard>;
+      default:
+        return null;
+    }
+  };
+
+  // Build screening data for results
+  const organsForBuild = organsFromStates(organStates);
+  const familyHistoryBool = (familyMembers || []).length > 0 && !familyMembers.includes('none');
+  const identityLabel = (genders || []).map(id => GENDERS.find(g => g.id === id)?.label).filter(Boolean).join(', ') || '—';
+
+  // ─ Topbar (always present)
+  const topbar = (
+    <header className="topbar">
+      <div className="topbar-mark">
+        <span className="dot"></span>
+        <a href="../">Cancer Screening <span className="ital">Guide</span></a>
+        <span className="sep">/</span>
+        <span>Web</span>
+      </div>
+      <div className="topbar-actions">
+        <button className="topbar-link" onClick={() => setAboutOpen(true)}>About</button>
+        <a className="topbar-link" href="../" style={{ textDecoration: 'none' }}>Landing</a>
+        <ThemePicker theme={theme} onChange={setTheme} />
+      </div>
+    </header>
+  );
+
+  // ─ Render by phase
+  let content;
+  if (phase === 'welcome') {
+    content = <WelcomeScreen onStart={() => { setPhase('intake'); setStep('sex'); }} />;
+  } else if (phase === 'intake') {
+    content = (
+      <main className="stage">
+        <Stepper currentStep={step} completed={completed} onJump={jumpTo} currentCopy={STEP_COPY[step]} />
+        <div>
+          {renderQuestion()}
+        </div>
+      </main>
+    );
+  } else if (phase === 'review') {
+    content = (
+      <main className="stage">
+        <Stepper currentStep="review" completed={new Set(STEP_IDS)} onJump={jumpTo}
+          currentCopy={{ whyTitle: 'Almost done', why: 'Review your answers, edit anything that\'s off, and we\'ll generate your screening guide.' }} />
+        <div>
+          <ReviewScreen
+            stepIdx={STEP_IDS.length}
+            total={STEP_IDS.length}
+            data={{ sex, genders, pronouns, orientations, races, age, organStates, hpv, familyMembers, smoked }}
+            onEdit={editFromReview}
+            onBack={() => { setPhase('intake'); setStep('smoking'); }}
+            onContinue={() => setPhase('generating')} />
+        </div>
+      </main>
+    );
+  } else if (phase === 'generating') {
+    content = <GeneratingScreen onDone={() => setPhase('results')} />;
+  } else if (phase === 'results') {
+    content = <ResultsPage
+      data={{
+        age,
+        identityLabel,
+        organs: organsForBuild.size > 0 ? organsForBuild : new Set(['colon','lungs']),
+        smoked: smoked === true,
+        familyHistory: familyHistoryBool,
+        hpv,
+      }}
+      onRestart={startOver}
+      onPrint={() => window.print()} />;
+  }
+
+  return (
+    <React.Fragment>
+      <Aura />
+      {topbar}
+      {content}
+      <AboutModal open={aboutOpen} onClose={() => setAboutOpen(false)} />
+    </React.Fragment>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<WebApp />);
+
+</script>
+</body>
+</html>
