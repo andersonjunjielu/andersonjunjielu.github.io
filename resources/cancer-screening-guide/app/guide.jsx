@@ -41,7 +41,7 @@ function GuideScreen({ data, onRestart, theme, themes, onThemeChange }) {
       alert('Could not load PDF template. Please refresh and try again.');
       return;
     }
-    const inject = '<script>window.__pdfData = ' +
+    const inject = '<' + 'script>window.__pdfData = ' +
       JSON.stringify(payload).replace(/</g, '\\u003c') +
       ';</' + 'script>';
     html = html.replace('<body>', '<body>\n' + inject);
