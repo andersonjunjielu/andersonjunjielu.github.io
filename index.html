@@ -2163,7 +2163,7 @@
   <section class="block" id="resources">
     <div class="section-head reveal">
       <div class="section-label"><span class="num">06</span><span class="i18n-en">Resources</span><span class="i18n-zh">资源</span></div>
-      <h2><span class="i18n-en">Putting research into <em>people's hands</em>.</span><span class="i18n-zh">让研究<em>抵达</em>需要它的人。</span></h2>
+      <h2><span class="i18n-en">Putting research into <em>people's hands</em>.</span><span class="i18n-zh">健康教育资源。</span></h2>
     </div>
     <div class="section-body reveal">
       <div></div>
@@ -2484,7 +2484,12 @@
       if (audio.paused) audio.play().catch(() => {});
       else audio.pause();
     });
-    audio.addEventListener('play', () => pod.classList.add('playing'));
+    audio.addEventListener('play', () => {
+      document.querySelectorAll('.podcast audio').forEach(other => {
+        if (other !== audio && !other.paused) other.pause();
+      });
+      pod.classList.add('playing');
+    });
     audio.addEventListener('pause', () => pod.classList.remove('playing'));
     audio.addEventListener('ended', () => pod.classList.remove('playing'));
 
