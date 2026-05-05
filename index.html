@@ -1268,6 +1268,73 @@
     .feature-card { grid-template-columns: 1fr; gap: 32px; padding: 32px; }
   }
 
+  /* Right-side mock illustration of the cancer screening guide */
+  .feature-aside {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .feature-mock {
+    width: 100%;
+    max-width: 340px;
+    background: #FFFFFF;
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 28px 26px 22px;
+    box-shadow: 0 18px 40px -22px rgba(0,0,0,0.18), 0 2px 6px rgba(0,0,0,0.04);
+    transform: rotate(-1.2deg);
+    transition: transform 240ms ease;
+  }
+  .feature-mock:hover { transform: rotate(0deg) translateY(-2px); }
+  .feature-mock-eyebrow {
+    font-family: var(--sans);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cardinal);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .feature-mock-q {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+  .feature-mock-q em { font-style: italic; color: var(--cardinal); }
+  .feature-mock-opts { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+  .feature-mock-opt {
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--ink);
+    background: #FAFAF7;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-weight: 500;
+  }
+  .feature-mock-opt.selected {
+    background: rgba(140, 21, 21, 0.06);
+    border-color: var(--cardinal);
+    color: var(--cardinal);
+  }
+  .feature-mock-opt.muted { color: var(--ink-muted, #6B6B6B); font-size: 12px; opacity: 0.75; }
+  .feature-mock-foot {
+    font-family: var(--sans);
+    font-size: 11px;
+    color: #8A8A8A;
+    font-style: italic;
+    text-align: center;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule);
+  }
+  @media (max-width: 820px) {
+    .feature-mock { max-width: 100%; transform: none; }
+  }
+
   /* ===== FELLOWSHIP STATEMENT ===== */
   .statement {
     max-width: 720px;
@@ -2115,6 +2182,19 @@
             <div class="byline"><span class="i18n-en">Design prototype · Not medical advice</span><span class="i18n-zh">设计原型 · 不构成医学建议</span></div>
             <div class="actions" style="margin-top: 18px;">
               <a href="resources/cancer-screening-guide/" target="_blank" rel="noopener"><span class="i18n-en">Open the guide</span><span class="i18n-zh">打开指南</span></a>
+            </div>
+          </div>
+          <div class="feature-aside">
+            <div class="feature-mock">
+              <div class="feature-mock-eyebrow"><span class="i18n-en">Step 4 of 10</span><span class="i18n-zh">第 4 步 / 共 10 步</span></div>
+              <div class="feature-mock-q"><span class="i18n-en">Which describes your <em>body</em>?</span><span class="i18n-zh">下列哪项描述你的<em>身体</em>？</span></div>
+              <div class="feature-mock-opts">
+                <div class="feature-mock-opt selected"><span class="i18n-en">Has a cervix</span><span class="i18n-zh">有子宫颈</span></div>
+                <div class="feature-mock-opt"><span class="i18n-en">Has a prostate</span><span class="i18n-zh">有前列腺</span></div>
+                <div class="feature-mock-opt"><span class="i18n-en">Has breast tissue</span><span class="i18n-zh">有乳腺组织</span></div>
+                <div class="feature-mock-opt muted"><span class="i18n-en">Prefer not to say</span><span class="i18n-zh">不想回答</span></div>
+              </div>
+              <div class="feature-mock-foot"><span class="i18n-en">Available in 14 languages</span><span class="i18n-zh">支持 14 种语言</span></div>
             </div>
           </div>
         </article>
