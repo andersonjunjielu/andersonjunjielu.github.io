@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Cancer Screening Guide — Anderson Junjie Lu</title>
+<meta name="description" content="A gender-inclusive cancer screening guide for the waiting room. Body-first, not gender-first." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=Noto+Serif+SC:wght@300;400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<style>
+  :root {
+    --cardinal: #8C1515;
+    --cardinal-deep: #5E1010;
+    --ink: #1C1B18;
+    --ink-soft: #3A3833;
+    --muted: #6B6762;
+    --rule: #D8D2C6;
+    --rule-soft: #E8E2D4;
+    --paper: #FBF7EC;
+    --serif: 'Source Serif 4', 'Iowan Old Style', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --sans-cn: 'Noto Serif SC', 'Songti SC', STSong, 'PingFang SC', serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; }
+  body {
+    font-family: var(--serif);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(rgba(90,60,20,0.025) 1px, transparent 1px);
+    background-size: 3px 3px;
+    z-index: 0;
+  }
+  html[lang="zh"] body, html[lang="zh"] body * { font-family: var(--sans-cn); }
+  html[lang="zh"] .i18n-en { display: none; }
+  html[lang="en"] .i18n-zh { display: none; }
+
+  a { color: var(--cardinal); text-decoration: none; }
+  a:hover { color: var(--cardinal-deep); }
+
+  /* ===== TOP BAR ===== */
+  header.topbar {
+    position: relative; z-index: 10;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .topbar-inner {
+    max-width: 1200px; margin: 0 auto;
+    padding: 18px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 24px;
+  }
+  .mark {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--ink);
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  .mark .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--cardinal);
+    border-radius: 50%;
+    transform: translateY(-2px);
+  }
+  .mark a { color: var(--ink); }
+  .mark a:hover { color: var(--cardinal); }
+  .mark .sep { color: var(--muted); margin: 0 4px; font-size: 12px; }
+  .topbar-actions { display: flex; align-items: center; gap: 18px; }
+  .back-link {
+    font-family: var(--sans); font-size: 12px; font-weight: 500;
+    letter-spacing: 0.04em; color: var(--ink-soft);
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .back-link::before { content: "←"; }
+  .back-link:hover { color: var(--cardinal); }
+  .lang-toggle {
+    font-family: var(--sans);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    cursor: pointer;
+    background: none; border: 1px solid var(--rule);
+    padding: 6px 10px;
+    border-radius: 999px;
+  }
+  .lang-toggle:hover { color: var(--cardinal); border-color: var(--cardinal); }
+
+  /* ===== STAGE ===== */
+  main.stage {
+    flex: 1;
+    position: relative; z-index: 1;
+    display: flex; align-items: center; justify-content: center;
+    padding: 40px 48px;
+  }
+  .stage-grid {
+    width: 100%;
+    max-width: 1100px;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  /* ===== LEFT: copy ===== */
+  .copy { max-width: 540px; }
+  .kicker {
+    font-family: var(--sans);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--cardinal);
+    margin-bottom: 28px;
+  }
+  .kicker .sep-dot { display: inline-block; margin: 0 8px; opacity: 0.5; }
+  h1.headline {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(40px, 5.2vw, 60px);
+    line-height: 1.04;
+    letter-spacing: -0.018em;
+    margin: 0 0 22px;
+    color: var(--ink);
+  }
+  h1.headline em {
+    font-style: italic;
+    color: var(--cardinal-deep);
+  }
+  html[lang="zh"] h1.headline { font-weight: 500; line-height: 1.18; }
+  html[lang="zh"] h1.headline em { font-style: normal; }
+  .lede {
+    font-family: var(--serif);
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0 0 36px;
+    max-width: 460px;
+  }
+  html[lang="zh"] .lede { font-size: 16px; line-height: 1.75; }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-bottom: 36px; }
+  .btn {
+    font-family: var(--sans);
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 13px 20px;
+    border-radius: 999px;
+    display: inline-flex; align-items: center; gap: 8px;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--paper);
+    border: 1px solid var(--ink);
+  }
+  .btn-primary:hover { background: var(--cardinal-deep); border-color: var(--cardinal-deep); color: #fff; }
+  .btn-primary::after { content: "→"; transition: transform 0.15s ease; }
+  .btn-primary:hover::after { transform: translateX(3px); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1px solid var(--rule);
+  }
+  .btn-ghost:hover { color: var(--ink); border-color: var(--ink-soft); }
+
+  .caption {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 440px;
+  }
+
+  /* ===== RIGHT: QR + organ motif ===== */
+  .right-col {
+    display: flex; flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+
+  /* Organ icon grid — abstract motif above QR */
+  .organ-motif {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    width: 280px;
+    border: 1px solid var(--rule);
+    background: rgba(255,255,255,0.4);
+  }
+  .organ-cell {
+    aspect-ratio: 1 / 1;
+    display: flex; align-items: center; justify-content: center;
+    border-right: 1px solid var(--rule-soft);
+    border-bottom: 1px solid var(--rule-soft);
+    color: var(--ink-soft);
+  }
+  .organ-cell:nth-child(4n) { border-right: none; }
+  .organ-cell:nth-child(n+5) { /* row 2 */ }
+  .organ-cell:nth-child(n+9) { border-bottom: none; }
+  .organ-cell svg { width: 50%; height: 50%; opacity: 0.78; }
+  /* Tint a couple cells to break uniformity */
+  .organ-cell.tint-1 { background: rgba(140, 21, 21, 0.04); color: var(--cardinal); }
+  .organ-cell.tint-1 svg { opacity: 1; }
+  .organ-cell.tint-2 { background: rgba(140, 21, 21, 0.025); }
+
+  .qr-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .qr-frame {
+    background: #fff;
+    padding: 18px;
+    border: 1px solid var(--rule);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.02), 0 6px 24px rgba(40, 25, 0, 0.06);
+  }
+  .qr-frame canvas, .qr-frame img {
+    display: block;
+    width: 180px; height: 180px;
+  }
+  .qr-caption {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+
+  /* ===== FOOTER ===== */
+  footer.foot {
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--rule-soft);
+    padding: 18px 48px;
+  }
+  .foot-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 24px;
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 880px) {
+    main.stage { padding: 32px 28px; }
+    .stage-grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    .right-col { order: -1; }
+    .organ-motif { width: 240px; }
+    .qr-frame canvas, .qr-frame img { width: 160px; height: 160px; }
+    .topbar-inner { padding: 14px 22px; }
+    .foot-inner { padding: 0; flex-direction: column; align-items: flex-start; gap: 8px; }
+    footer.foot { padding: 16px 22px; }
+  }
+  @media (max-width: 520px) {
+    .topbar-inner { gap: 12px; }
+    .mark { font-size: 14px; }
+    .back-link span { display: none; }
+    h1.headline { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="mark">
+      <span class="dot"></span>
+      <a href="../../index.html">Anderson Junjie Lu</a>
+      <span class="sep">/</span>
+      <span><span class="i18n-en">Resources</span><span class="i18n-zh">资源</span></span>
+    </div>
+    <div class="topbar-actions">
+      <a class="back-link" href="../../index.html"><span><span class="i18n-en">Back to home</span><span class="i18n-zh">返回主页</span></span></a>
+      <button class="lang-toggle" id="langToggle" type="button">中文 / EN</button>
+    </div>
+  </div>
+</header>
+
+<main class="stage">
+  <div class="stage-grid">
+
+    <!-- LEFT: copy -->
+    <div class="copy">
+      <div class="kicker">
+        <span class="i18n-en">Resource</span><span class="i18n-zh">资源</span>
+        <span class="sep-dot">·</span>
+        <span>2026</span>
+      </div>
+
+      <h1 class="headline">
+        <span class="i18n-en">A <em>gender-inclusive</em> cancer screening guide.</span>
+        <span class="i18n-zh">一份<em>性别包容</em>的癌症筛查指南。</span>
+      </h1>
+
+      <p class="lede">
+        <span class="i18n-en">Body-first, not gender-first. Three minutes. Stays on your device.</span>
+        <span class="i18n-zh">基于身体，不预设性别。三分钟。完全本地。</span>
+      </p>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="app/index.html">
+          <span class="i18n-en">Open in browser</span>
+          <span class="i18n-zh">在浏览器中打开</span>
+        </a>
+        <a class="btn btn-ghost" href="app/index.html">
+          <span class="i18n-en">Try the demo</span>
+          <span class="i18n-zh">查看演示</span>
+        </a>
+      </div>
+
+      <p class="caption">
+        <span class="i18n-en">A design prototype by Anderson Junjie Lu. Not medical advice; not a substitute for a clinician.</span>
+        <span class="i18n-zh">本工具为设计原型，由 Anderson Junjie Lu 制作。不构成医学建议，不能替代专业医生。</span>
+      </p>
+    </div>
+
+    <!-- RIGHT: organ motif + QR -->
+    <div class="right-col">
+
+      <!-- Abstract organ icon grid -->
+      <div class="organ-motif" aria-hidden="true">
+        <!-- Row 1 -->
+        <div class="organ-cell">
+          <!-- Heart -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20.5s-7-4.5-9-9.5C1.5 7 4 4 7 4c2 0 3.5 1.2 5 3 1.5-1.8 3-3 5-3 3 0 5.5 3 4 7-2 5-9 9.5-9 9.5z"/>
+          </svg>
+        </div>
+        <div class="organ-cell tint-2">
+          <!-- Lungs -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 4v8M8 12c0 4-2 6.5-4 6.5-1.5 0-2-1.5-2-3 0-3 2-7.5 6-9V12zM16 12c0 4 2 6.5 4 6.5 1.5 0 2-1.5 2-3 0-3-2-7.5-6-9V12z"/>
+          </svg>
+        </div>
+        <div class="organ-cell">
+          <!-- Breast/chest -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="7"/>
+            <circle cx="12" cy="12" r="2.5"/>
+          </svg>
+        </div>
+        <div class="organ-cell tint-1">
+          <!-- Cervix/uterus -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 4c-3 0-5 2-5 5v3c0 3 2 6 5 8 3-2 5-5 5-8V9c0-3-2-5-5-5z"/>
+            <path d="M9 8h6M9.5 12h5"/>
+          </svg>
+        </div>
+        <!-- Row 2 -->
+        <div class="organ-cell tint-2">
+          <!-- Prostate -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 12c0-3 2.5-5 6-5s6 2 6 5-2.5 6-6 6-6-3-6-6z"/>
+            <path d="M10 11c0 1 .8 2 2 2s2-1 2-2"/>
+          </svg>
+        </div>
+        <div class="organ-cell">
+          <!-- Colon/intestine -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 6c0-1 1-2 2-2s2 1 2 2-1 2-2 2c-1.5 0-3 1-3 3s1.5 3 3 3 3-1 3-3 1.5-3 3-3 3 1 3 3-1.5 3-3 3"/>
+          </svg>
+        </div>
+        <div class="organ-cell">
+          <!-- Skin layers -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 8h18M3 12h18M3 16h18"/>
+            <circle cx="9" cy="12" r="1.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="organ-cell tint-2">
+          <!-- Liver-like blob -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 10c0-3 3-5 7-5s7 2 7 5-2 8-7 9c-5-1-7-6-7-9z"/>
+            <path d="M9 11c1 0 2 .5 2 1.5"/>
+          </svg>
+        </div>
+        <!-- Row 3 -->
+        <div class="organ-cell">
+          <!-- DNA strand -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 4c0 4 10 4 10 8s-10 4-10 8"/>
+            <path d="M17 4c0 4-10 4-10 8s10 4 10 8"/>
+            <path d="M9 7h6M9 12h6M9 17h6"/>
+          </svg>
+        </div>
+        <div class="organ-cell tint-1">
+          <!-- Cell/ovary -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="12" cy="12" rx="6" ry="7"/>
+            <circle cx="12" cy="12" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="organ-cell">
+          <!-- Stethoscope -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 4v6c0 3 2 5 5 5s5-2 5-5V4"/>
+            <path d="M6 4h2M14 4h2"/>
+            <circle cx="18" cy="16" r="2.5"/>
+            <path d="M11 15v3"/>
+          </svg>
+        </div>
+        <div class="organ-cell tint-2">
+          <!-- Checkmark/done -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="8"/>
+            <path d="M8 12l3 3 5-6"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- QR code -->
+      <div class="qr-block">
+        <div class="qr-frame">
+          <canvas id="qr"></canvas>
+        </div>
+        <div class="qr-caption">
+          <span class="i18n-en">Scan to open on your phone</span>
+          <span class="i18n-zh">扫码在手机上打开</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="foot-inner">
+    <div>
+      <span class="i18n-en">© 2026 Anderson Junjie Lu</span>
+      <span class="i18n-zh">© 2026 Anderson Junjie Lu</span>
+    </div>
+    <div>
+      <span class="i18n-en">Design prototype · Not medical advice</span>
+      <span class="i18n-zh">设计原型 · 不构成医学建议</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Language toggle
+  const langBtn = document.getElementById('langToggle');
+  const root = document.documentElement;
+  function setLang(lang) {
+    root.setAttribute('lang', lang);
+    try { localStorage.setItem('csg.lang', lang); } catch (e) {}
+  }
+  let initial = 'en';
+  try { initial = localStorage.getItem('csg.lang') || 'en'; } catch (e) {}
+  setLang(initial);
+  langBtn.addEventListener('click', () => {
+    setLang(root.getAttribute('lang') === 'en' ? 'zh' : 'en');
+  });
+
+  // QR code — points to the app at this URL
+  // When deployed, this resolves to e.g. https://andersonjunjielu.github.io/resources/cancer-screening-guide/app/
+  (function renderQR(){
+    const appUrl = new URL('app/', window.location.href).toString();
+    const canvas = document.getElementById('qr');
+    if (typeof qrcode !== 'function') return;
+
+    // Build QR matrix
+    const qr = qrcode(0, 'M'); // type=auto, error correction M
+    qr.addData(appUrl);
+    qr.make();
+    const count = qr.getModuleCount();
+
+    // Draw on canvas at high resolution (DPR-aware)
+    const dpr = window.devicePixelRatio || 1;
+    const cssSize = 180; // matches CSS width/height
+    const pxSize = cssSize * dpr;
+    canvas.width = pxSize;
+    canvas.height = pxSize;
+    canvas.style.width = cssSize + 'px';
+    canvas.style.height = cssSize + 'px';
+    const ctx = canvas.getContext('2d');
+    const scale = pxSize / count;
+
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(0, 0, pxSize, pxSize);
+    ctx.fillStyle = '#1C1B18';
+    for (let r = 0; r < count; r++) {
+      for (let c = 0; c < count; c++) {
+        if (qr.isDark(r, c)) {
+          // Use Math.ceil to avoid sub-pixel gaps between modules
+          ctx.fillRect(
+            Math.floor(c * scale),
+            Math.floor(r * scale),
+            Math.ceil(scale),
+            Math.ceil(scale)
+          );
+        }
+      }
+    }
+  })();
+</script>
+
+</body>
+</html>
